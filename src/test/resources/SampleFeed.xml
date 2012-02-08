@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <stocks:stocks as_of="2001-12-31T12:00:00"
-	xmlns:stocks="http://www.example.org/phisix-stocks" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.example.org/phisix-stocks ../../../webapp/schema/phisix-stocks.xsd ">
+	xmlns:stocks="http://phisix-api.appspot.com/phisix-stocks" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://phisix-api.appspot.com/phisix-stocks ../../main/webapp/schema/stocks/phisix-stocks.xsd ">
 	<stocks:stock symbol="AAA">
 		<stocks:name>Asia Amalgamate</stocks:name>
 		<stocks:price>

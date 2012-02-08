@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.example.org/phisix-stocks" xmlns:stocks="http://www.example.org/phisix-stocks"
+	targetNamespace="http://phisix-api.appspot.com/phisix-stocks" xmlns:stocks="http://phisix-api.appspot.com/phisix-stocks"
 	elementFormDefault="qualified">
 	
 	<xs:element name="stocks">
