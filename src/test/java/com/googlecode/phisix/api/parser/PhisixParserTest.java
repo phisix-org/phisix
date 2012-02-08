@@ -32,8 +32,8 @@ import org.junit.Test;
 
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
-import com.googlecode.phisix.parser.Parser;
-import com.googlecode.phisix.parser.PhisixParser;
+import com.googlecode.phisix.api.parser.Parser;
+import com.googlecode.phisix.api.parser.PhisixParser;
 
 public class PhisixParserTest {
 

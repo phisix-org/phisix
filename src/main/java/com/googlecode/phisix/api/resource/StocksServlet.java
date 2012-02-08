@@ -31,10 +31,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.googlecode.phisix.api.model.Stocks;
+import com.googlecode.phisix.api.parser.Parser;
+import com.googlecode.phisix.api.parser.PhisixParser;
 import com.googlecode.phisix.api.urlfetch.URLFetchService;
 import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
-import com.googlecode.phisix.parser.Parser;
-import com.googlecode.phisix.parser.PhisixParser;
 
 /**
  * Handles:

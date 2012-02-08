@@ -36,8 +36,8 @@ import org.junit.Test;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
+import com.googlecode.phisix.api.parser.Parser;
 import com.googlecode.phisix.api.urlfetch.URLFetchService;
-import com.googlecode.phisix.parser.Parser;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 
