@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:stocks="http://www.example.org/phisix-stocks"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd
+		http://www.example.org/phisix-stocks ../webapp/schema/stocks/phisix-stocks.xsd"
+	version="2.1">
+	<globalBindings>
+		<javaType name="java.util.Calendar" xmlType="xs:dateTime"
+			parseMethod="javax.xml.bind.DateAdapter.parseDateTime"
+			printMethod="javax.xml.bind.DateAdapter.printDateTime" />
+		<javaType name="java.util.Currency" xmlType="stocks:CurrencyCode"
+			parseMethod="javax.xml.bind.CurrencyAdapter.parseCurrency"
+			printMethod="javax.xml.bind.CurrencyAdapter.printCurrency" />
+		<serializable uid="100" />
+		<xjc:simple />
+	</globalBindings>
+</bindings>

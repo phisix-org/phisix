@@ -1,0 +1,5 @@
+phisix (Philippine Stock Exchange Composite Index RESTful API)
+Copyright 2012 Edge Dalmacio <edgar.dalmacio@gmail.com>
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stocks:stocks as_of="2001-12-31T12:00:00"
+	xmlns:stocks="http://www.example.org/phisix-stocks" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/phisix-stocks ../../../webapp/schema/phisix-stocks.xsd ">
+	<stocks:stock symbol="AAA">
+		<stocks:name>Asia Amalgamate</stocks:name>
+		<stocks:price>
+			<stocks:currency_code>PHP</stocks:currency_code>
+			<stocks:amount>4.85</stocks:amount>
+		</stocks:price>
+		<stocks:percent_change>1.0417</stocks:percent_change>
+		<stocks:volume>642000</stocks:volume>
+	</stocks:stock>
+	<stocks:stock symbol="ACPA">
+		<stocks:name>Ayala Pref. A</stocks:name>
+		<stocks:price>
+			<stocks:currency_code>PHP</stocks:currency_code>
+			<stocks:amount>570.00</stocks:amount>
+		</stocks:price>
+		<stocks:percent_change>0.00</stocks:percent_change>
+		<stocks:volume>160</stocks:volume>
+	</stocks:stock>
+</stocks:stocks>

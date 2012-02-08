@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/phisix-stocks" xmlns:stocks="http://www.example.org/phisix-stocks"
+	elementFormDefault="qualified">
+	
+	<xs:element name="stocks">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="stock" type="stocks:Stock" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="as_of" type="xs:dateTime" use="required" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="Stock">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="price" type="stocks:Price" />
+			<xs:element name="percent_change" type="xs:decimal" />
+			<xs:element name="volume" type="xs:long" />
+		</xs:sequence>
+		<xs:attribute name="symbol" type="xs:string" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="Price">
+		<xs:sequence>
+			<xs:element name="currency_code" type="stocks:CurrencyCode" />
+			<xs:element name="amount" type="xs:decimal" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="CurrencyCode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PHP" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>
