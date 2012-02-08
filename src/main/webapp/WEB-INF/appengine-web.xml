@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://appengine.google.com/ns/1.0 http://googleappengine.googlecode.com/svn/branches/1.2.1/java/docs/appengine-web.xsd">
+
+	<application>phisix-api</application>
+	<version>1</version>
+
+	<static-files>
+		<include path="/schema/**.xsd" />
+	</static-files>
+
+	<system-properties>
+		<property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
+	</system-properties>
+
+	<ssl-enabled>false</ssl-enabled>
+	
+	<sessions-enabled>false</sessions-enabled>
+	
+	<precompilation-enabled>true</precompilation-enabled>
+	
+	<warmup-requests-enabled>false</warmup-requests-enabled>
+	
+	<threadsafe>true</threadsafe>
+
+</appengine-web-app>
