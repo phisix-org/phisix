@@ -5,7 +5,7 @@
 	<stocks:stock symbol="AAA">
 		<stocks:name>Asia Amalgamate</stocks:name>
 		<stocks:price>
-			<stocks:currency_code>PHP</stocks:currency_code>
+			<stocks:currency>PHP</stocks:currency>
 			<stocks:amount>4.85</stocks:amount>
 		</stocks:price>
 		<stocks:percent_change>1.0417</stocks:percent_change>
@@ -14,7 +14,7 @@
 	<stocks:stock symbol="ACPA">
 		<stocks:name>Ayala Pref. A</stocks:name>
 		<stocks:price>
-			<stocks:currency_code>PHP</stocks:currency_code>
+			<stocks:currency>PHP</stocks:currency>
 			<stocks:amount>570.00</stocks:amount>
 		</stocks:price>
 		<stocks:percent_change>0.00</stocks:percent_change>

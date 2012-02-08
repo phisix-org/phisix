@@ -1,7 +1,20 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<display-name>PHISIX Philippine Stock Exchange Composite Index RESTful API</display-name>
+	
+	<servlet>
+		<servlet-name>StocksServlet</servlet-name>
+		<servlet-class>com.googlecode.phisix.api.resource.StocksServlet</servlet-class>
+	</servlet>
+	<!-- Add servlets here -->
+	
+	<servlet-mapping>
+		<servlet-name>StocksServlet</servlet-name>
+		<url-pattern>/stocks.xml</url-pattern>
+	</servlet-mapping>
+	<!-- Add servlet-mapping here -->
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
 </web-app>

@@ -24,6 +24,9 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -35,6 +38,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class PhisixParser implements Parser<Reader, Stocks> {
 
+	private final static Logger logger = LoggerFactory.getLogger(PhisixParser.class);
 	private final static String DEFAULT_DATE_PATTERN = "E MMM dd, yyyy hh:mm:ss a";
 	private String datePattern;
 	
@@ -56,6 +60,9 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 		int i = 0; boolean isFirstLine = true; Stock stock = null;
 		while(scanner.hasNext()) {
 			String token = scanner.next().trim();
+			if (logger.isTraceEnabled()) {
+				logger.trace("token = " + token);
+			}
 			switch (i++) {
 			case 0:
 				if (!isFirstLine) {
@@ -65,9 +72,9 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 				break;
 			case 1:
 				if (!isFirstLine && !".".equals(token)) {
-					String[] strings = token.replaceAll(",", "").split("\\s");
+					String[] strings = token.replaceAll(",", "").split("\\s+");
 					stock.setPrice(new Price());
-					stock.getPrice().setCurrencyCode(Currency.getInstance("PHP"));
+					stock.getPrice().setCurrency(Currency.getInstance("PHP"));
 					stock.getPrice().setAmount(new BigDecimal(strings[0].trim()));
 					stock.setPercentChange(new BigDecimal(strings[1].trim()));
 				}
