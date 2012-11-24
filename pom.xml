@@ -157,8 +157,6 @@
 					</excludes>
 					<properties>
 						<year>${project.inceptionYear}</year>
-						<name>${project.developers[0].name}</name>
-						<email>${project.developers[0].email}</email>
 					</properties>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
