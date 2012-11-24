@@ -20,6 +20,11 @@
 		<gae.version>1.6.2.1</gae.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
+		</dependency>
 		<!-- provided dependencies -->
 		<dependency>	
 			<groupId>javax.servlet</groupId>
@@ -142,6 +147,11 @@
 						<type>pom</type>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<jvmFlags>
+						<jvmFlag>-Dappengine.user.timezone=UTC</jvmFlag>
+					</jvmFlags>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.google.code.maven-license-plugin</groupId>

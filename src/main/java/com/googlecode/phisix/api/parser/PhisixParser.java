@@ -33,6 +33,7 @@ import com.googlecode.phisix.api.model.Stocks;
 
 /**
  * 
+ * @deprecated use {@link GsonAwareParser} instead.
  * @author Edge Dalmacio
  *
  */

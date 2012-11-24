@@ -31,8 +31,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.googlecode.phisix.api.model.Stocks;
+import com.googlecode.phisix.api.parser.GsonAwareParser;
 import com.googlecode.phisix.api.parser.Parser;
-import com.googlecode.phisix.api.parser.PhisixParser;
 import com.googlecode.phisix.api.urlfetch.URLFetchService;
 import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
 
@@ -47,13 +47,13 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
  */
 public class StocksServlet extends HttpServlet {
 
-	private static final String DEFAULT_URL = "http://www2.pse.com.ph/servlet/TickerServletFile";
+	private static final String DEFAULT_URL = "http://pse.com.ph/stockMarket/home.html?method=getSecuritiesAndIndicesForPublic&ajax=true";
 	private final URLFetchService urlFetchService;
 	private final Parser<Reader, Stocks> parser;
 	private volatile Marshaller marshaller;
 	
 	public StocksServlet() throws Exception {
-		this(new URLFetchServiceImpl(), new PhisixParser());
+		this(new URLFetchServiceImpl(), new GsonAwareParser());
 	}
 	
 	public StocksServlet(URLFetchService urlFetchService, Parser<Reader, Stocks> parser) {

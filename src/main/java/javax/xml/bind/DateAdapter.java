@@ -40,7 +40,7 @@ public class DateAdapter {
 	}
 
 	public static String printDateTime(Calendar date) {
-		return DatatypeConverter.printDateTime(date);
+		return date == null ? null : DatatypeConverter.printDateTime(date);
 	}
 	
 	public static Integer parseYear(String s) {
