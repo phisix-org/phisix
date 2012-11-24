@@ -196,4 +196,13 @@
 			<email>edgar.dalmacio@gmail.com</email>
 		</developer>
 	</developers>
+	<issueManagement>
+		<url>https://code.google.com/p/phisix/issues/list</url>
+		<system>Google Project Hosting</system>
+	</issueManagement>
+	<scm>
+		<connection>scm:svn:http://phisix.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://phisix.googlecode.com/svn/trunk/</developerConnection>
+		<url>https://code.google.com/p/phisix/source/browse/</url>
+	</scm>
 </project>
