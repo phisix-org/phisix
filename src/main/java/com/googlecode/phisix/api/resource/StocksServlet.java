@@ -70,6 +70,7 @@ public class StocksServlet extends HttpServlet {
 			reader = new BufferedReader(new InputStreamReader(stream));
 			Stocks stocks = parser.parse(reader);
 			getMarshaller().marshal(stocks, resp.getOutputStream());
+			resp.setContentType("text/xml");
 		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
