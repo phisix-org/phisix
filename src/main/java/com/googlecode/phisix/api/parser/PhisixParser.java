@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -75,7 +74,7 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 				if (!isFirstLine && !".".equals(token)) {
 					String[] strings = token.replaceAll(",", "").split("\\s+");
 					stock.setPrice(new Price());
-					stock.getPrice().setCurrency(Currency.getInstance("PHP"));
+					stock.getPrice().setCurrency("PHP");
 					stock.getPrice().setAmount(new BigDecimal(strings[0].trim()));
 					stock.setPercentChange(new BigDecimal(strings[1].trim()));
 				}

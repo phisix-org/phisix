@@ -52,7 +52,7 @@ public class PhisixDeserializerTest {
 		
 		assertEquals("2GO Group", actual.getName());
 		assertEquals(new BigDecimal("-5"), actual.getPercentChange());
-		assertEquals(Currency.getInstance("PHP"), actual.getPrice().getCurrency());
+		assertEquals("PHP", actual.getPrice().getCurrency());
 		assertEquals(new BigDecimal("1.9"), actual.getPrice().getAmount());
 		assertEquals("2GO", actual.getSymbol());
 		assertEquals(21000, actual.getVolume());

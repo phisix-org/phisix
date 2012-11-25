@@ -9,9 +9,9 @@
 		<javaType name="java.util.Calendar" xmlType="xs:dateTime"
 			parseMethod="javax.xml.bind.DateAdapter.parseDateTime"
 			printMethod="javax.xml.bind.DateAdapter.printDateTime" />
-		<javaType name="java.util.Currency" xmlType="stocks:CurrencyCode"
-			parseMethod="javax.xml.bind.CurrencyAdapter.parseCurrency"
-			printMethod="javax.xml.bind.CurrencyAdapter.printCurrency" />
+		<javaType name="java.lang.String" xmlType="stocks:CurrencyCode"
+			parseMethod="javax.xml.bind.DatatypeConverter.parseString"
+			printMethod="javax.xml.bind.DatatypeConverter.printString" />
 		<serializable uid="100" />
 		<xjc:simple />
 	</globalBindings>

@@ -17,7 +17,6 @@ package com.googlecode.phisix.api.parser;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.Currency;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -36,8 +35,6 @@ import com.googlecode.phisix.api.model.Stock;
  */
 public class PhisixDeserializer implements JsonDeserializer<Stock> {
 
-	private final static Currency PHP = Currency.getInstance("PHP");
-	
 	@Override
 	public Stock deserialize(JsonElement json, Type typeOfT,
 			JsonDeserializationContext context) throws JsonParseException {
@@ -54,7 +51,7 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		stock.setName(jsonObject.get("securityAlias").getAsString());
 		stock.setPercentChange(jsonObject.get("percChangeClose").getAsBigDecimal());
 		Price price = new Price();
-		price.setCurrency(PHP);
+		price.setCurrency("PHP");
 		String lastTradedPrice = jsonObject.get("lastTradedPrice").getAsString().replace(",", "");
 		price.setAmount(new BigDecimal(lastTradedPrice));
 		stock.setPrice(price);

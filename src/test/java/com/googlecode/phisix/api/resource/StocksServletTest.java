@@ -25,7 +25,6 @@ import java.io.StringReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Currency;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -64,7 +63,7 @@ public class StocksServletTest {
 		expectedStock.setPercentChange(new BigDecimal(0));
 		Price price = new Price();
 		price.setAmount(new BigDecimal(100));
-		price.setCurrency(Currency.getInstance("PHP"));
+		price.setCurrency("PHP");
 		expectedStock.setPrice(price );
 		expectedStock.setSymbol("A");
 		expectedStock.setVolume(100);
