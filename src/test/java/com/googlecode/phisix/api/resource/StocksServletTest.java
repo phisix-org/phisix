@@ -46,20 +46,20 @@ public class StocksServletTest {
 	private StocksServlet stocksServlet;
 	private URLFetchService urlFetchService;
 	private Parser<Reader, Stocks> parser;
+	private Stock expectedStock;
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
 	
 	@SuppressWarnings("unchecked")
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
 		parser = mock(Parser.class);
 		urlFetchService = mock(URLFetchService.class);
 		stocksServlet = new StocksServlet(urlFetchService, parser);
-	}
-	
-	@Test
-	public void getAllStocks() throws Exception {
+		
 		Stocks expectedStocks = new Stocks();
 		expectedStocks.setAsOf(Calendar.getInstance());
-		Stock expectedStock = new Stock();
+		expectedStock = new Stock();
 		expectedStock.setName("A");
 		expectedStock.setPercentChange(new BigDecimal(0));
 		Price price = new Price();
@@ -69,13 +69,21 @@ public class StocksServletTest {
 		expectedStock.setSymbol("A");
 		expectedStock.setVolume(100);
 		expectedStocks.getStocks().add(expectedStock );
+		
 		when(parser.parse(any(Reader.class))).thenReturn(expectedStocks);
 		when(urlFetchService.fetch(any(URL.class))).thenReturn(mock(InputStream.class));
-		
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+	}
+	
+	@Test
+	public void getAllXmlStocks() throws Exception {
+		request.setRequestURI("/stocks.xml");
 		
 		stocksServlet.doGet(request, response);
+		
+		assertEquals("text/xml", response.getContentType());
 		
 		String content = response.getOutputStreamContent();
 		assertFalse(content.isEmpty());
@@ -94,6 +102,18 @@ public class StocksServletTest {
 		assertEquals(expectedStock.getPrice().getCurrency(), actualStock.getPrice().getCurrency());
 		assertEquals(expectedStock.getSymbol(), actualStock.getSymbol());
 		assertEquals(expectedStock.getVolume(), actualStock.getVolume());
+	}
+	
+	@Test
+	public void getAllJsonStocks() throws Exception {
+		request.setRequestURI("/stocks.json");
+		
+		stocksServlet.doGet(request, response);
+		
+		assertEquals("application/json", response.getContentType());
+		
+		String content = response.getWriter().toString();
+		assertFalse(content.isEmpty());
 	}
 	
 }
