@@ -42,8 +42,8 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class GsonAwareParser implements Parser<Reader, Stocks> {
 
-	private JsonParser jsonParser;
-	private Gson gson;
+	private final JsonParser jsonParser;
+	private final Gson gson;
 	
 	public GsonAwareParser() {
 		jsonParser = new JsonParser();

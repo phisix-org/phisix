@@ -15,6 +15,10 @@
 		<servlet-name>StocksServlet</servlet-name>
 		<url-pattern>/stocks.xml</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StocksServlet</servlet-name>
+		<url-pattern>/stocks.json</url-pattern>
+	</servlet-mapping>
 	<!-- Add servlet-mapping here -->
 
 </web-app>

@@ -30,6 +30,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.GsonAwareParser;
 import com.googlecode.phisix.api.parser.Parser;
@@ -51,6 +53,7 @@ public class StocksServlet extends HttpServlet {
 	private final URLFetchService urlFetchService;
 	private final Parser<Reader, Stocks> parser;
 	private volatile Marshaller marshaller;
+	private volatile Gson gson;
 	
 	public StocksServlet() throws Exception {
 		this(new URLFetchServiceImpl(), new GsonAwareParser());
@@ -69,8 +72,14 @@ public class StocksServlet extends HttpServlet {
 			InputStream stream = urlFetchService.fetch(new URL(DEFAULT_URL));
 			reader = new BufferedReader(new InputStreamReader(stream));
 			Stocks stocks = parser.parse(reader);
-			getMarshaller().marshal(stocks, resp.getOutputStream());
-			resp.setContentType("text/xml");
+			String requestURI = req.getRequestURI();
+			if (requestURI.endsWith(".xml")) {
+				resp.setContentType("text/xml");
+				getMarshaller().marshal(stocks, resp.getOutputStream());
+			} else if (requestURI.endsWith(".json")) {
+				resp.setContentType("application/json");
+				getGson().toJson(stocks, resp.getWriter());
+			}
 		} catch (Exception e) {
 			throw new ServletException(e);
 		} finally {
@@ -92,6 +101,20 @@ public class StocksServlet extends HttpServlet {
 			}
 		}
 		return marshaller;
+	}
+	
+	private Gson getGson() {
+		Gson g = gson;
+		if (g == null) { // 1st check (no lock)
+			synchronized (this) {
+				g = gson;
+				if (g == null) { // 2nd check (w/lock)
+					g = gson = new GsonBuilder()
+						.create();
+				}
+			}
+		}
+		return gson;
 	}
 	
 	private static final long serialVersionUID = -1419919200052574553L;
