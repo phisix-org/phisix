@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -80,8 +81,10 @@ public class StocksServlet extends HttpServlet {
 				resp.setContentType("application/json");
 				getGson().toJson(stocks, resp.getWriter());
 			}
+		} catch (SocketTimeoutException e) {
+			resp.setStatus(504);
 		} catch (Exception e) {
-			throw new ServletException(e);
+			resp.setStatus(500);
 		} finally {
 			if (reader != null) {
 				reader.close();

@@ -35,6 +35,7 @@ import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.Parser;
 import com.googlecode.phisix.api.parser.PhisixParser;
 
+@SuppressWarnings("deprecation")
 public class PhisixParserTest {
 
 	private Parser<Reader, Stocks> parser;

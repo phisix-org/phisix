@@ -18,7 +18,6 @@ package com.googlecode.phisix.api.parser;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 import org.junit.Before;
 import org.junit.Test;
