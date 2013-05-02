@@ -90,12 +90,12 @@ public class StocksServlet extends HttpServlet {
 			if (LOGGER.isErrorEnabled()) {
 				LOGGER.error(e.getMessage(), e);
 			}
-			resp.setStatus(504);
+			resp.setStatus(HttpServletResponse.SC_GATEWAY_TIMEOUT);
 		} catch (Exception e) {
 			if (LOGGER.isErrorEnabled()) {
 				LOGGER.error(e.getMessage(), e);
 			}
-			resp.setStatus(500);
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		} finally {
 			if (reader != null) {
 				reader.close();
