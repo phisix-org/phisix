@@ -31,6 +31,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.googlecode.phisix.api.model.Stocks;
@@ -43,6 +46,7 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
  * Handles:
  * <ul>
  * <li>GET /stocks.xml</li>
+ * <li>GET /stocks.json</li>
  * </ul>
  * 
  * @author Edge Dalmacio
@@ -50,6 +54,7 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
  */
 public class StocksServlet extends HttpServlet {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(StocksServlet.class);
 	private static final String DEFAULT_URL = "http://pse.com.ph/stockMarket/home.html?method=getSecuritiesAndIndicesForPublic&ajax=true";
 	private final URLFetchService urlFetchService;
 	private final Parser<Reader, Stocks> parser;
@@ -82,8 +87,14 @@ public class StocksServlet extends HttpServlet {
 				getGson().toJson(stocks, resp.getWriter());
 			}
 		} catch (SocketTimeoutException e) {
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			resp.setStatus(504);
 		} catch (Exception e) {
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 			resp.setStatus(500);
 		} finally {
 			if (reader != null) {

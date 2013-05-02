@@ -27,6 +27,7 @@ public class StocksServletITCase {
 	@Test
 	public void getAllStocks() throws Exception {
 		MockHttpServletRequest req = new MockHttpServletRequest();
+		req.setRequestURI(".xml");
 		MockHttpServletResponse resp = new MockHttpServletResponse();
 		new StocksServlet().doGet(req , resp );
 		String content = resp.getOutputStreamContent();
