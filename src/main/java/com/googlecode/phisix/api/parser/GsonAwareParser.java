@@ -83,8 +83,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 		dateFormat.setTimeZone(ASIA_MANILA);
 		Date date = dateFormat.parse(asOfDate);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeZone(ASIA_MANILA);
+		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
 		calendar.setTime(date);
 		return calendar;
 	}
