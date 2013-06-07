@@ -43,7 +43,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class GsonAwareParser implements Parser<Reader, Stocks> {
 
-	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("GMT+8");
+	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("Asia/Manila");
 	private final JsonParser jsonParser;
 	private final Gson gson;
 	
@@ -81,8 +81,10 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	protected Calendar parseAsOfDate(JsonObject jsonObject) throws ParseException {
 		String asOfDate = jsonObject.get("securityAlias").getAsString();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+		dateFormat.setTimeZone(ASIA_MANILA);
 		Date date = dateFormat.parse(asOfDate);
-		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeZone(ASIA_MANILA);
 		calendar.setTime(date);
 		return calendar;
 	}

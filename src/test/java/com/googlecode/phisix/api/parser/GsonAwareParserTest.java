@@ -44,7 +44,7 @@ public class GsonAwareParserTest {
 		Stocks stocks = parser.parse(reader);
 		assertEquals(211, stocks.getStocks().size());
 		Calendar expected = new GregorianCalendar(2012, 10, 23, 15, 46);
-		expected.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		expected.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
 		assertEquals(expected, stocks.getAsOf());
 	}
 }
