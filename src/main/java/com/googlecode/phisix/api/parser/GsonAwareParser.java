@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,6 +43,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class GsonAwareParser implements Parser<Reader, Stocks> {
 
+	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("GMT+8");
 	private final JsonParser jsonParser;
 	private final Gson gson;
 	
@@ -80,7 +82,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		String asOfDate = jsonObject.get("securityAlias").getAsString();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 		Date date = dateFormat.parse(asOfDate);
-		Calendar calendar = Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
 		calendar.setTime(date);
 		return calendar;
 	}
