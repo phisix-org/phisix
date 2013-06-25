@@ -8,6 +8,10 @@
 
 	<static-files>
 		<include path="/schema/**.xsd" />
+		<include path="/**.html" />
+		<include path="/**.css" />
+		<include path="/**.gif" />
+		<include path="/**.png" />
 	</static-files>
 
 	<system-properties>
