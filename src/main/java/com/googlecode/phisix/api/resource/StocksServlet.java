@@ -78,6 +78,7 @@ public class StocksServlet extends HttpServlet {
 			InputStream stream = urlFetchService.fetch(new URL(DEFAULT_URL));
 			reader = new BufferedReader(new InputStreamReader(stream));
 			Stocks stocks = parser.parse(reader);
+			resp.setDateHeader("Last-Modified", stocks.getAsOf().getTimeInMillis());
 			String requestURI = req.getRequestURI();
 			if (requestURI.endsWith(".xml")) {
 				resp.setContentType("text/xml");

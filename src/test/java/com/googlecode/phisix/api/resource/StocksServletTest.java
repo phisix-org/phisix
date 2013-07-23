@@ -82,6 +82,7 @@ public class StocksServletTest {
 		
 		stocksServlet.doGet(request, response);
 		
+		assertTrue(response.containsHeader("Last-Modified"));
 		assertEquals("text/xml", response.getContentType());
 		
 		String content = response.getOutputStreamContent();
@@ -109,6 +110,7 @@ public class StocksServletTest {
 		
 		stocksServlet.doGet(request, response);
 		
+		assertTrue(response.containsHeader("Last-Modified"));
 		assertEquals("application/json", response.getContentType());
 		
 		String content = response.getWriter().toString();
