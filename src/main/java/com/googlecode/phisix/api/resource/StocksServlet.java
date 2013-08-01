@@ -50,7 +50,7 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
  * </ul>
  * 
  * @author Edge Dalmacio
- * 
+ * @deprecated Use {@link StocksResource} instead.
  */
 public class StocksServlet extends HttpServlet {
 

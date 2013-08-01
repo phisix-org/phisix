@@ -4,21 +4,48 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
 	<display-name>PHISIX Philippine Stock Exchange Composite Index RESTful API</display-name>
+
+<!-- 	<context-param> -->
+<!-- 		<param-name>resteasy.scan</param-name> -->
+<!-- 		<param-value>true</param-value> -->
+<!-- 	</context-param> -->
+	<context-param>
+		<param-name>resteasy.providers</param-name>
+		<param-value>
+			com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper,
+			com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper,
+			com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,
+			com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper,
+			com.fasterxml.jackson.jaxrs.json.JsonParseExceptionMapper,
+			com.googlecode.phisix.api.ext.GeneralExceptionMapper,
+			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>resteasy.resources</param-name>
+		<param-value>com.googlecode.phisix.api.resource.StocksResource</param-value>
+	</context-param>
+    <context-param>
+        <param-name>resteasy.media.type.mappings</param-name>
+        <param-value>json : application/json, xml : application/xml</param-value>
+    </context-param>
+
+	<filter>
+        <filter-name>Resteasy</filter-name>
+        <filter-class>
+            org.jboss.resteasy.plugins.server.servlet.FilterDispatcher
+        </filter-class>
+    </filter>
+	<!-- Add filters here -->
+
+    <filter-mapping>
+        <filter-name>Resteasy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!-- Add filer-mapping here -->
 	
-	<servlet>
-		<servlet-name>StocksServlet</servlet-name>
-		<servlet-class>com.googlecode.phisix.api.resource.StocksServlet</servlet-class>
-	</servlet>
 	<!-- Add servlets here -->
 	
-	<servlet-mapping>
-		<servlet-name>StocksServlet</servlet-name>
-		<url-pattern>/stocks.xml</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>StocksServlet</servlet-name>
-		<url-pattern>/stocks.json</url-pattern>
-	</servlet-mapping>
 	<!-- Add servlet-mapping here -->
 
 </web-app>
