@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Calendar;
 
+import javax.ws.rs.NotFoundException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,17 +50,15 @@ public class StocksResourceTest {
 	@Mock
 	private Parser<Reader, Stocks> parser;
 
+	private Stock expectedStock;
+
 	@Before
 	public void setUp() throws Exception {
 		stocksResource = new StocksResource(urlFetchService, parser);
-		when(urlFetchService.fetch(any(URL.class))).thenReturn(mock(InputStream.class));
-	}
-	
-	@Test
-	public void getAllStocks() throws Exception {
+
 		Stocks expectedStocks = new Stocks();
 		expectedStocks.setAsOf(Calendar.getInstance());
-		Stock expectedStock = new Stock();
+		expectedStock = new Stock();
 		expectedStock.setName("A");
 		expectedStock.setPercentChange(new BigDecimal(0));
 		Price price = new Price();
@@ -70,10 +70,16 @@ public class StocksResourceTest {
 		expectedStocks.getStocks().add(expectedStock);
 
 		when(parser.parse(any(Reader.class))).thenReturn(expectedStocks);
-
+		
+		when(urlFetchService.fetch(any(URL.class))).thenReturn(mock(InputStream.class));
+	}
+	
+	@Test
+	public void getAllStocks() throws Exception {
 		Stocks actualStocks = stocksResource.getAllStocks();
 		
 		assertNotNull(actualStocks);
+		assertNotNull(actualStocks.getAsOf());
 		assertEquals(1, actualStocks.getStocks().size());
 		Stock actualStock = actualStocks.getStocks().get(0);
 		assertEquals(expectedStock.getName(), actualStock.getName());
@@ -82,5 +88,25 @@ public class StocksResourceTest {
 		assertEquals(expectedStock.getPrice().getCurrency(), actualStock.getPrice().getCurrency());
 		assertEquals(expectedStock.getSymbol(), actualStock.getSymbol());
 		assertEquals(expectedStock.getVolume(), actualStock.getVolume());
+	}
+	
+	@Test
+	public void getValidStock() throws Exception {
+		Stocks actualStocks = stocksResource.getStock("A");
+		assertNotNull(actualStocks);
+		assertNotNull(actualStocks.getAsOf());
+		assertEquals(1, actualStocks.getStocks().size());
+		Stock actualStock = actualStocks.getStocks().get(0);
+		assertEquals(expectedStock.getName(), actualStock.getName());
+		assertEquals(expectedStock.getPercentChange(), actualStock.getPercentChange());
+		assertEquals(expectedStock.getPrice().getAmount(), actualStock.getPrice().getAmount());
+		assertEquals(expectedStock.getPrice().getCurrency(), actualStock.getPrice().getCurrency());
+		assertEquals(expectedStock.getSymbol(), actualStock.getSymbol());
+		assertEquals(expectedStock.getVolume(), actualStock.getVolume());
+	}
+	
+	@Test(expected = NotFoundException.class)
+	public void getInvalidStock() throws Exception {
+		stocksResource.getStock("X");
 	}
 }

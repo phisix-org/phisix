@@ -22,8 +22,11 @@ import java.io.Reader;
 import java.net.URL;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
+import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.GsonAwareParser;
 import com.googlecode.phisix.api.parser.Parser;
@@ -35,6 +38,8 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
  * <ul>
  * <li>GET /stocks.xml</li>
  * <li>GET /stocks.json</li>
+ * <li>GET /stocks/{symbol}.xml</li>
+ * <li>GET /stocks/{symbol}.json</li>
  * </ul>
  * 
  * @author Edge Dalmacio
@@ -69,6 +74,21 @@ public class StocksResource {
 				reader.close();
 			}
 		}
+	}
+
+	@GET
+	@Path(value = "/{symbol}")
+	public Stocks getStock(@PathParam(value = "symbol") String symbol) throws Exception {
+		Stocks allStocks = getAllStocks();
+		for (Stock stock : allStocks.getStocks()) {
+			if (symbol.equals(stock.getSymbol())) {
+				Stocks stocks = new Stocks();
+				stocks.getStocks().add(stock);
+				stocks.setAsOf(allStocks.getAsOf());
+				return stocks;
+			}
+		}
+		throw new NotFoundException();
 	}
 	
 }
