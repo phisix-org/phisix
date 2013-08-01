@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /stocks.json
+Disallow: /stocks.xml
+Disallow: /stocks/
