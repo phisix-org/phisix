@@ -3,12 +3,14 @@ About
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
-**Resource URI**
+###Resources Summary###
+
+**Stocks**: look up stocks
 
     GET http://phisix-api.appspot.com/stocks.{json|xml}
     GET http://phisix-api.appspot.com/stocks/{symbol}.{json|xml}
 
-**JSON feeds**
+###JSON feeds###
 
 <table>
 	<tr>
@@ -48,7 +50,7 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	</tr>
 </table>
 
-**XML feeds**
+###XML feeds###
 
 <table>
 	<tr>
@@ -88,6 +90,6 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	</tr>
 </table>
 
-**XSD**
+###XSD###
 
 [http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd](/schema/stocks/phisix-stocks.xsd)
