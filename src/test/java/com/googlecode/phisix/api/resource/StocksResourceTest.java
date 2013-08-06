@@ -92,7 +92,7 @@ public class StocksResourceTest {
 	
 	@Test
 	public void getValidStock() throws Exception {
-		Stocks actualStocks = stocksResource.getStock("A");
+		Stocks actualStocks = stocksResource.getStock("a");
 		assertNotNull(actualStocks);
 		assertNotNull(actualStocks.getAsOf());
 		assertEquals(1, actualStocks.getStocks().size());

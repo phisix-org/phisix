@@ -81,7 +81,7 @@ public class StocksResource {
 	public Stocks getStock(@PathParam(value = "symbol") String symbol) throws Exception {
 		Stocks allStocks = getAllStocks();
 		for (Stock stock : allStocks.getStocks()) {
-			if (symbol.equals(stock.getSymbol())) {
+			if (symbol.equalsIgnoreCase(stock.getSymbol())) {
 				Stocks stocks = new Stocks();
 				stocks.getStocks().add(stock);
 				stocks.setAsOf(allStocks.getAsOf());
