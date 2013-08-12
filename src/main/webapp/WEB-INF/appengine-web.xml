@@ -12,6 +12,7 @@
 		<include path="/**.css" />
 		<include path="/**.gif" />
 		<include path="/**.png" />
+		<include path="/**.txt" />
 	</static-files>
 
 	<system-properties>
