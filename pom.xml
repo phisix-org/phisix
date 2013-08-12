@@ -17,6 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
+		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
 		<gae.version>1.6.2.1</gae.version>
 		<resteasy.version>3.0.2.Final</resteasy.version>
 	</properties>

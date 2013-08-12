@@ -12,13 +12,12 @@
 	<context-param>
 		<param-name>resteasy.providers</param-name>
 		<param-value>
+			com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,
 			com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper,
 			com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper,
-			com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,
-			com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper,
-			com.fasterxml.jackson.jaxrs.json.JsonParseExceptionMapper,
-			com.googlecode.phisix.api.ext.GeneralExceptionMapper,
-			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper
+			com.googlecode.phisix.api.ext.WebApplicationExceptionMapper,
+			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper,
+			com.googlecode.phisix.api.ext.GeneralExceptionMapper
 		</param-value>
 	</context-param>
 	<context-param>
