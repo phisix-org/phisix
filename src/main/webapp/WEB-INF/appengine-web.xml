@@ -13,6 +13,7 @@
 		<include path="/**.gif" />
 		<include path="/**.png" />
 		<include path="/**.txt" />
+		<include path="/favicon.ico" />
 	</static-files>
 
 	<system-properties>
