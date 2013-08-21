@@ -54,6 +54,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
 		<!-- provided dependencies -->
 		<dependency>	
 			<groupId>javax.servlet</groupId>

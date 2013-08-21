@@ -19,13 +19,14 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
-import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.util.Calendar;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.client.WebTarget;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,6 @@ import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.Parser;
-import com.googlecode.phisix.api.urlfetch.URLFetchService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StocksResourceTest {
@@ -45,17 +45,21 @@ public class StocksResourceTest {
 	private StocksResource stocksResource;
 	
 	@Mock
-	private URLFetchService urlFetchService;
-	
-	@Mock
 	private Parser<Reader, Stocks> parser;
 
 	private Stock expectedStock;
 
+	@Mock
+	private Client client;
+	
+	@Mock
+	private WebTarget target;
+
+	@Mock
+	private Builder builder;
+
 	@Before
 	public void setUp() throws Exception {
-		stocksResource = new StocksResource(urlFetchService, parser);
-
 		Stocks expectedStocks = new Stocks();
 		expectedStocks.setAsOf(Calendar.getInstance());
 		expectedStock = new Stock();
@@ -71,7 +75,13 @@ public class StocksResourceTest {
 
 		when(parser.parse(any(Reader.class))).thenReturn(expectedStocks);
 		
-		when(urlFetchService.fetch(any(URL.class))).thenReturn(mock(InputStream.class));
+		when(client.target(anyString())).thenReturn(target);
+		
+		when(target.request()).thenReturn(builder);
+		
+		when(builder.get(eq(Reader.class))).thenReturn(mock(Reader.class));
+
+		stocksResource = new StocksResource(client, parser);
 	}
 	
 	@Test

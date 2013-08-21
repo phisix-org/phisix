@@ -15,23 +15,22 @@
  */
 package com.googlecode.phisix.api.resource;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.GsonAwareParser;
 import com.googlecode.phisix.api.parser.Parser;
-import com.googlecode.phisix.api.urlfetch.URLFetchService;
-import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
 
 /**
  * * Handles:
@@ -49,25 +48,23 @@ import com.googlecode.phisix.api.urlfetch.URLFetchServiceImpl;
 public class StocksResource {
 
 	private static final String DEFAULT_URL = "http://pse.com.ph/stockMarket/home.html?method=getSecuritiesAndIndicesForPublic&ajax=true";
-	private final URLFetchService urlFetchService;
 	private final Parser<Reader, Stocks> parser;
+	private final WebTarget target;
 
 	public StocksResource() throws Exception {
-		this(new URLFetchServiceImpl(), new GsonAwareParser());
+		this(new ResteasyClientBuilder().httpEngine(new URLConnectionEngine()).build(), new GsonAwareParser());
 	}
 	
-	public StocksResource(URLFetchService urlFetchService, Parser<Reader, Stocks> parser) {
-		this.urlFetchService = urlFetchService;
+	public StocksResource(Client client, Parser<Reader, Stocks> parser) {
 		this.parser = parser;
+		this.target = client.target(DEFAULT_URL);
 	}
 
 	@GET
 	@Path(value = "/")
 	public Stocks getAllStocks() throws Exception {
-		Reader reader = null;
+		Reader reader = target.request().get(Reader.class);
 		try {
-			InputStream stream = urlFetchService.fetch(new URL(DEFAULT_URL));
-			reader = new BufferedReader(new InputStreamReader(stream));
 			return parser.parse(reader);
 		} finally {
 			if (reader != null) {
