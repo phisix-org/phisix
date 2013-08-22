@@ -15,6 +15,7 @@
  */
 package com.googlecode.phisix.api.resource;
 
+import java.io.BufferedReader;
 import java.io.Reader;
 
 import javax.ws.rs.GET;
@@ -63,7 +64,7 @@ public class StocksResource {
 	@GET
 	@Path(value = "/")
 	public Stocks getAllStocks() throws Exception {
-		Reader reader = target.request().get(Reader.class);
+		Reader reader = new BufferedReader(target.request().get(Reader.class));
 		try {
 			return parser.parse(reader);
 		} finally {
