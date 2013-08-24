@@ -24,5 +24,5 @@ package com.googlecode.phisix.api.parser;
  */
 public interface Parser<I, O> {
 
-	O parse(I source) throws Exception;
+	O parse(I source);
 }

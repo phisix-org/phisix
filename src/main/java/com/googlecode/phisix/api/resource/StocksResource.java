@@ -16,6 +16,7 @@
 package com.googlecode.phisix.api.resource;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
 
 import javax.ws.rs.GET;
@@ -27,6 +28,8 @@ import javax.ws.rs.client.WebTarget;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -48,6 +51,7 @@ import com.googlecode.phisix.api.parser.Parser;
 @Path(value = "/stocks")
 public class StocksResource {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(StocksResource.class);
 	private static final String DEFAULT_URL = "http://pse.com.ph/stockMarket/home.html?method=getSecuritiesAndIndicesForPublic&ajax=true";
 	private final Parser<Reader, Stocks> parser;
 	private final WebTarget target;
@@ -63,13 +67,17 @@ public class StocksResource {
 
 	@GET
 	@Path(value = "/")
-	public Stocks getAllStocks() throws Exception {
+	public Stocks getAllStocks() {
 		Reader reader = new BufferedReader(target.request().get(Reader.class));
 		try {
 			return parser.parse(reader);
 		} finally {
-			if (reader != null) {
+			try {
 				reader.close();
+			} catch (IOException e) {
+				if (LOGGER.isWarnEnabled()) {
+					LOGGER.warn(e.getMessage(), e);
+				}
 			}
 		}
 	}

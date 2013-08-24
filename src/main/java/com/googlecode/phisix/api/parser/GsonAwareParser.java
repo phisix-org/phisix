@@ -25,6 +25,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -43,6 +46,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class GsonAwareParser implements Parser<Reader, Stocks> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(GsonAwareParser.class);
 	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("Asia/Manila");
 	private final JsonParser jsonParser;
 	private final Gson gson;
@@ -56,7 +60,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	}
 
 	@Override
-	public Stocks parse(Reader source) throws Exception {
+	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
 		JsonArray jsonArray = jsonParser.parse(source).getAsJsonArray();
@@ -78,13 +82,20 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		return stocks;
 	}
 	
-	protected Calendar parseAsOfDate(JsonObject jsonObject) throws ParseException {
+	protected Calendar parseAsOfDate(JsonObject jsonObject) {
 		String asOfDate = jsonObject.get("securityAlias").getAsString();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 		dateFormat.setTimeZone(ASIA_MANILA);
-		Date date = dateFormat.parse(asOfDate);
-		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
-		calendar.setTime(date);
+		Calendar calendar = null;
+		try {
+			Date date = dateFormat.parse(asOfDate);
+			calendar = Calendar.getInstance(ASIA_MANILA);
+			calendar.setTime(date);
+		} catch (ParseException e) {
+			if (LOGGER.isWarnEnabled()) {
+				LOGGER.warn(e.getMessage(), e);
+			}
+		}
 		return calendar;
 	}
 

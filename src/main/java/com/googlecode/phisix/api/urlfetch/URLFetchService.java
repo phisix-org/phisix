@@ -22,7 +22,7 @@ import java.net.URL;
 /**
  * 
  * @author Edge Dalmacio
- *
+ * @deprecated Use {@link URLConnectionEngine} instead.
  */
 public interface URLFetchService {
 

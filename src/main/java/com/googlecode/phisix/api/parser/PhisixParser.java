@@ -18,6 +18,7 @@ package com.googlecode.phisix.api.parser;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,7 +39,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class PhisixParser implements Parser<Reader, Stocks> {
 
-	private final static Logger logger = LoggerFactory.getLogger(PhisixParser.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(PhisixParser.class);
 	private final static String DEFAULT_DATE_PATTERN = "E MMM dd, yyyy hh:mm:ss a";
 	private String datePattern;
 	
@@ -51,7 +52,7 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 	}
 	
 	@Override
-	public Stocks parse(Reader source) throws Exception {
+	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
 		Scanner scanner = new Scanner(source);
@@ -60,8 +61,8 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 		int i = 0; boolean isFirstLine = true; Stock stock = null;
 		while(scanner.hasNext()) {
 			String token = scanner.next().trim();
-			if (logger.isTraceEnabled()) {
-				logger.trace("token = " + token);
+			if (LOGGER.isTraceEnabled()) {
+				LOGGER.trace("token = " + token);
 			}
 			switch (i++) {
 			case 0:
@@ -93,10 +94,16 @@ public class PhisixParser implements Parser<Reader, Stocks> {
 					stocks.getStocks().add(stock);
 				} else if (isFirstLine) {
 					DateFormat dateFormat = new SimpleDateFormat(datePattern);
-					Date date = dateFormat.parse(token);
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(date);
-					stocks.setAsOf(calendar);
+					try {
+						Date date = dateFormat.parse(token);
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(date);
+						stocks.setAsOf(calendar);
+					} catch (ParseException e) {
+						if (LOGGER.isWarnEnabled()) {
+							LOGGER.warn(e.getMessage(), e);
+						}
+					}
 					isFirstLine = false;
 				}
 				i = 0;
