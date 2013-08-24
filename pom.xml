@@ -182,6 +182,7 @@
 					</dependency>
 				</dependencies>
 				<configuration>
+					<serverId>appengine.google.com</serverId>
 					<jvmFlags>
 						<jvmFlag>-Dappengine.user.timezone=UTC</jvmFlag>
 					</jvmFlags>
