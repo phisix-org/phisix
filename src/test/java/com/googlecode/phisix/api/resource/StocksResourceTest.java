@@ -16,17 +16,12 @@
 package com.googlecode.phisix.api.resource;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
-import java.io.Reader;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.client.WebTarget;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,26 +32,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
-import com.googlecode.phisix.api.parser.Parser;
+import com.googlecode.phisix.api.repository.StocksRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StocksResourceTest {
 
 	private StocksResource stocksResource;
 	
-	@Mock
-	private Parser<Reader, Stocks> parser;
-
 	private Stock expectedStock;
 
 	@Mock
-	private Client client;
-	
-	@Mock
-	private WebTarget target;
-
-	@Mock
-	private Builder builder;
+	private StocksRepository stocksRepository;
 
 	@Before
 	public void setUp() throws Exception {
@@ -73,15 +59,9 @@ public class StocksResourceTest {
 		expectedStock.setVolume(100);
 		expectedStocks.getStocks().add(expectedStock);
 
-		when(parser.parse(any(Reader.class))).thenReturn(expectedStocks);
+		when(stocksRepository.findAll()).thenReturn(expectedStocks);
 		
-		when(client.target(anyString())).thenReturn(target);
-		
-		when(target.request()).thenReturn(builder);
-		
-		when(builder.get(eq(Reader.class))).thenReturn(mock(Reader.class));
-
-		stocksResource = new StocksResource(client, parser);
+		stocksResource = new StocksResource(stocksRepository);
 	}
 	
 	@Test

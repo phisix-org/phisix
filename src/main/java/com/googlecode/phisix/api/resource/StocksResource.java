@@ -15,26 +15,15 @@
  */
 package com.googlecode.phisix.api.resource;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.WebTarget;
-
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
-import com.googlecode.phisix.api.parser.GsonAwareParser;
-import com.googlecode.phisix.api.parser.Parser;
+import com.googlecode.phisix.api.repository.StocksRepository;
+import com.googlecode.phisix.api.repository.StocksRepositoryImpl;
 
 /**
  * * Handles:
@@ -51,35 +40,20 @@ import com.googlecode.phisix.api.parser.Parser;
 @Path(value = "/stocks")
 public class StocksResource {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(StocksResource.class);
-	private static final String DEFAULT_URL = "http://pse.com.ph/stockMarket/home.html?method=getSecuritiesAndIndicesForPublic&ajax=true";
-	private final Parser<Reader, Stocks> parser;
-	private final WebTarget target;
+	private StocksRepository stocksRepository;
 
 	public StocksResource() throws Exception {
-		this(new ResteasyClientBuilder().httpEngine(new URLConnectionEngine()).build(), new GsonAwareParser());
+		this(new StocksRepositoryImpl());
 	}
 	
-	public StocksResource(Client client, Parser<Reader, Stocks> parser) {
-		this.parser = parser;
-		this.target = client.target(DEFAULT_URL);
+	public StocksResource(StocksRepository stocksRepository) {
+		this.stocksRepository = stocksRepository;
 	}
 
 	@GET
 	@Path(value = "/")
 	public Stocks getAllStocks() {
-		Reader reader = new BufferedReader(target.request().get(Reader.class));
-		try {
-			return parser.parse(reader);
-		} finally {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				if (LOGGER.isWarnEnabled()) {
-					LOGGER.warn(e.getMessage(), e);
-				}
-			}
-		}
+		return stocksRepository.findAll();
 	}
 
 	@GET
