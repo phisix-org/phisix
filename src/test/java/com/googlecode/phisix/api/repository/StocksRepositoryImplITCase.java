@@ -37,5 +37,12 @@ public class StocksRepositoryImplITCase {
 		assertNotNull(actual);
 		assertEquals(196, actual.getStocks().size());
 	}
+	
+	@Test
+	public void findBySymbol() {
+		String actual = stocksRepository.findBySymbol("sm");
+		assertNotNull(actual);
+		System.out.println(actual);
+	}
 
 }

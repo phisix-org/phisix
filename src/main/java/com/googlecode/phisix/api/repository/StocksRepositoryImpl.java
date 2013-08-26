@@ -15,6 +15,9 @@
  */
 package com.googlecode.phisix.api.repository;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.ws.rs.client.Client;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -33,6 +36,7 @@ import com.googlecode.phisix.api.model.Stocks;
 public class StocksRepositoryImpl implements StocksRepository {
 
 	private final PseClient client;
+	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	
 	public StocksRepositoryImpl() {
 		Client client = new ResteasyClientBuilder()
@@ -43,6 +47,10 @@ public class StocksRepositoryImpl implements StocksRepository {
 		this.client = target.proxy(PseClient.class);
 	}
 	
+	public StocksRepositoryImpl(PseClient client) {
+		this.client = client;
+	}
+	
 	@Override
 	public Stocks findAll() {
 		return client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
@@ -50,8 +58,20 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	@Override
 	public String findBySymbol(String symbol) {
-//		client.findSecurityOrCompany("findSecurityOrCompany", true, String.format("start=0&limit=1&query=%1", symbol) );
-//		client.companyInfo("fetchHeaderData", true, "company=599&security=520");
-		throw new UnsupportedOperationException("TODO");
+		
+		String securityOrCompany = client.findSecurityOrCompany(
+				"findSecurityOrCompany", true,
+				String.format("start=0&limit=1&query=%s", symbol));
+		
+		Matcher matcher = pattern.matcher(securityOrCompany);
+		
+		if (matcher.find()) {
+			return client.companyInfo("fetchHeaderData", true, 
+					String.format("company=%s&security=%s", 
+							matcher.group(1),
+							matcher.group(2)));
+		}
+		
+		return null;
 	}
 }
