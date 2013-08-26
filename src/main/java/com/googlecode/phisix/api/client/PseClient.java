@@ -20,6 +20,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import com.googlecode.phisix.api.model.Stocks;
 
@@ -39,7 +40,7 @@ public interface PseClient {
 
 	@POST
 	@Path("home.html")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	String findSecurityOrCompany(
 			@QueryParam(value = "method") String method, 
 			@QueryParam(value = "ajax") boolean ajax,
@@ -47,7 +48,7 @@ public interface PseClient {
 
 	@POST
 	@Path("companyInfo.html")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	String companyInfo(
 			@QueryParam(value = "method") String method, 
 			@QueryParam(value = "ajax") boolean ajax, 
@@ -55,7 +56,7 @@ public interface PseClient {
 
 	@POST
 	@Path("companyInfoHistoricalData.html")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	String companyInfoHistoricalData(
 			@QueryParam(value = "method") String method, 
 			@QueryParam(value = "ajax") boolean ajax, 
