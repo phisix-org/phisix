@@ -47,9 +47,7 @@ public class PseClientITCase {
 	public void getSecuritiesAndIndicesForPublic() throws Exception {
 		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
 		assertNotNull(actual);
-		for (Stock stock : actual.getStocks()) {
-			System.out.println(stock.getSymbol());
-		}
+		assertEquals(196, actual.getStocks().size());
 	}
 
 	@Test
