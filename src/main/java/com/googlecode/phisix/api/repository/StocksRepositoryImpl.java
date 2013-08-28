@@ -31,9 +31,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Stock;
@@ -93,21 +92,30 @@ public class StocksRepositoryImpl implements StocksRepository {
 	@Override
 	public void save(Stocks stocks) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		for (Stock stock : stocks.getStocks()) {
-			Entity stockEntity;
-			Key key = KeyFactory.createKey("Stock", stock.getSymbol());
-			try {
-				stockEntity = datastore.get(key);
-			} catch (EntityNotFoundException e) {
-				stockEntity = new Entity(key);
-				stockEntity.setUnindexedProperty("name", stock.getName());
-				datastore.put(stockEntity);
+		TransactionOptions options = TransactionOptions.Builder.withXG(true);
+		Transaction txn = datastore.beginTransaction(options);
+		try {
+			for (Stock stock : stocks.getStocks()) {
+				Entity stockEntity;
+				Key key = KeyFactory.createKey("Stock", stock.getSymbol());
+				try {
+					stockEntity = datastore.get(key);
+				} catch (EntityNotFoundException e) {
+					stockEntity = new Entity(key);
+					stockEntity.setUnindexedProperty("name", stock.getName());
+					datastore.put(stockEntity);
+				}
+				Entity historyEntity = new Entity("History", key);
+				historyEntity.setProperty("tradingDate", stocks.getAsOf().getTime());
+				historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().doubleValue());
+				historyEntity.setUnindexedProperty("volume", stock.getVolume());
+				datastore.put(historyEntity);
 			}
-			Entity historyEntity = new Entity("History", key);
-			historyEntity.setProperty("tradingDate", stocks.getAsOf().getTime());
-			historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().doubleValue());
-			historyEntity.setUnindexedProperty("volume", stock.getVolume());
-			datastore.put(historyEntity);
+			txn.commit();
+		} finally {
+			if (txn.isActive()) {
+				txn.rollback();
+			}
 		}
 	}
 }

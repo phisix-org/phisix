@@ -40,7 +40,9 @@ import com.googlecode.phisix.api.model.Stocks;
 @RunWith(MockitoJUnitRunner.class)
 public class StocksRepositoryImplTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	// maximum eventual consistency
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
+			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 	private DatastoreService datastore;
 	private StocksRepository stocksRepository;
 	
