@@ -29,4 +29,6 @@ public interface StocksRepository {
 
 	String findBySymbol(String symbol);
 
+	void save(Stocks stocks);
+
 }

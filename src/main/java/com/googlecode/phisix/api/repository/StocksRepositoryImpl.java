@@ -15,6 +15,7 @@
  */
 package com.googlecode.phisix.api.repository;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,8 +25,18 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.ext.StocksProvider;
+import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 
 /**
@@ -73,5 +84,30 @@ public class StocksRepositoryImpl implements StocksRepository {
 		}
 		
 		return null;
+	}
+	
+	public void findBySymbolAndTradingDate(String symbol, Date tradingDate) {
+		client.companyInfoHistoricalData("companyInfoHistoricalData", true, "security=%s");
+	}
+	
+	@Override
+	public void save(Stocks stocks) {
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		for (Stock stock : stocks.getStocks()) {
+			Entity stockEntity;
+			Key key = KeyFactory.createKey("Stock", stock.getSymbol());
+			try {
+				stockEntity = datastore.get(key);
+			} catch (EntityNotFoundException e) {
+				stockEntity = new Entity(key);
+				stockEntity.setUnindexedProperty("name", stock.getName());
+				datastore.put(stockEntity);
+			}
+			Entity historyEntity = new Entity("History", key);
+			historyEntity.setProperty("tradingDate", stocks.getAsOf().getTime());
+			historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().doubleValue());
+			historyEntity.setUnindexedProperty("volume", stock.getVolume());
+			datastore.put(historyEntity);
+		}
 	}
 }
