@@ -71,4 +71,9 @@ public class StocksResource {
 		throw new NotFoundException();
 	}
 	
+	@GET
+	@Path(value = "/cache")
+	public void cache() {
+		stocksRepository.save(getAllStocks());
+	}
 }

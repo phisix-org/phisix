@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+	<cron>
+		<url>/stocks/cache</url>
+		<description>Store stock history</description>
+		<schedule>every day 16:00</schedule>
+		<timezone>Asia/Manila</timezone>
+	</cron>
+</cronentries>

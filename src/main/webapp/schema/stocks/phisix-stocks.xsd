@@ -25,9 +25,22 @@
 	<xs:complexType name="Price">
 		<xs:sequence>
 			<xs:element name="currency" type="stocks:CurrencyCode" />
-			<xs:element name="amount" type="xs:decimal" />
+			<xs:choice>
+				<xs:element name="amount" type="xs:decimal" />
+				<xs:group ref="stocks:PriceHistory" />
+			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:group name="PriceHistory">
+		<xs:sequence>
+			<xs:element name="open" type="xs:decimal" />
+			<xs:element name="high" type="xs:decimal" />
+			<xs:element name="low" type="xs:decimal" />
+			<xs:element name="close" type="xs:decimal" />
+			<xs:element name="average" type="xs:decimal" />
+		</xs:sequence>
+	</xs:group>
 	
 	<xs:simpleType name="CurrencyCode">
 		<xs:restriction base="xs:string">

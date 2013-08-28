@@ -92,8 +92,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	@Override
 	public void save(Stocks stocks) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		TransactionOptions options = TransactionOptions.Builder.withXG(true);
-		Transaction txn = datastore.beginTransaction(options);
+		Transaction txn = datastore.beginTransaction(TransactionOptions.Builder.withXG(true));
 		try {
 			for (Stock stock : stocks.getStocks()) {
 				Entity stockEntity;
