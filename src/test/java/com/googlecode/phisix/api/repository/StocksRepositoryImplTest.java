@@ -15,9 +15,11 @@
  */
 package com.googlecode.phisix.api.repository;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.junit.After;
@@ -42,7 +44,7 @@ public class StocksRepositoryImplTest {
 
 	// maximum eventual consistency
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
+			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(20));
 	private DatastoreService datastore;
 	private StocksRepository stocksRepository;
 	
@@ -70,13 +72,29 @@ public class StocksRepositoryImplTest {
 	}
 	
 	@Test
+	public void findBySymbolAndTradingDate() throws Exception {
+		save();
+		Date tradingDate = new GregorianCalendar(2013, 7, 26).getTime();
+		Stocks actual = stocksRepository.findBySymbolAndTradingDate("SM", tradingDate);
+		assertNotNull(actual);
+		assertEquals(1, actual.getStocks().size());
+		Stock actualStock = actual.getStocks().get(0);
+		assertEquals("SM", actualStock.getSymbol());
+		assertEquals("SM Investments", actualStock.getName());
+		assertEquals(1080760, actualStock.getVolume());
+		assertEquals("PHP", actualStock.getPrice().getCurrency());
+		assertEquals(new BigDecimal("730"), actualStock.getPrice().getAmount());
+	}
+	
+	@Test
 	public void save() throws Exception {
 		Stocks stocks = new Stocks();
-		stocks.setAsOf(new GregorianCalendar(2013, 7, 26));
+		stocks.setAsOf(new GregorianCalendar(2013, 7, 26, 15, 46, 0));
 		
 		Stock sm = new Stock();
 		sm.setSymbol("SM");
 		sm.setName("SM Investments");
+		sm.setVolume(1080760);
 		Price smPrice = new Price();
 		smPrice.setAmount(new BigDecimal("730"));
 		sm.setPrice(smPrice);
@@ -85,15 +103,56 @@ public class StocksRepositoryImplTest {
 		Stock bdo = new Stock();
 		bdo.setSymbol("BDO");
 		bdo.setName("Banco de Oro");
+		bdo.setVolume(2979110);
 		Price bdoPrice = new Price();
-		bdoPrice.setAmount(new BigDecimal("5.28"));
+		bdoPrice.setAmount(new BigDecimal("76.50"));
 		bdo.setPrice(bdoPrice);
 		stocks.getStocks().add(bdo);
-		
+
+		Stock mbt = new Stock();
+		mbt.setSymbol("MBT");
+		mbt.setName("Metrobank");
+		mbt.setVolume(2169810);
+		Price mbtPrice = new Price();
+		mbtPrice.setAmount(new BigDecimal("81.3"));
+		mbt.setPrice(mbtPrice);
+		stocks.getStocks().add(mbt);
+
+		Stock col = new Stock();
+		col.setSymbol("COL");
+		col.setName("COL Financial");
+		col.setVolume(5100);
+		Price colPrice = new Price();
+		colPrice.setAmount(new BigDecimal("18"));
+		col.setPrice(colPrice);
+		stocks.getStocks().add(col);
+
+		Stock tel = new Stock();
+		tel.setSymbol("TEL");
+		tel.setName("PLDT");
+		tel.setVolume(112850);
+		Price telPrice = new Price();
+		telPrice.setAmount(new BigDecimal("2850"));
+		tel.setPrice(telPrice);
+		stocks.getStocks().add(tel);
+
+		Stock smph = new Stock();
+		smph.setSymbol("SMPH");
+		smph.setName("SM Prime Hldg.");
+		smph.setVolume(9228500);
+		Price smphPrice = new Price();
+		smphPrice.setAmount(new BigDecimal("9228500"));
+		smph.setPrice(smphPrice);
+		stocks.getStocks().add(smph);
+
 		stocksRepository.save(stocks);
 		
 		datastore.get(KeyFactory.createKey("Stock", "SM"));
 		datastore.get(KeyFactory.createKey("Stock", "BDO"));
+		datastore.get(KeyFactory.createKey("Stock", "MBT"));
+		datastore.get(KeyFactory.createKey("Stock", "COL"));
+		datastore.get(KeyFactory.createKey("Stock", "TEL"));
+		datastore.get(KeyFactory.createKey("Stock", "SMPH"));
 	}
 
 }

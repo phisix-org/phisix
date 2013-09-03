@@ -15,6 +15,11 @@
  */
 package com.googlecode.phisix.api.resource;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -58,7 +63,7 @@ public class StocksResource {
 
 	@GET
 	@Path(value = "/{symbol}")
-	public Stocks getStock(@PathParam(value = "symbol") String symbol) throws Exception {
+	public Stocks getStock(@PathParam(value = "symbol") String symbol) {
 		Stocks allStocks = getAllStocks();
 		for (Stock stock : allStocks.getStocks()) {
 			if (symbol.equalsIgnoreCase(stock.getSymbol())) {
@@ -72,8 +77,21 @@ public class StocksResource {
 	}
 	
 	@GET
-	@Path(value = "/cache")
-	public void cache() {
+	@Path(value = "/{symbol}.{date}")
+	public Stocks getStockByDate(@PathParam(value = "symbol") String symbol,
+			@PathParam(value = "date") String date) {
+		Date tradingDate;
+		try {
+			tradingDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (ParseException e) {
+			throw new BadRequestException(e.getMessage());
+		}
+		return stocksRepository.findBySymbolAndTradingDate(symbol.toUpperCase(), tradingDate);
+	}
+
+	@GET
+	@Path(value = "/archive")
+	public void archive() {
 		stocksRepository.save(getAllStocks());
 	}
 }

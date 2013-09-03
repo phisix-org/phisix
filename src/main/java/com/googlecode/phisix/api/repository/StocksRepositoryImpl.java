@@ -15,10 +15,15 @@
  */
 package com.googlecode.phisix.api.repository;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -35,6 +40,7 @@ import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.ext.StocksProvider;
+import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 
@@ -85,16 +91,52 @@ public class StocksRepositoryImpl implements StocksRepository {
 		return null;
 	}
 	
-	public void findBySymbolAndTradingDate(String symbol, Date tradingDate) {
-		client.companyInfoHistoricalData("companyInfoHistoricalData", true, "security=%s");
+	@Override
+	public Stocks findBySymbolAndTradingDate(String symbol, Date tradingDate) {
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+		Key stockKey = KeyFactory.createKey("Stock", symbol);
+		Entity stockEntity;
+		try {
+			stockEntity = datastore.get(stockKey);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+
+		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT+8"));
+		calendar.setTime(tradingDate);
+		
+		Key historyKey = KeyFactory.createKey(stockKey, "History", calendar.getTimeInMillis());
+		Entity historyEntity;
+		try {
+			historyEntity = datastore.get(historyKey);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+		
+		Price price = new Price();
+		price.setCurrency("PHP");
+		price.setAmount(new BigDecimal((String) historyEntity.getProperty("close")));
+
+		Stock stock = new Stock();
+		stock.setSymbol(symbol);
+		stock.setName((String) stockEntity.getProperty("name"));
+		stock.setPrice(price);
+		stock.setVolume((Long) historyEntity.getProperty("volume"));
+		
+		Stocks stocks = new Stocks();
+		stocks.setAsOf(calendar);
+		stocks.getStocks().add(stock);
+		
+		return stocks;
 	}
 	
 	@Override
 	public void save(Stocks stocks) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Transaction txn = datastore.beginTransaction(TransactionOptions.Builder.withXG(true));
-		try {
-			for (Stock stock : stocks.getStocks()) {
+		for (Stock stock : stocks.getStocks()) {
+			Transaction txn = datastore.beginTransaction(TransactionOptions.Builder.withXG(true));
+			try {
 				Entity stockEntity;
 				Key key = KeyFactory.createKey("Stock", stock.getSymbol());
 				try {
@@ -104,16 +146,20 @@ public class StocksRepositoryImpl implements StocksRepository {
 					stockEntity.setUnindexedProperty("name", stock.getName());
 					datastore.put(stockEntity);
 				}
-				Entity historyEntity = new Entity("History", key);
-				historyEntity.setProperty("tradingDate", stocks.getAsOf().getTime());
-				historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().doubleValue());
+				Calendar tradingDate = stocks.getAsOf();
+				tradingDate.set(Calendar.HOUR_OF_DAY, 0);
+				tradingDate.set(Calendar.MINUTE, 0);
+				tradingDate.set(Calendar.SECOND, 0);
+				Entity historyEntity = new Entity("History", tradingDate.getTimeInMillis(), key);
+				historyEntity.setProperty("tradingDate", tradingDate.getTime());
+				historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().toPlainString());
 				historyEntity.setUnindexedProperty("volume", stock.getVolume());
 				datastore.put(historyEntity);
-			}
-			txn.commit();
-		} finally {
-			if (txn.isActive()) {
-				txn.rollback();
+				txn.commit();
+			} finally {
+				if (txn.isActive()) {
+					txn.rollback();
+				}
 			}
 		}
 	}

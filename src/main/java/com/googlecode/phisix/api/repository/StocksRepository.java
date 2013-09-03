@@ -15,6 +15,8 @@
  */
 package com.googlecode.phisix.api.repository;
 
+import java.util.Date;
+
 import com.googlecode.phisix.api.model.Stocks;
 
 /**
@@ -28,6 +30,8 @@ public interface StocksRepository {
 	Stocks findAll();
 
 	String findBySymbol(String symbol);
+	
+	Stocks findBySymbolAndTradingDate(String symbol, Date tradingDate);
 
 	void save(Stocks stocks);
 

@@ -20,7 +20,10 @@ import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 import org.junit.Before;
@@ -98,5 +101,17 @@ public class StocksResourceTest {
 	@Test(expected = NotFoundException.class)
 	public void getInvalidStock() throws Exception {
 		stocksResource.getStock("X");
+	}
+	
+	@Test(expected = BadRequestException.class)
+	public void getStockByInvalidDate() {
+		stocksResource.getStockByDate("symbol", "date");
+	}
+	
+	@Test
+	public void getStockByDate() {
+		stocksResource.getStockByDate("a", "2013-09-03");
+		Date tradingDate = new GregorianCalendar(2013, 8, 3).getTime();
+		verify(stocksRepository).findBySymbolAndTradingDate("A", tradingDate);
 	}
 }
