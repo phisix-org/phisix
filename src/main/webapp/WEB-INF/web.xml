@@ -47,4 +47,13 @@
 	
 	<!-- Add servlet-mapping here -->
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>/stocks/archive</web-resource-name>
+			<url-pattern>/stocks/archive</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>
