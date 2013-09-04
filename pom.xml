@@ -201,7 +201,7 @@
 				<configuration>
 					<serverId>appengine.google.com</serverId>
 					<jvmFlags>
-						<jvmFlag>-Dappengine.user.timezone=GMT+8</jvmFlag>
+						<jvmFlag>-Dappengine.user.timezone=UTC</jvmFlag>
 						<jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=20</jvmFlag>
 					</jvmFlags>
 				</configuration>

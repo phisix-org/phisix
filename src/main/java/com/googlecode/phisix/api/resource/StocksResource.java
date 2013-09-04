@@ -15,16 +15,21 @@
  */
 package com.googlecode.phisix.api.resource;
 
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import com.google.appengine.api.taskqueue.QueueFactory;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.repository.StocksRepository;
@@ -91,7 +96,13 @@ public class StocksResource {
 
 	@GET
 	@Path(value = "/archive")
-	public void archive() {
-		stocksRepository.save(getAllStocks());
+	public void archive(
+			@HeaderParam(value = "X-AppEngine-Cron") 
+			@DefaultValue(value = "false") boolean isCron) {
+		if (isCron) {
+			QueueFactory.getDefaultQueue().add(withUrl("/stocks/archive"));
+		} else {
+			stocksRepository.save(getAllStocks());
+		}
 	}
 }

@@ -20,6 +20,9 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Maps {@link Exception} to HTTP 500 Internal Server Error
  * 
@@ -28,8 +31,13 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class GeneralExceptionMapper implements ExceptionMapper<Exception> {
 
+	private final static Logger LOGGER = LoggerFactory.getLogger(GeneralExceptionMapper.class);
+	
 	@Override
 	public Response toResponse(Exception exception) {
+		if (LOGGER.isErrorEnabled()) {
+			LOGGER.error(exception.getMessage(), exception);
+		}
 		return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 	}
 
