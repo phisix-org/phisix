@@ -181,6 +181,13 @@
 							<filtering>true</filtering>
 							<targetPath>WEB-INF</targetPath>
 						</resource>
+						<resource>
+							<directory>${basedir}/src/main/resources</directory>
+							<includes>
+								<include>*.properties</include>
+							</includes>
+							<targetPath>WEB-INF/classes</targetPath>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
