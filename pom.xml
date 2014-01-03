@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
 		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
-		<gae.version>1.6.2.1</gae.version>
+		<appengine.target.version>1.8.8</appengine.target.version>
 		<resteasy.version>3.0.2.Final</resteasy.version>
 	</properties>
 	<dependencies>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>${gae.version}</version>
+			<version>${appengine.target.version}</version>
 		</dependency>
 		<!-- provided dependencies -->
 		<dependency>	
@@ -105,13 +105,13 @@
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-stubs</artifactId>
-			<version>${gae.version}</version>
+			<version>${appengine.target.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-testing</artifactId>
-			<version>${gae.version}</version>
+			<version>${appengine.target.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -123,8 +123,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -171,40 +171,23 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
+				<version>2.3</version>
 				<configuration>
+					<archiveClasses>true</archiveClasses>
 					<webResources>
+						<!-- in order to interpolate version from pom into appengine-web.xml -->
 						<resource>
-							<directory>src/main/webapp</directory>
+							<directory>${basedir}/src/main/webapp/WEB-INF</directory>
 							<filtering>true</filtering>
-							<includes>
-								<include>**/appengine-web.xml</include>
-							</includes>
+							<targetPath>WEB-INF</targetPath>
 						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
-			<!-- The actual maven-gae-plugin. Type "mvn gae:run" to run project, "mvn 
-				gae:deploy" to upload to GAE. -->
 			<plugin>
-				<groupId>net.kindleit</groupId>
-				<artifactId>maven-gae-plugin</artifactId>
-				<version>0.9.2</version>
-				<dependencies>
-					<dependency>
-						<groupId>net.kindleit</groupId>
-						<artifactId>gae-runtime</artifactId>
-						<version>${gae.version}</version>
-						<type>pom</type>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<serverId>appengine.google.com</serverId>
-					<jvmFlags>
-						<jvmFlag>-Dappengine.user.timezone=UTC</jvmFlag>
-						<jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=20</jvmFlag>
-					</jvmFlags>
-				</configuration>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>${appengine.target.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>com.google.code.maven-license-plugin</groupId>
