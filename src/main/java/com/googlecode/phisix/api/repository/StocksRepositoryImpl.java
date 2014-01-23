@@ -53,6 +53,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 
 	private final PseClient client;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
+	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	
 	public StocksRepositoryImpl() {
 		Client client = new ResteasyClientBuilder()
@@ -93,8 +94,6 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	@Override
 	public Stocks findBySymbolAndTradingDate(String symbol, Date tradingDate) {
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
 		Key stockKey = KeyFactory.createKey("Stock", symbol);
 		Entity stockEntity;
 		try {
@@ -133,7 +132,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	@Override
 	public void save(Stocks stocks) {
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		Calendar tradingDate = retrieveTradingDate(stocks);
 		for (Stock stock : stocks.getStocks()) {
 			Transaction txn = datastore.beginTransaction(TransactionOptions.Builder.withXG(true));
 			try {
@@ -146,10 +145,6 @@ public class StocksRepositoryImpl implements StocksRepository {
 					stockEntity.setUnindexedProperty("name", stock.getName());
 					datastore.put(stockEntity);
 				}
-				Calendar tradingDate = stocks.getAsOf();
-				tradingDate.set(Calendar.HOUR_OF_DAY, 0);
-				tradingDate.set(Calendar.MINUTE, 0);
-				tradingDate.set(Calendar.SECOND, 0);
 				Entity historyEntity = new Entity("History", tradingDate.getTimeInMillis(), key);
 				historyEntity.setProperty("tradingDate", tradingDate.getTime());
 				historyEntity.setUnindexedProperty("close", stock.getPrice().getAmount().toPlainString());
@@ -162,5 +157,13 @@ public class StocksRepositoryImpl implements StocksRepository {
 				}
 			}
 		}
+	}
+
+	private Calendar retrieveTradingDate(Stocks stocks) {
+		Calendar tradingDate = stocks.getAsOf();
+		tradingDate.set(Calendar.HOUR_OF_DAY, 0);
+		tradingDate.set(Calendar.MINUTE, 0);
+		tradingDate.set(Calendar.SECOND, 0);
+		return tradingDate;
 	}
 }

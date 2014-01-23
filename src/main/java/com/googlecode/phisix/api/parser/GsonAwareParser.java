@@ -17,14 +17,14 @@ package com.googlecode.phisix.api.parser;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.time.DateParser;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +48,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GsonAwareParser.class);
 	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("Asia/Manila");
+	private static final DateParser dateParser = FastDateFormat.getInstance("MM/dd/yyyy hh:mm a", ASIA_MANILA);
 	private final JsonParser jsonParser;
 	private final Gson gson;
 	
@@ -84,11 +85,9 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	
 	protected Calendar parseAsOfDate(JsonObject jsonObject) {
 		String asOfDate = jsonObject.get("securityAlias").getAsString();
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-		dateFormat.setTimeZone(ASIA_MANILA);
 		Calendar calendar = null;
 		try {
-			Date date = dateFormat.parse(asOfDate);
+			Date date = dateParser.parse(asOfDate);
 			calendar = Calendar.getInstance(ASIA_MANILA);
 			calendar.setTime(date);
 		} catch (ParseException e) {

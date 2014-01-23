@@ -18,8 +18,8 @@ package com.googlecode.phisix.api.resource;
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.DefaultValue;
@@ -29,6 +29,9 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
+import org.apache.commons.lang3.time.DateParser;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.googlecode.phisix.api.model.Stock;
@@ -43,6 +46,8 @@ import com.googlecode.phisix.api.repository.StocksRepositoryImpl;
  * <li>GET /stocks.json</li>
  * <li>GET /stocks/{symbol}.xml</li>
  * <li>GET /stocks/{symbol}.json</li>
+ * <li>GET /stocks/{symbol}.{yyyy-MM-dd}.xml</li>
+ * <li>GET /stocks/{symbol}.{yyyy-MM-dd}.json</li>
  * </ul>
  * 
  * @author Edge Dalmacio
@@ -51,7 +56,8 @@ import com.googlecode.phisix.api.repository.StocksRepositoryImpl;
 @Path(value = "/stocks")
 public class StocksResource {
 
-	private StocksRepository stocksRepository;
+	private static final DateParser dateParser = FastDateFormat.getInstance("yyyy-MM-dd", TimeZone.getTimeZone("GMT+8"));
+	private final StocksRepository stocksRepository;
 
 	public StocksResource() throws Exception {
 		this(new StocksRepositoryImpl());
@@ -88,7 +94,7 @@ public class StocksResource {
 			@PathParam(value = "date") String date) {
 		Date tradingDate;
 		try {
-			tradingDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+			tradingDate = dateParser.parse(date);
 		} catch (ParseException e) {
 			throw new BadRequestException(e.getMessage());
 		}
