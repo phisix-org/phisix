@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
 		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
-		<appengine.target.version>1.8.8</appengine.target.version>
+		<appengine.target.version>1.8.9</appengine.target.version>
 		<resteasy.version>3.0.2.Final</resteasy.version>
 	</properties>
 	<dependencies>
@@ -135,7 +135,7 @@
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.8.0</version>
+				<version>0.8.3</version>
 				<executions>
 					<execution>
 						<id>generate-sources</id>
@@ -280,6 +280,22 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.9</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 	<developers>
 		<developer>
 			<id>edgar.dalmacio@gmail.com</id>

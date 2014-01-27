@@ -27,6 +27,9 @@
 				<item name="Project Summary" href="project-summary.html" />
 				<item name="Dependencies" href="dependencies.html" />
 			</item>
+			<item name="Project Reports" href="project-reports.html">
+				<item name="Changes Report" href="changes-report.html" />
+			</item>
 		</menu>
 	</body>
 	<custom>
