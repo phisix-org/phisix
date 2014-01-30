@@ -27,7 +27,7 @@
 	
 	<precompilation-enabled>true</precompilation-enabled>
 	
-	<warmup-requests-enabled>false</warmup-requests-enabled>
+	<warmup-requests-enabled>true</warmup-requests-enabled>
 	
 	<threadsafe>true</threadsafe>
 

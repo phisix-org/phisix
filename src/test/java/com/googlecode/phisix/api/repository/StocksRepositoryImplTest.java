@@ -33,6 +33,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.model.Price;
@@ -44,7 +45,8 @@ public class StocksRepositoryImplTest {
 
 	// maximum eventual consistency
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(20));
+			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(20), 
+			new LocalMemcacheServiceTestConfig());
 	private DatastoreService datastore;
 	private StocksRepository stocksRepository;
 	
@@ -61,6 +63,19 @@ public class StocksRepositoryImplTest {
 	@After
 	public void tearDown() {
 		helper.tearDown();
+	}
+	
+	@Test
+	public void findAll() {
+		Stocks expected = new Stocks();
+		
+		when(client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
+
+		assertSame(expected, stocksRepository.findAll());
+		verify(client).getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
+
+		assertEquals(expected, stocksRepository.findAll());
+		verify(client).getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
 	}
 	
 	@Test

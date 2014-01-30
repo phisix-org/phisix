@@ -4,7 +4,7 @@
 	<groupId>com.googlecode.phisix</groupId>
 	<artifactId>phisix</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>Philippine Stock Exchange Composite Index RESTful API</name>
 	<url>http://phisix.googlecode.com</url>
 	<inceptionYear>2012</inceptionYear>
@@ -20,8 +20,14 @@
 		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
 		<appengine.target.version>1.8.9</appengine.target.version>
 		<resteasy.version>3.0.2.Final</resteasy.version>
+		<jaxb2_commons.version>0.6.4</jaxb2_commons.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.jvnet.jaxb2_commons</groupId>
+			<artifactId>jaxb2-basics-runtime</artifactId>
+			<version>${jaxb2_commons.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -145,13 +151,16 @@
 						</goals>
 						<configuration>
 							<args>
-								<arg>-Xcollection-setter-injector</arg>
+								<arg>-Xsetters</arg>
+								<arg>-Xequals</arg>
+								<arg>-XhashCode</arg>
+								<arg>-XtoString</arg>
 							</args>
 							<plugins>
 								<plugin>
-									<groupId>net.java.dev.vcc.thirdparty</groupId>
-									<artifactId>collection-setter-injector</artifactId>
-									<version>0.5.0-1</version>
+									<groupId>org.jvnet.jaxb2_commons</groupId>
+									<artifactId>jaxb2-basics</artifactId>
+									<version>${jaxb2_commons.version}</version>
 								</plugin>
 							</plugins>
 							<schemaDirectory>src/main/webapp/schema</schemaDirectory>

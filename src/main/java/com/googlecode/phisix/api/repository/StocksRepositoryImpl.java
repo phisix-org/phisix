@@ -38,6 +38,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
+import com.google.appengine.api.memcache.Expiration;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Price;
@@ -54,6 +57,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	private final PseClient client;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	private final MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 	
 	public StocksRepositoryImpl() {
 		Client client = new ResteasyClientBuilder()
@@ -70,7 +74,12 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	@Override
 	public Stocks findAll() {
-		return client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
+		Stocks stocks = (Stocks) memcache.get("ALL");
+		if (stocks == null) {
+			stocks = client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
+			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(1));
+		}
+		return stocks;
 	}
 	
 	@Override
