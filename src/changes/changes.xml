@@ -72,7 +72,7 @@
             </action>
 		</release>
 		
-		<release version="1.1" date="2013-01-31" description="Cache stocks for one (1) second">
+		<release version="1.1" date="2013-01-31" description="Cache stocks for one (1) minute">
             <action dev="edgar.dalmacio@gmail.com" type="add">
             	Cache stocks for one (1) minute
             </action>
