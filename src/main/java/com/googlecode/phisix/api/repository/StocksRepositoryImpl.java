@@ -77,7 +77,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 		Stocks stocks = (Stocks) memcache.get("ALL");
 		if (stocks == null) {
 			stocks = client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
-			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(1));
+			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		return stocks;
 	}

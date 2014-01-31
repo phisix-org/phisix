@@ -4,7 +4,7 @@
 	<groupId>com.googlecode.phisix</groupId>
 	<artifactId>phisix</artifactId>
 	<packaging>war</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>Philippine Stock Exchange Composite Index RESTful API</name>
 	<url>http://phisix.googlecode.com</url>
 	<inceptionYear>2012</inceptionYear>
