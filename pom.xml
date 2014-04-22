@@ -322,4 +322,8 @@
 		<developerConnection>scm:git:https://github.com/edgedalmacio/phisix.git</developerConnection>
 		<url>https://github.com/edgedalmacio/phisix</url>
 	</scm>
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://travis-ci.org/edgedalmacio/phisix</url>
+	</ciManagement>
 </project>
