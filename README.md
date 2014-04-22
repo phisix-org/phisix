@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-phisix
-=======
 phisix [![Build Status](https://travis-ci.org/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.org/edgedalmacio/phisix)
->>>>>>> 1899101501ea78a768333db7ac337ab1a55c6cb5
 ======
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
