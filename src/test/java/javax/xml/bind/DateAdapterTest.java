@@ -94,10 +94,10 @@ public class DateAdapterTest {
 		int z = c.getTimeZone().getRawOffset() / 3600000;
 		String s = DateAdapter.printDateTime(c);
 		if (z == 0) {
+			assertEquals("2000-01-12T12:13:14Z", s);
+		} else {
 			assertEquals(
 					String.format("2000-01-12T12:13:14+%02d:00", z), s);
-		} else {
-			assertEquals("2000-01-12T12:13:14Z", s);
 		}
 	}
 	
