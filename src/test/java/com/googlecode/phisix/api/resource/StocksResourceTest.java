@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
@@ -111,7 +112,9 @@ public class StocksResourceTest {
 	@Test
 	public void getStockByDate() {
 		stocksResource.getStockByDate("a", "2013-09-03");
-		Date tradingDate = new GregorianCalendar(2013, 8, 3).getTime();
+		Calendar calendar = new GregorianCalendar(2013, 8, 3);
+		calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		Date tradingDate = calendar.getTime();
 		verify(stocksRepository).findBySymbolAndTradingDate("A", tradingDate);
 	}
 }
