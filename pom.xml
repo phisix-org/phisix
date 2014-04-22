@@ -6,7 +6,8 @@
 	<packaging>war</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<name>Philippine Stock Exchange Composite Index RESTful API</name>
-	<url>http://phisix.googlecode.com</url>
+	<url>https://github.com/edgedalmacio/phisix</url>
+	<description>Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine</description>
 	<inceptionYear>2012</inceptionYear>
 	<licenses>
 		<license>
@@ -313,12 +314,12 @@
 		</developer>
 	</developers>
 	<issueManagement>
-		<url>https://code.google.com/p/phisix/issues/list</url>
-		<system>Google Project Hosting</system>
+		<url>https://github.com/edgedalmacio/phisix/issues</url>
+		<system>GitHub</system>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://phisix.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:https://phisix.googlecode.com/svn/trunk/</developerConnection>
-		<url>https://code.google.com/p/phisix/source/browse/</url>
+		<connection>scm:git:https://github.com/edgedalmacio/phisix.git</connection>
+		<developerConnection>scm:git:https://github.com/edgedalmacio/phisix.git</developerConnection>
+		<url>https://github.com/edgedalmacio/phisix</url>
 	</scm>
 </project>
