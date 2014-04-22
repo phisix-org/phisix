@@ -79,8 +79,12 @@ public class DateAdapterTest {
 				2000, Calendar.JANUARY, 12, 12, 13, 14);
 		int z = c.getTimeZone().getRawOffset() / 3600000;
 		String s = DateAdapter.printDate(c);
-		assertEquals(
-				String.format("2000-01-12+%02d:00", z), s);
+		if (z == 0) {
+			assertEquals("2000-01-12Z", s);
+		} else {
+			assertEquals(
+					String.format("2000-01-12+%02d:00", z), s);
+		}
 	}
 
 	@Test
