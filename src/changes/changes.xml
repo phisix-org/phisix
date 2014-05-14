@@ -66,13 +66,13 @@
             </action>
 		</release>
 
-		<release version="1.0" date="2013-01-27" description="Allow GET /stocks/{symbol}.{yyyy-MM-dd}.{xml|json}">
+		<release version="1.0" date="2014-01-27" description="Allow GET /stocks/{symbol}.{yyyy-MM-dd}.{xml|json}">
             <action dev="edgar.dalmacio@gmail.com" type="add">
             	Allow GET /stocks/{symbol}.{yyyy-MM-dd}.{xml|json}
             </action>
 		</release>
 		
-		<release version="1.1" date="2013-01-31" description="Cache stocks for one (1) minute">
+		<release version="1.1" date="2014-01-31" description="Cache stocks for one (1) minute">
             <action dev="edgar.dalmacio@gmail.com" type="add">
             	Cache stocks for one (1) minute
             </action>
