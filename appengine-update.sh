@@ -1,2 +1,2 @@
+mvn clean appengine:update -Pphisix-2
 mvn clean appengine:update
-mvn appengine:update -Dappengine.app.name=phisix-api2

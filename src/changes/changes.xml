@@ -6,6 +6,12 @@
     </properties>
     <body>
 
+        <release version="1.2" date="2014-05-24" description="Load Balancing">
+            <action dev="edgar.dalmacio@gmail.com" type="add">
+                Added load balancing to http://phisix-api2.appspot.com
+            </action>
+        </release>
+
         <release version="1.1" date="2014-01-31" description="Cache stocks for one (1) minute">
             <action dev="edgar.dalmacio@gmail.com" type="add">
                 Cache stocks for one (1) minute
