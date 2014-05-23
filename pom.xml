@@ -19,7 +19,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
 		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
-		<appengine.target.version>1.8.9</appengine.target.version>
+        <appengine.app.name>phisix-api</appengine.app.name>
+        <appengine.app.version>1</appengine.app.version>
+		<appengine.target.version>1.9.4</appengine.target.version>
 		<resteasy.version>3.0.2.Final</resteasy.version>
 		<jaxb2_commons.version>0.6.4</jaxb2_commons.version>
 	</properties>
