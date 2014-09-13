@@ -15,6 +15,7 @@
 			com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,
 			com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper,
 			com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper,
+            org.jboss.resteasy.plugins.providers.jackson.Jackson2JsonpInterceptor,
 			com.googlecode.phisix.api.ext.WebApplicationExceptionMapper,
 			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper,
 			com.googlecode.phisix.api.ext.GeneralExceptionMapper

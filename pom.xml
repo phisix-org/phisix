@@ -18,12 +18,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
-		<gae.disableUpdateCheck>true</gae.disableUpdateCheck>
         <appengine.app.name>phisix-api</appengine.app.name>
         <appengine.app.version>1</appengine.app.version>
-		<appengine.target.version>1.9.4</appengine.target.version>
-		<resteasy.version>3.0.2.Final</resteasy.version>
-		<jaxb2_commons.version>0.6.4</jaxb2_commons.version>
+		<appengine.target.version>1.9.10</appengine.target.version>
+		<resteasy.version>3.0.8.Final</resteasy.version>
+		<jaxb2_commons.version>0.8.1</jaxb2_commons.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,12 +33,12 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
+			<version>2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.2.1</version>
+			<version>3.3.2</version>
 		</dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -89,12 +88,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
+			<version>1.7.7</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>0.9.24</version>
+			<version>1.1.2</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- test scoped dependencies -->
