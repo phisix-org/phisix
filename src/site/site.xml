@@ -30,6 +30,9 @@
 			<item name="Project Reports" href="project-reports.html">
 				<item name="Changes Report" href="changes-report.html" />
 			</item>
+			<item name="Project Sponsors" href="project-sponsors.html">
+				<item name="YourKit" href="yourkit.html" />
+			</item>
 		</menu>
 	</body>
 	<custom>
