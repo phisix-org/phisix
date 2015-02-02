@@ -22,12 +22,12 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	<tr>
 		<td>-</td>
 		<td>ALL</td>
-		<td><a class="externalLink" href="/stocks.json">/stocks.json</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks.json">/stocks.json</a></td>
 	</tr>
 	<tr>
 		<td>BDO</td>
 		<td>BDO UNIBANK, INC.</td>
-		<td><a class="externalLink" href="/stocks/BDO.json">/stocks/BDO.json</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/BDO.json">/stocks/BDO.json</a></td>
 	</tr>
 	<tr>
 		<td>BPI</td>
@@ -37,17 +37,17 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	<tr>
 		<td>CHIB</td>
 		<td>CHINA BANKING CORPORATION</td>
-		<td><a class="externalLink" href="/stocks/CHIB.json">/stocks/CHIB.json</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/CHIB.json">/stocks/CHIB.json</a></td>
 	</tr>
 	<tr>
 		<td>COL</td>
 		<td>COL FINANCIAL GROUP, INC.</td>
-		<td><a class="externalLink" href="/stocks/COL.json">/stocks/COL.json</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/COL.json">/stocks/COL.json</a></td>
 	</tr>
 	<tr>
 		<td>EW</td>
 		<td>EAST WEST BANKING CORPORATION</td>
-		<td><a class="externalLink" href="/stocks/EW.json">/stocks/EW.json</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/EW.json">/stocks/EW.json</a></td>
 	</tr>
 </table>
 
@@ -62,32 +62,32 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	<tr>
 		<td>-</td>
 		<td>ALL</td>
-		<td><a class="externalLink" href="/stocks.xml">/stocks.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks.xml">/stocks.xml</a></td>
 	</tr>
 	<tr>
 		<td>MBT</td>
 		<td>METROPOLITAN BANK &amp; TRUST COMPANY</td>
-		<td><a class="externalLink" href="/stocks/MBT.xml">/stocks/MBT.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/MBT.xml">/stocks/MBT.xml</a></td>
 	</tr>
 	<tr>
 		<td>PNB</td>
 		<td>PHILIPPINE NATIONAL BANK</td>
-		<td><a class="externalLink" href="/stocks/PNB.xml">/stocks/PNB.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/PNB.xml">/stocks/PNB.xml</a></td>
 	</tr>
 	<tr>
 		<td>PSE</td>
 		<td>THE PHILIPPINE STOCK EXCHANGE, INC.</td>
-		<td><a class="externalLink" href="/stocks/PSE.xml">/stocks/PSE.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/PSE.xml">/stocks/PSE.xml</a></td>
 	</tr>
 	<tr>
 		<td>RCB</td>
 		<td>RIZAL COMMERCIAL BANKING CORPORATION</td>
-		<td><a class="externalLink" href="/stocks/RCB.xml">/stocks/RCB.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/RCB.xml">/stocks/RCB.xml</a></td>
 	</tr>
 	<tr>
 		<td>SECB</td>
 		<td>SECURITY BANK CORPORATION</td>
-		<td><a class="externalLink" href="/stocks/SECB.xml">/stocks/SECB.xml</a></td>
+		<td><a class="externalLink" href="http://phisix-api.appspot.com/stocks/SECB.xml">/stocks/SECB.xml</a></td>
 	</tr>
 </table>
 
