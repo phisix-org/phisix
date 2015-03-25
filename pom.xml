@@ -347,7 +347,7 @@
         <profile>
             <id>phisix-3</id>
             <properties>
-                <appengine.app.name>phisix-api2</appengine.app.name>
+                <appengine.app.name>phisix-api3</appengine.app.name>
                 <appengine.app.version>1</appengine.app.version>
             </properties>
             <build>
@@ -381,7 +381,7 @@
         <profile>
             <id>phisix-4</id>
             <properties>
-                <appengine.app.name>phisix-api2</appengine.app.name>
+                <appengine.app.name>phisix-api4</appengine.app.name>
                 <appengine.app.version>1</appengine.app.version>
             </properties>
             <build>
