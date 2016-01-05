@@ -93,4 +93,4 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
 ###XSD###
 
-[http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd](/schema/stocks/phisix-stocks.xsd)
+[http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd](http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd)
