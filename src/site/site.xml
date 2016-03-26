@@ -15,10 +15,10 @@
 			<item name="Project Information" href="project-info.html">
 				<item name="About" href="index.html" />
 				<item name="Plugin Management" href="plugin-management.html" />
-				<item name="Distribution Management" href="distribution-management.html" />
-				<item name="Dependency Information" href="dependency-info.html" />
+				<!--item name="Distribution Management" href="distribution-management.html" /-->
+				<!--item name="Dependency Information" href="dependency-info.html" /-->
 				<item name="Source Repository" href="source-repository.html" />
-				<item name="Mailing Lists" href="mail-lists.html" />
+				<!--item name="Mailing Lists" href="mail-lists.html" /-->
 				<item name="Issue Tracking" href="issue-tracking.html" />
 				<item name="Continuous Integration" href="integration.html" />
 				<item name="Project Plugins" href="plugins.html" />
