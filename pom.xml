@@ -3,7 +3,7 @@
 	<groupId>com.googlecode.phisix</groupId>
 	<artifactId>phisix</artifactId>
 	<packaging>war</packaging>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.4.2</version>
 	<name>Philippine Stock Exchange Composite Index RESTful API</name>
 	<url>https://github.com/edgedalmacio/phisix</url>
 	<description>Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine</description>
@@ -439,7 +439,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:edgedalmacio/phisix.git</connection>
 		<url>https://github.com/edgedalmacio/phisix</url>
-    <tag>HEAD</tag>
+    <tag>phisix-1.4.2</tag>
   </scm>
 	<ciManagement>
 		<system>Travis</system>
