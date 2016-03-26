@@ -6,6 +6,12 @@
     </properties>
     <body>
 
+        <release version="1.4" date="2016-03-27" description="Added cron.xml">
+            <action dev="edgar.dalmacio@gmail.com" type="add">
+                Not getting any result for a given stock/date request (https://github.com/edgedalmacio/phisix/issues/15)
+            </action>
+        </release>
+
         <release version="1.3" date="2014-09-13" description="Added JSONP Support">
             <action dev="edgar.dalmacio@gmail.com" type="add">
                 Added JSONP Support (https://github.com/edgedalmacio/phisix/issues/6)
