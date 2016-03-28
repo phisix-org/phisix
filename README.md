@@ -1,4 +1,4 @@
-phisix [![Build Status](https://travis-ci.org/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.org/edgedalmacio/phisix)
+phisix [![Build Status](https://travis-ci.org/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.org/edgedalmacio/phisix)[![Coverage Status](https://coveralls.io/repos/github/edgedalmacio/phisix/badge.svg?branch=master)](https://coveralls.io/github/edgedalmacio/phisix?branch=master)
 ======
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
