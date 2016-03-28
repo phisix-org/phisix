@@ -2,4 +2,3 @@ language: java
 env:
   matrix:
     secure: EokAWva6gfwYCz+ljHPC1m+zrqmgtTmmym/o+QwUm7xPjJtPl1fHQyxQFPWPrnOVKGVV+9AVPY3O3UHdhyEiuvA6Pjkb6RB0Zi7vaqPyGsyxdiDiYVzkiTwdvrMWNofK/Kmdio+RVuYXb5AVQmKAAwabau+A4ZrLZhFb72ed7E4=
-script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -DrepoToken=${COVERALLS_REPO_TOKEN}
