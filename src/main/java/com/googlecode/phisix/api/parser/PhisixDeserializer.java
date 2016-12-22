@@ -42,8 +42,10 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		JsonObject jsonObject = json.getAsJsonObject();
 		
 		String totalVolume = jsonObject.get("totalVolume").getAsString().replace(",", "");
-		if (totalVolume.length() == 0 || totalVolume.contains(".")) {
+		if (totalVolume.length() == 0) {
 			return null;
+		} else if (totalVolume.contains(".")) {
+			totalVolume = totalVolume.substring(0, totalVolume.length() - 3);
 		}
 		
 		Stock stock = new Stock();

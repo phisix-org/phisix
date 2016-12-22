@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
+import com.googlecode.phisix.api.model.Price;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -76,6 +77,17 @@ public class PhisixDeserializerTest {
 	
 	@Test
 	public void index() {
+		Price price = new Price();
+		price.setCurrency("PHP");
+		price.setAmount(new BigDecimal("0.71"));
+
+		Stock expected = new Stock();
+		expected.setName("PSEi");
+		expected.setSymbol("PSE");
+		expected.setPercentChange(new BigDecimal("38.97"));
+		expected.setVolume(5552);
+		expected.setPrice(price);
+
 		JsonObject json = new JsonObject();
 		
 		json.addProperty("totalVolume", "5,552.34");
@@ -87,7 +99,7 @@ public class PhisixDeserializerTest {
 		json.addProperty("securitySymbol", "PSE");
 		
 		Stock actual = deserializer.deserialize(json, null, null);
-		
-		assertNull(actual);
+
+		assertEquals(expected, actual);
 	}
 }
