@@ -6,6 +6,15 @@
     </properties>
     <body>
 
+        <release version="1.5" date="2016-12-22" description="drop decimal places in totalVolume to allow stock indexes">
+            <action dev="edgar.dalmacio@gmail.com" type="fix">
+                drop decimal places in totalVolume to allow stock indexes
+            </action>
+            <action dev="edgar.dalmacio@gmail.com" type="delete">
+                cleanup
+            </action>
+        </release>
+
         <release version="1.4" date="2016-03-27" description="Added cron.xml">
             <action dev="edgar.dalmacio@gmail.com" type="add">
                 Not getting any result for a given stock/date request (https://github.com/edgedalmacio/phisix/issues/15)
