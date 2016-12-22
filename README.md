@@ -1,7 +1,7 @@
 phisix
 ======
 [![Build Status](https://travis-ci.org/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.org/edgedalmacio/phisix)
-[![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.googlecode.phisix:phisix)](http://sonar.paymaya.io/dashboard/index/com.googlecode.phisix:phisix)
+[![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.googlecode.phisix:phisix)](https://sonarqube.com/dashboard/index/com.googlecode.phisix:phisix)
 [![Coverage](https://sonarqube.com/api/badges/measure?key=com.googlecode.phisix:phisix&metric=coverage)](https://sonarqube.com/dashboard/index/com.googlecode.phisix:phisix)
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
