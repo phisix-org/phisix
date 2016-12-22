@@ -1,6 +1,18 @@
 language: java
+sudo: false
+install: true
+addons:
+  sonarqube:
+    token:
+      secure: "92c3fe2a02f75beed75a30be1c437a84198ad831"
+jdk:
+  - oraclejdk8
 env:
   matrix:
     secure: EokAWva6gfwYCz+ljHPC1m+zrqmgtTmmym/o+QwUm7xPjJtPl1fHQyxQFPWPrnOVKGVV+9AVPY3O3UHdhyEiuvA6Pjkb6RB0Zi7vaqPyGsyxdiDiYVzkiTwdvrMWNofK/Kmdio+RVuYXb5AVQmKAAwabau+A4ZrLZhFb72ed7E4=
-after_success:
-  - mvn clean test jacoco:report coveralls:report
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
