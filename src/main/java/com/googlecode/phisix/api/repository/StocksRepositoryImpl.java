@@ -54,8 +54,6 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class StocksRepositoryImpl implements StocksRepository {
 
-	private static final String REFERER = "http://www.pse.com.ph/stockMarket/home.html";
-	
 	private final PseClient client;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -78,7 +76,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	public Stocks findAll() {
 		Stocks stocks = (Stocks) memcache.get("ALL");
 		if (stocks == null) {
-			stocks = client.getSecuritiesAndIndicesForPublic(REFERER, "getSecuritiesAndIndicesForPublic", true);
+			stocks = client.getSecuritiesAndIndicesForPublic(PseClient.REFERER, "getSecuritiesAndIndicesForPublic", true);
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		return stocks;

@@ -33,6 +33,8 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public interface PseClient {
 
+	static final String REFERER = "http://www.pse.com.ph/stockMarket/home.html";
+	
 	@GET
 	@Path("home.html")
 	Stocks getSecuritiesAndIndicesForPublic(
