@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -64,7 +65,11 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
-		JsonArray jsonArray = jsonParser.parse(source).getAsJsonArray();
+		JsonElement parse = jsonParser.parse(source);
+		if (JsonNull.INSTANCE.equals(parse)) {
+			return stocks;
+		}
+		JsonArray jsonArray = parse.getAsJsonArray();
 		Type type = new TypeToken<Collection<Stock>>() {}.getType();
 		
 		boolean isFirst = true;
