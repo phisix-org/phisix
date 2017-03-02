@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Stocks;
 
-public class PseClientITCase {
+public class PseClientTest {
 
 	private PseClient pseClient;
 
