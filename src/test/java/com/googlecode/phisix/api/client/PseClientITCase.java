@@ -44,7 +44,7 @@ public class PseClientITCase {
 	
 	@Test
 	public void getSecuritiesAndIndicesForPublic() throws Exception {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClient.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 		assertNotNull(actual);
 		System.out.println(actual.getStocks().size());
 	}

@@ -36,6 +36,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.phisix.api.client.PseClient;
+import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -69,13 +70,13 @@ public class StocksRepositoryImplTest {
 	public void findAll() {
 		Stocks expected = new Stocks();
 		
-		when(client.getSecuritiesAndIndicesForPublic(PseClient.REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
+		when(client.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
 
 		assertSame(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic(PseClient.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(client).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 
 		assertEquals(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic(PseClient.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(client).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 	}
 	
 	@Test
