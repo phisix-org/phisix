@@ -24,4 +24,7 @@ public final class PseClientConstants {
 
 	public static final String REFERER = "http://www.pse.com.ph/stockMarket/home.html";
 
+	private PseClientConstants() {
+		throw new IllegalAccessError("Utility class");
+	}
 }
