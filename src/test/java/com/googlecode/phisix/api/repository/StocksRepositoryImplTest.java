@@ -43,6 +43,8 @@ import com.googlecode.phisix.api.model.Stocks;
 @RunWith(MockitoJUnitRunner.class)
 public class StocksRepositoryImplTest {
 
+	private static final String REFERER = "http://www.pse.com.ph/stockMarket/home.html";
+	
 	// maximum eventual consistency
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(20), 
@@ -69,13 +71,13 @@ public class StocksRepositoryImplTest {
 	public void findAll() {
 		Stocks expected = new Stocks();
 		
-		when(client.getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
+		when(client.getSecuritiesAndIndicesForPublic(REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
 
 		assertSame(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
+		verify(client).getSecuritiesAndIndicesForPublic(REFERER, "getSecuritiesAndIndicesForPublic", true);
 
 		assertEquals(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic("getSecuritiesAndIndicesForPublic", true);
+		verify(client).getSecuritiesAndIndicesForPublic(REFERER, "getSecuritiesAndIndicesForPublic", true);
 	}
 	
 	@Test

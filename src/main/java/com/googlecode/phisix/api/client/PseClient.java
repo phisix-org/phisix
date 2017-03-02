@@ -17,6 +17,7 @@ package com.googlecode.phisix.api.client;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -35,6 +36,7 @@ public interface PseClient {
 	@GET
 	@Path("home.html")
 	Stocks getSecuritiesAndIndicesForPublic(
+			@HeaderParam(value = "Referer") String referer,
 			@QueryParam(value = "method") String method, 
 			@QueryParam(value = "ajax") boolean ajax);
 
