@@ -2,9 +2,10 @@ language: java
 sudo: false
 install: true
 addons:
-  sonarqube:
+  sonarcloud:
+    organization: edgedalmacio-github
     token:
-      secure: "92c3fe2a02f75beed75a30be1c437a84198ad831"
+      secure: akSMG1B1DI0NwVcimPM7K19C/DLtbwgJqaJfnlaA1axZ0xnCXZqATZFOYpY6GeRtiHhqSEewqjVyMjIEccJ6K2HRqVmFume9v84WsGJRwAYTZR0pjNUGuNkRlW3i9lK2sYG7TzG1iagHd29RnDO4m4OcE54Mf700RB3voPEAwII=
 jdk:
   - oraclejdk8
 env:
