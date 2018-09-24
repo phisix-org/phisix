@@ -38,7 +38,7 @@ public class PseClientTest {
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();
-		ResteasyWebTarget target = (ResteasyWebTarget) client.target("http://www.pse.com.ph/stockMarket");
+		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://www.pse.com.ph/stockMarket");
 		pseClient = target.proxy(PseClient.class);
 	}
 	
@@ -49,21 +49,21 @@ public class PseClientTest {
 		System.out.println(actual.getStocks().size());
 	}
 
-	@Test
+//	@Test
 	public void findSecurityOrCompany() throws Exception {
 		String actual = pseClient.findSecurityOrCompany("findSecurityOrCompany", true, "start=0&limit=1&query=sm");
 		assertNotNull(actual);
 		System.out.println(actual);
 	}
 
-	@Test
+//	@Test
 	public void companyInfo() {
 		String actual = pseClient.companyInfo("fetchHeaderData", true, "company=599&security=520");
 		assertNotNull(actual);
 		System.out.println(actual);
 	}
 	
-	@Test
+//	@Test
 	public void companyInfoHistoricalData() {
 		String actual = pseClient.companyInfoHistoricalData("getRecentSecurityQuoteData", true, "security=520");
 		assertNotNull(actual);
