@@ -5,6 +5,12 @@
         <title>phisix</title>
     </properties>
     <body>
+        <release version="1.6.1" date="2019-09-26" description="bump dependencies">
+            <action dev="edgar.dalmacio@gmail.com" type="update">
+                bump dependencies
+            </action>
+        </release>
+
         <release version="1.6" date="2017-03-02" description="added 'Referer' HTTP request header">
             <action dev="edgar.dalmacio@gmail.com" type="fix">
                 added 'Referer' HTTP request header
