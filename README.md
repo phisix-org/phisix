@@ -3,6 +3,7 @@ phisix
 [![Build Status](https://travis-ci.org/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.org/edgedalmacio/phisix)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=coverage)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=edgedalmacio/phisix)](https://dependabot.com)
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
