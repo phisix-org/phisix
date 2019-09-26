@@ -4,6 +4,7 @@ phisix
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=coverage)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=edgedalmacio/phisix)](https://dependabot.com)
+[![Mergify Status](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/edgedalmacio/phisix&style=flat)](https://mergify.io)
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
