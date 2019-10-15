@@ -324,7 +324,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+                        <version>3.2.3</version>
                         <configuration>
                             <archiveClasses>true</archiveClasses>
                             <webResources>
@@ -359,7 +359,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+                        <version>3.2.3</version>
                         <configuration>
                             <archiveClasses>true</archiveClasses>
                             <webResources>
@@ -393,7 +393,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+                        <version>3.2.3</version>
                         <configuration>
                             <archiveClasses>true</archiveClasses>
                             <webResources>
@@ -427,7 +427,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+                        <version>3.2.3</version>
                         <configuration>
                             <archiveClasses>true</archiveClasses>
                             <webResources>
