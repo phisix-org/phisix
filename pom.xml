@@ -22,6 +22,7 @@
 		<appengine.target.version>1.9.77</appengine.target.version>
 		<resteasy.version>3.9.3.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
+		<cloudSdkVersion>240.0.0</cloudSdkVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -176,9 +177,13 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>com.google.appengine</groupId>
+				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${appengine.target.version}</version>
+				<version>2.2.0</version>
+				<configuration>
+					<projectId>${appengine.app.name}</projectId>
+					<version>1</version>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.google.code.maven-license-plugin</groupId>
