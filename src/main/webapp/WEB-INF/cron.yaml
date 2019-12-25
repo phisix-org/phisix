@@ -1,0 +1,6 @@
+cron:
+- url: '/stocks/archive'
+  schedule: 'every mon,tue,wed,thu,fri 16:00'
+  target: '1'
+  timezone: 'Asia/Manila'
+  description: 'Archive stock history'
