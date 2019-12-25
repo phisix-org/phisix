@@ -183,6 +183,7 @@
 				<configuration>
 					<projectId>${appengine.app.name}</projectId>
 					<version>${appengine.app.version}</version>
+					<promote>false</promote>
 				</configuration>
 			</plugin>
 			<plugin>
