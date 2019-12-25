@@ -343,34 +343,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.3</version>
-                        <configuration>
-                            <archiveClasses>true</archiveClasses>
-                            <webResources>
-                                <!-- in order to interpolate version from pom into appengine-web.xml -->
-                                <resource>
-                                    <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                                    <filtering>true</filtering>
-                                    <targetPath>WEB-INF</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/resources</directory>
-                                    <includes>
-                                        <include>*.properties</include>
-                                        <include>cron.xml</include>
-                                    </includes>
-                                    <targetPath>WEB-INF/classes</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>phisix-2</id>
@@ -378,33 +350,6 @@
                 <appengine.app.name>phisix-api2</appengine.app.name>
                 <appengine.app.version>1</appengine.app.version>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.3</version>
-                        <configuration>
-                            <archiveClasses>true</archiveClasses>
-                            <webResources>
-                                <!-- in order to interpolate version from pom into appengine-web.xml -->
-                                <resource>
-                                    <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                                    <filtering>true</filtering>
-                                    <targetPath>WEB-INF</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/resources</directory>
-                                    <includes>
-                                        <include>*.properties</include>
-                                    </includes>
-                                    <targetPath>WEB-INF/classes</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>phisix-3</id>
@@ -412,33 +357,6 @@
                 <appengine.app.name>phisix-api3</appengine.app.name>
                 <appengine.app.version>1</appengine.app.version>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.3</version>
-                        <configuration>
-                            <archiveClasses>true</archiveClasses>
-                            <webResources>
-                                <!-- in order to interpolate version from pom into appengine-web.xml -->
-                                <resource>
-                                    <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                                    <filtering>true</filtering>
-                                    <targetPath>WEB-INF</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/resources</directory>
-                                    <includes>
-                                        <include>*.properties</include>
-                                    </includes>
-                                    <targetPath>WEB-INF/classes</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>phisix-4</id>
@@ -446,33 +364,6 @@
                 <appengine.app.name>phisix-api4</appengine.app.name>
                 <appengine.app.version>1</appengine.app.version>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.2.3</version>
-                        <configuration>
-                            <archiveClasses>true</archiveClasses>
-                            <webResources>
-                                <!-- in order to interpolate version from pom into appengine-web.xml -->
-                                <resource>
-                                    <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                                    <filtering>true</filtering>
-                                    <targetPath>WEB-INF</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/resources</directory>
-                                    <includes>
-                                        <include>*.properties</include>
-                                    </includes>
-                                    <targetPath>WEB-INF/classes</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 	<developers>
