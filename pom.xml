@@ -182,7 +182,7 @@
 				<version>2.2.0</version>
 				<configuration>
 					<projectId>${appengine.app.name}</projectId>
-					<version>1</version>
+					<version>${appengine.app.version}</version>
 				</configuration>
 			</plugin>
 			<plugin>
