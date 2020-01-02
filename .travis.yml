@@ -1,6 +1,5 @@
 dist: trusty
 language: java
-sudo: false
 install: true
 addons:
   sonarcloud:
@@ -12,15 +11,15 @@ jdk:
 env:
   matrix:
     secure: EokAWva6gfwYCz+ljHPC1m+zrqmgtTmmym/o+QwUm7xPjJtPl1fHQyxQFPWPrnOVKGVV+9AVPY3O3UHdhyEiuvA6Pjkb6RB0Zi7vaqPyGsyxdiDiYVzkiTwdvrMWNofK/Kmdio+RVuYXb5AVQmKAAwabau+A4ZrLZhFb72ed7E4=
+  global:
+  - PATH=${HOME}/.cache/google-cloud-tools-java/managed-cloud-sdk/LATEST/google-cloud-sdk/bin/:${PATH}
 before_install:
 - openssl aes-256-cbc -K $encrypted_5c9ef5697049_key -iv $encrypted_5c9ef5697049_iv
   -in phisix-api-f6d7427c49af.json.enc -out phisix-api-f6d7427c49af.json -d
-# - curl https://sdk.cloud.google.com | bash
-# - gcloud auth activate-service-account --key-file phisix-api-f6d7427c49af.json
 script:
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar appengine:stage
-# after_script:
-# - "./appengine-update.sh"
+after_script:
+- gcloud auth activate-service-account --key-file phisix-api-f6d7427c49af.json
 cache:
   directories:
   - "$HOME/.m2/repository"
