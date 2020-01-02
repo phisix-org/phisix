@@ -1,4 +1,4 @@
-mvn clean appengine:update -Pphisix-4
-mvn clean appengine:update -Pphisix-3
-mvn clean appengine:update -Pphisix-2
-mvn clean appengine:update
+mvn clean package appengine:deploy -Pphisix-4
+mvn clean package appengine:deploy -Pphisix-3
+mvn clean package appengine:deploy -Pphisix-2
+mvn clean package appengine:deploy
