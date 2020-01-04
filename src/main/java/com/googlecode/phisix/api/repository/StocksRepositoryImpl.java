@@ -26,8 +26,11 @@ import java.util.regex.Pattern;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 
+import org.apache.commons.lang3.time.DatePrinter;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient43Engine;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -42,6 +45,7 @@ import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.googlecode.phisix.api.client.GaClient;
+import com.googlecode.phisix.api.client.GaClientConstants;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.ext.StocksProvider;
@@ -56,10 +60,7 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class StocksRepositoryImpl implements StocksRepository {
 
-	private static final String GA_VERSION = "1";
-	private static final String GA_TRACKING_ID = "UA-155314736-1";
-	private static final String GA_HIT_TYPE = "pageview";
-	private static final String GA_CLIENT_ID = "555"; // TODO make this dynamic 
+	private static final DatePrinter datePrinter = FastDateFormat.getInstance("yyyy-MM-dd", TimeZone.getTimeZone("GMT+8"));
 	private final PseClient pseClient;
 	private final GaClient gaClient;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
@@ -68,7 +69,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	public StocksRepositoryImpl() {
 		Client pseClient = new ResteasyClientBuilder()
-				.httpEngine(new URLConnectionEngine())
+				.httpEngine(new ApacheHttpClient43Engine())
 				.register(StocksProvider.class)
 				.build();
 		this.pseClient = ((ResteasyWebTarget) pseClient.target("http://www.pse.com.ph/stockMarket")).proxy(PseClient.class);
@@ -97,7 +98,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		if (gaClient != null) {
-			gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, "stocks");
+			gaClient.pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, "stocks");
 		}
 		return stocks;
 	}
@@ -113,7 +114,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 		
 		if (matcher.find()) {
 			if (gaClient != null) {
-				gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, symbol);
+				gaClient.pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol);
 			}
 			return pseClient.companyInfo("fetchHeaderData", true, 
 					String.format("company=%s&security=%s", 
@@ -160,7 +161,8 @@ public class StocksRepositoryImpl implements StocksRepository {
 		stocks.getStocks().add(stock);
 		
 		if (gaClient != null) {
-			gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, symbol + "-" + tradingDate);
+			String formattedTradingDate = datePrinter.format(tradingDate);
+			gaClient.pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol + "." + formattedTradingDate);
 		}
 		return stocks;
 	}

@@ -35,6 +35,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.phisix.api.client.GaClient;
+import com.googlecode.phisix.api.client.GaClientConstants;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.model.Price;
@@ -52,13 +54,16 @@ public class StocksRepositoryImplTest {
 	private StocksRepository stocksRepository;
 	
 	@Mock
-	private PseClient client;
+	private PseClient pseClient;
+	
+	@Mock
+	private GaClient gaClient;
 	
 	@Before
 	public void setUp() {
 		helper.setUp();
 		datastore = DatastoreServiceFactory.getDatastoreService();
-		stocksRepository = new StocksRepositoryImpl(client);
+		stocksRepository = new StocksRepositoryImpl(pseClient, gaClient);
 	}
 	
 	@After
@@ -70,36 +75,42 @@ public class StocksRepositoryImplTest {
 	public void findAll() {
 		Stocks expected = new Stocks();
 		
-		when(client.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
+		when(pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
 
 		assertSame(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 
 		assertEquals(expected, stocksRepository.findAll());
-		verify(client).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		
+		verify(gaClient, times(2)).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, "stocks");
 	}
 	
 	@Test
 	public void findBySymbol() {
 		String securityOrCompany = "{\"count\":1,\"totalCount\":11,\"records\":[{\"securityStatus\":\"O\",\"listedCompany_companyId\":\"599\",\"symbol\":\"SM\",\"listedCompany_companyName\":\"SM Investments Corporation\",\"securityId\":\"520\",\"securityName\":\"SM INVESTMENTS CORPORATION\"}]}";
-		when(client.findSecurityOrCompany(eq("findSecurityOrCompany"), eq(true), eq("start=0&limit=1&query=sm"))).thenReturn(securityOrCompany);
-		stocksRepository.findBySymbol("sm");
-		verify(client).companyInfo("fetchHeaderData", true, "company=599&security=520");
+		when(pseClient.findSecurityOrCompany(eq("findSecurityOrCompany"), eq(true), eq("start=0&limit=1&query=sm"))).thenReturn(securityOrCompany);
+		String symbol = "sm";
+		stocksRepository.findBySymbol(symbol);
+		verify(pseClient).companyInfo("fetchHeaderData", true, "company=599&security=520");
+		verify(gaClient).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol);
 	}
 	
 	@Test
 	public void findBySymbolAndTradingDate() throws Exception {
 		save();
 		Date tradingDate = new GregorianCalendar(2013, 7, 26).getTime();
-		Stocks actual = stocksRepository.findBySymbolAndTradingDate("SM", tradingDate);
+		String symbol = "SM";
+		Stocks actual = stocksRepository.findBySymbolAndTradingDate(symbol, tradingDate);
 		assertNotNull(actual);
 		assertEquals(1, actual.getStocks().size());
 		Stock actualStock = actual.getStocks().get(0);
-		assertEquals("SM", actualStock.getSymbol());
+		assertEquals(symbol, actualStock.getSymbol());
 		assertEquals("SM Investments", actualStock.getName());
 		assertEquals(1080760, actualStock.getVolume());
 		assertEquals("PHP", actualStock.getPrice().getCurrency());
 		assertEquals(new BigDecimal("730"), actualStock.getPrice().getAmount());
+		verify(gaClient).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol + ".2013-08-26");
 	}
 	
 	@Test
