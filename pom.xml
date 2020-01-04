@@ -22,6 +22,7 @@
 		<appengine.target.version>1.9.77</appengine.target.version>
 		<resteasy.version>3.9.3.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
+		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -304,6 +305,23 @@
 	</build>
 	<reporting>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>3.0.0-M4</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report-only</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>nl.demon.shadowland.maven.plugins</groupId>
+				<artifactId>sonarqube-maven-report</artifactId>
+				<version>0.2.2</version>
+			</plugin>
 		</plugins>
 	</reporting>
     <profiles>
