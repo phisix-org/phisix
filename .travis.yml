@@ -20,6 +20,8 @@ before_install:
 script:
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
 after_success:
+- gcloud auth activate-service-account --key-file phisix-api3-eebcc9b5960c.json
+- mvn clean package appengine:deploy -Pphisix-3
 - gcloud auth activate-service-account --key-file phisix-api2-0a8be5d4b178.json
 - mvn clean package appengine:deploy -Pphisix-2
 - gcloud auth activate-service-account --key-file phisix-api-f6d7427c49af.json
