@@ -41,6 +41,7 @@ import com.google.appengine.api.datastore.TransactionOptions;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.googlecode.phisix.api.client.GaClient;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.ext.StocksProvider;
@@ -55,30 +56,48 @@ import com.googlecode.phisix.api.model.Stocks;
  */
 public class StocksRepositoryImpl implements StocksRepository {
 
-	private final PseClient client;
+	private static final String GA_VERSION = "1";
+	private static final String GA_TRACKING_ID = "UA-155314736-1";
+	private static final String GA_HIT_TYPE = "pageview";
+	private static final String GA_CLIENT_ID = "555"; // TODO make this dynamic 
+	private final PseClient pseClient;
+	private final GaClient gaClient;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	private final MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 	
 	public StocksRepositoryImpl() {
-		Client client = new ResteasyClientBuilder()
+		Client pseClient = new ResteasyClientBuilder()
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();
-		ResteasyWebTarget target = (ResteasyWebTarget) client.target("http://www.pse.com.ph/stockMarket");
-		this.client = target.proxy(PseClient.class);
+		this.pseClient = ((ResteasyWebTarget) pseClient.target("http://www.pse.com.ph/stockMarket")).proxy(PseClient.class);
+		
+		// TODO make this async
+		Client gaClient = new ResteasyClientBuilder()
+				.httpEngine(new URLConnectionEngine())
+				.build();
+		this.gaClient = ((ResteasyWebTarget) gaClient.target("http://www.google-analytics.com")).proxy(GaClient.class);
 	}
 	
 	public StocksRepositoryImpl(PseClient client) {
-		this.client = client;
+		this(client, null);
+	}
+
+	public StocksRepositoryImpl(PseClient pseClient, GaClient gaClient) {
+		this.pseClient = pseClient;
+		this.gaClient = gaClient;
 	}
 	
 	@Override
 	public Stocks findAll() {
 		Stocks stocks = (Stocks) memcache.get("ALL");
 		if (stocks == null) {
-			stocks = client.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+			stocks = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
+		}
+		if (gaClient != null) {
+			gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, "stocks");
 		}
 		return stocks;
 	}
@@ -86,14 +105,17 @@ public class StocksRepositoryImpl implements StocksRepository {
 	@Override
 	public String findBySymbol(String symbol) {
 		
-		String securityOrCompany = client.findSecurityOrCompany(
+		String securityOrCompany = pseClient.findSecurityOrCompany(
 				"findSecurityOrCompany", true,
 				String.format("start=0&limit=1&query=%s", symbol));
 		
 		Matcher matcher = pattern.matcher(securityOrCompany);
 		
 		if (matcher.find()) {
-			return client.companyInfo("fetchHeaderData", true, 
+			if (gaClient != null) {
+				gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, symbol);
+			}
+			return pseClient.companyInfo("fetchHeaderData", true, 
 					String.format("company=%s&security=%s", 
 							matcher.group(1),
 							matcher.group(2)));
@@ -137,6 +159,9 @@ public class StocksRepositoryImpl implements StocksRepository {
 		stocks.setAsOf(calendar);
 		stocks.getStocks().add(stock);
 		
+		if (gaClient != null) {
+			gaClient.pageTracking(GA_VERSION, GA_TRACKING_ID, GA_CLIENT_ID, GA_HIT_TYPE, symbol + "-" + tradingDate);
+		}
 		return stocks;
 	}
 	
