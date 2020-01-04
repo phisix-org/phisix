@@ -30,7 +30,6 @@ import org.apache.commons.lang3.time.DatePrinter;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient43Engine;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -69,7 +68,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	
 	public StocksRepositoryImpl() {
 		Client pseClient = new ResteasyClientBuilder()
-				.httpEngine(new ApacheHttpClient43Engine())
+				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();
 		this.pseClient = ((ResteasyWebTarget) pseClient.target("http://www.pse.com.ph/stockMarket")).proxy(PseClient.class);
