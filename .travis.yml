@@ -16,9 +16,10 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_5c9ef5697049_key -iv $encrypted_5c9ef5697049_iv
   -in phisix-api.tar.enc -out phisix-api.tar -d
+- tar xvf phisix-api.tar
 script:
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar appengine:stage
-after_success:
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
+deploy:
 - gcloud auth activate-service-account --key-file phisix-api2-0a8be5d4b178.json
 - mvn clean package appengine:deploy -Pphisix-2
 - gcloud auth activate-service-account --key-file phisix-api-f6d7427c49af.json
