@@ -318,6 +318,18 @@
 				</reportSets>
 			</plugin>
 			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<!-- select non-aggregate reports -->
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
 				<groupId>nl.demon.shadowland.maven.plugins</groupId>
 				<artifactId>sonarqube-maven-report</artifactId>
 				<version>0.2.2</version>
@@ -339,7 +351,7 @@
 						<configuration>
 							<apiToken>${env.CODACY_API_TOKEN}</apiToken>
 							<projectToken>${env.CODACY_PROJECT_TOKEN}</projectToken>
-							<coverageReportFile>${project.reporting.outputDirectory}/jacoco.xml</coverageReportFile>
+							<coverageReportFile>${project.reporting.outputDirectory}/jacoco/jacoco.xml</coverageReportFile>
 							<commit>${env.TRAVIS_COMMIT}</commit>
 							<codacyApiBaseUrl>https://api.codacy.com</codacyApiBaseUrl>
 							<failOnMissingReportFile>false</failOnMissingReportFile>
