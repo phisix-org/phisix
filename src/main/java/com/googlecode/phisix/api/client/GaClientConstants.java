@@ -24,7 +24,7 @@ public class GaClientConstants {
 
 	public static final String GA_VERSION = "1";
 	public static final String GA_TRACKING_ID = "UA-155314736-1";
-	public static final String GA_HIT_TYPE = "pageview";
+	public static final String GA_EVENT_HIT = "event";
 	public static final String GA_CLIENT_ID = "555"; // TODO make this dynamic 
 
 	public GaClientConstants() {

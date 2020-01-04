@@ -35,4 +35,13 @@ public interface GaClient {
 			@QueryParam(value = "t") String hitType,
 			@QueryParam(value = "dp") String page);
 
+	@GET
+	@Path("collect")
+	void eventTracking(@QueryParam(value = "v") String version, 
+			@QueryParam(value = "tid") String trackingId,
+			@QueryParam(value = "cid") String clientId, 
+			@QueryParam(value = "t") String hitType,
+			@QueryParam(value = "ec") String category,
+			@QueryParam(value = "ea") String action);
+
 }

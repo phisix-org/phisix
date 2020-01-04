@@ -51,4 +51,17 @@ public class GaClientTest {
 		gaClient.pageTracking(version, trackingId, clientId, hitType, page);
 		assertTrue(true);
 	}
+	
+	@Test
+	public void eventTracking() {
+		String version = "1";
+		String trackingId = "UA-8834758-3";
+		String clientId = "2A446A02-7235-4905-B45D-38736FCA2669";
+		String hitType = "event";
+		String category = "stocks";
+		String action = "all";
+		gaClient.eventTracking(version, trackingId, clientId, hitType, category, action);
+		assertTrue(true);
+	}
+
 }

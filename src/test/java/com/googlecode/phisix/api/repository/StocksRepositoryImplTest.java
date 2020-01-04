@@ -83,7 +83,7 @@ public class StocksRepositoryImplTest {
 		assertEquals(expected, stocksRepository.findAll());
 		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 		
-		verify(gaClient, times(2)).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, "stocks");
+		verify(gaClient, times(2)).eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", "all");
 	}
 	
 	@Test
@@ -93,7 +93,7 @@ public class StocksRepositoryImplTest {
 		String symbol = "sm";
 		stocksRepository.findBySymbol(symbol);
 		verify(pseClient).companyInfo("fetchHeaderData", true, "company=599&security=520");
-		verify(gaClient).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol);
+		verify(gaClient).eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", symbol);
 	}
 	
 	@Test
@@ -110,7 +110,7 @@ public class StocksRepositoryImplTest {
 		assertEquals(1080760, actualStock.getVolume());
 		assertEquals("PHP", actualStock.getPrice().getCurrency());
 		assertEquals(new BigDecimal("730"), actualStock.getPrice().getAmount());
-		verify(gaClient).pageTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_HIT_TYPE, symbol + ".2013-08-26");
+		verify(gaClient).eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", symbol + ".2013-08-26");
 	}
 	
 	@Test
