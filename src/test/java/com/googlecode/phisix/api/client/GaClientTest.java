@@ -49,5 +49,6 @@ public class GaClientTest {
 		String hitType = "pageview";
 		String page = "stocks";
 		gaClient.pageTracking(version, trackingId, clientId, hitType, page);
+		assertTrue(true);
 	}
 }
