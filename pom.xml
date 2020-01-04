@@ -246,6 +246,19 @@
 				<version>3.0.0</version>
 			</plugin>
 			<plugin>
+				<groupId>org.simplify4u.plugins</groupId>
+				<artifactId>sitemapxml-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>gen</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 				<executions>

@@ -12,6 +12,7 @@
 		<include path="/**.txt" />
 		<include path="/**.js" />
 		<include path="/favicon.ico" />
+		<include path="/sitemap.xml" />
 	</static-files>
 
 	<system-properties>
