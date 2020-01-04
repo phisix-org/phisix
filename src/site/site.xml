@@ -35,6 +35,7 @@
 			</item>
 		</menu>
 	</body>
+	<googleAnalytics>UA-155314736-1</googleAnalytics>
 	<custom>
 		<fluidoSkin>
 			<profile>production</profile>
