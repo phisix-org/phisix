@@ -22,10 +22,10 @@ package com.googlecode.phisix.api.client;
  */
 public class GaClientConstants {
 
-	public static final String GA_VERSION = "1";
-	public static final String GA_TRACKING_ID = "UA-155314736-1";
-	public static final String GA_EVENT_HIT = "event";
-	public static final String GA_CLIENT_ID = "555"; // TODO make this dynamic 
+	public static final String VERSION = "1";
+	public static final String TRACKING_ID = "UA-155314736-1";
+	public static final String EVENT_HIT = "event";
+	public static final String CLIENT_ID = "555"; // TODO make this dynamic
 
 	public GaClientConstants() {
 		throw new IllegalAccessError("Utility class");

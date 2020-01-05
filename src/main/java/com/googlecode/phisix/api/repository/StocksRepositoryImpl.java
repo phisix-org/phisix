@@ -97,7 +97,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		if (gaClient != null) {
-			gaClient.eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", "all");
+			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", "all");
 		}
 		return stocks;
 	}
@@ -113,7 +113,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 		
 		if (matcher.find()) {
 			if (gaClient != null) {
-				gaClient.eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", symbol);
+				gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol);
 			}
 			return pseClient.companyInfo("fetchHeaderData", true, 
 					String.format("company=%s&security=%s", 
@@ -161,7 +161,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 		
 		if (gaClient != null) {
 			String formattedTradingDate = datePrinter.format(tradingDate);
-			gaClient.eventTracking(GaClientConstants.GA_VERSION, GaClientConstants.GA_TRACKING_ID, GaClientConstants.GA_CLIENT_ID, GaClientConstants.GA_EVENT_HIT, "stocks", symbol + "." + formattedTradingDate);
+			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol + "." + formattedTradingDate);
 		}
 		return stocks;
 	}
