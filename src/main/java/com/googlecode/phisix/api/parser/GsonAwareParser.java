@@ -50,11 +50,9 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GsonAwareParser.class);
 	private static final TimeZone ASIA_MANILA = TimeZone.getTimeZone("Asia/Manila");
 	private static final DateParser dateParser = FastDateFormat.getInstance("MM/dd/yyyy hh:mm a", ASIA_MANILA);
-	private final JsonParser jsonParser;
 	private final Gson gson;
 	
 	public GsonAwareParser() {
-		jsonParser = new JsonParser();
 		Type type = new TypeToken<Collection<Stock>>() {}.getType();
 		gson = new GsonBuilder()
 			.registerTypeAdapter(type, new PhisixDeserializer())
@@ -65,7 +63,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
-		JsonElement parse = jsonParser.parse(source);
+		JsonElement parse = JsonParser.parseReader(source);
 		if (JsonNull.INSTANCE.equals(parse)) {
 			return stocks;
 		}
