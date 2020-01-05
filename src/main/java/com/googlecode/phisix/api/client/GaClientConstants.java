@@ -26,6 +26,7 @@ public class GaClientConstants {
 	public static final String TRACKING_ID = "UA-155314736-1";
 	public static final String EVENT_HIT = "event";
 	public static final String CLIENT_ID = "555"; // TODO make this dynamic
+	public static final String USER_AGENT = "Mozilla/5.0 (compatible; phisix-api/1.7; +http://phisix-api.appspot.com)";
 
 	public GaClientConstants() {
 		throw new IllegalAccessError("Utility class");

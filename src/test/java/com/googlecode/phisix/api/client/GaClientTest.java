@@ -29,6 +29,10 @@ import com.googlecode.phisix.api.ext.StocksProvider;
 
 public class GaClientTest {
 
+	private String version = "1";
+	private String trackingId = "UA-8834758-3";
+	private String clientId = "2A446A02-7235-4905-B45D-38736FCA2669";
+	private String userAgent = "phisix-api (http://phisix-api.appspot.com)";
 	private GaClient gaClient;
 
 	@Before
@@ -43,24 +47,18 @@ public class GaClientTest {
 
 	@Test
 	public void pageTracking() {
-		String version = "1";
-		String trackingId = "UA-8834758-3";
-		String clientId = "2A446A02-7235-4905-B45D-38736FCA2669";
 		String hitType = "pageview";
 		String page = "stocks";
-		gaClient.pageTracking(version, trackingId, clientId, hitType, page);
+		gaClient.pageTracking(version, trackingId, clientId, hitType, page, userAgent);
 		assertTrue(true);
 	}
 	
 	@Test
 	public void eventTracking() {
-		String version = "1";
-		String trackingId = "UA-8834758-3";
-		String clientId = "2A446A02-7235-4905-B45D-38736FCA2669";
 		String hitType = "event";
 		String category = "stocks";
 		String action = "all";
-		gaClient.eventTracking(version, trackingId, clientId, hitType, category, action);
+		gaClient.eventTracking(version, trackingId, clientId, hitType, category, action, userAgent);
 		assertTrue(true);
 	}
 

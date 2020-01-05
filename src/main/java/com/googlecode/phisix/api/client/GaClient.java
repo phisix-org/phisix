@@ -33,7 +33,8 @@ public interface GaClient {
 			@QueryParam(value = "tid") String trackingId,
 			@QueryParam(value = "cid") String clientId, 
 			@QueryParam(value = "t") String hitType,
-			@QueryParam(value = "dp") String page);
+			@QueryParam(value = "dp") String page,
+			@QueryParam(value = "ua") String userAgent);
 
 	@GET
 	@Path("collect")
@@ -42,6 +43,7 @@ public interface GaClient {
 			@QueryParam(value = "cid") String clientId, 
 			@QueryParam(value = "t") String hitType,
 			@QueryParam(value = "ec") String category,
-			@QueryParam(value = "ea") String action);
+			@QueryParam(value = "ea") String action,
+			@QueryParam(value = "ua") String userAgent);
 
 }
