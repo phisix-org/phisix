@@ -33,4 +33,8 @@
 
 	<url-stream-handler>urlfetch</url-stream-handler>
 
+	<automatic-scaling>
+		<max-instances>1</max-instances>
+	</automatic-scaling>
+
 </appengine-web-app>
