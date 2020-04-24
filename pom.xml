@@ -19,7 +19,7 @@
 		<downloadSources>true</downloadSources>
         <appengine.app.name>phisix-api</appengine.app.name>
         <appengine.app.version>1</appengine.app.version>
-		<appengine.target.version>1.9.79</appengine.target.version>
+		<appengine.target.version>1.9.80</appengine.target.version>
 		<resteasy.version>3.11.2.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
 		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
