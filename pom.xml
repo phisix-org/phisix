@@ -20,7 +20,7 @@
         <appengine.app.name>phisix-api</appengine.app.name>
         <appengine.app.version>1</appengine.app.version>
 		<appengine.target.version>1.9.80</appengine.target.version>
-		<resteasy.version>3.11.2.Final</resteasy.version>
+		<resteasy.version>3.12.1.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
 		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
 	</properties>
@@ -223,7 +223,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.8.2</version>
+				<version>3.9.0</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.doxia</groupId>
@@ -243,7 +243,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.1.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.simplify4u.plugins</groupId>
@@ -321,7 +321,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>3.0.0-M5</version>
 				<reportSets>
 					<reportSet>
 						<reports>
