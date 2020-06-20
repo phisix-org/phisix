@@ -26,6 +26,3 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
   - "$HOME/.cache"
-branches:
-  only:
-  - master
