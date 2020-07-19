@@ -50,14 +50,15 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		
 		Stock stock = new Stock();
 		
-		stock.setName(jsonObject.get("securityAlias").getAsString());
+		String securityAlias = jsonObject.get("securityAlias").getAsString();
+		stock.setName(securityAlias);
 		stock.setPercentChange(jsonObject.get("percChangeClose").getAsBigDecimal());
 		Price price = new Price();
 		price.setCurrency("PHP");
 		String lastTradedPrice = jsonObject.get("lastTradedPrice").getAsString().replace(",", "");
 		price.setAmount(new BigDecimal(lastTradedPrice));
 		stock.setPrice(price);
-		stock.setSymbol(jsonObject.get("securitySymbol").getAsString());
+		stock.setSymbol("PSEi".equalsIgnoreCase(securityAlias) ? "PSEi" : jsonObject.get("securitySymbol").getAsString());
 		stock.setVolume(Long.valueOf(totalVolume));
 		
 		return stock;

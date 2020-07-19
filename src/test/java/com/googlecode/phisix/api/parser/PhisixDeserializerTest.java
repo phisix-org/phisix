@@ -83,7 +83,7 @@ public class PhisixDeserializerTest {
 
 		Stock expected = new Stock();
 		expected.setName("PSEi");
-		expected.setSymbol("PSE");
+		expected.setSymbol("PSEi");
 		expected.setPercentChange(new BigDecimal("38.97"));
 		expected.setVolume(5552);
 		expected.setPrice(price);
@@ -102,4 +102,5 @@ public class PhisixDeserializerTest {
 
 		assertEquals(expected, actual);
 	}
+	
 }
