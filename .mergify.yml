@@ -7,3 +7,13 @@ pull_request_rules:
       merge:
         method: merge
         strict: true
+
+  - name: automatic merge for ready-to-merge pull requests
+    conditions:
+      - author~=^edgedalmacio$
+      - status-success=Travis CI - Pull Request
+      - label=ready-to-merge
+    actions:
+      merge:
+        method: merge
+        strict: true
