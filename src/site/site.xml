@@ -25,6 +25,7 @@
 				<item name="Dependencies" href="dependencies.html" />
 			</item>
 			<item name="Project Reports" href="project-reports.html">
+				<item name="Status" href="https://statuspage.freshping.io/29889-phisixapi" />
 				<item name="Surefire Report" href="surefire-report.html" />
 				<item name="JaCoCo" href="jacoco/index.html" />
 				<item name="SonarCloud" href="sonarcloud.html" />
