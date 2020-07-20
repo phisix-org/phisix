@@ -22,6 +22,7 @@
 		<appengine.target.version>1.9.81</appengine.target.version>
 		<resteasy.version>3.12.1.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
+		<maven-fluido-skin.version>1.9</maven-fluido-skin.version>
 		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
 	</properties>
 	<dependencies>
@@ -125,6 +126,12 @@
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-testing</artifactId>
 			<version>${appengine.target.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.skins</groupId>
+			<artifactId>maven-fluido-skin</artifactId>
+			<version>${maven-fluido-skin.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
