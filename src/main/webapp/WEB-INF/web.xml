@@ -18,7 +18,8 @@
             org.jboss.resteasy.plugins.providers.jackson.Jackson2JsonpInterceptor,
 			com.googlecode.phisix.api.ext.WebApplicationExceptionMapper,
 			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper,
-			com.googlecode.phisix.api.ext.GeneralExceptionMapper
+			com.googlecode.phisix.api.ext.GeneralExceptionMapper,
+			com.googlecode.phisix.api.ext.CorsProvider
 		</param-value>
 	</context-param>
 	<context-param>
