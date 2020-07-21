@@ -30,6 +30,10 @@
         <param-name>resteasy.media.type.mappings</param-name>
         <param-value>json : application/json, xml : application/xml</param-value>
     </context-param>
+    <context-param>
+    	<param-name>resteasy.jsonp.enable</param-name>
+    	<param-value>true</param-value>
+    </context-param>
 
 	<filter>
         <filter-name>Resteasy</filter-name>
