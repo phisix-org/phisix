@@ -6,6 +6,8 @@ phisix
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b523693e36944745bd3e2072d380a272)](https://www.codacy.com/manual/edgedalmacio/phisix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=edgedalmacio/phisix&amp;utm_campaign=Badge_Grade)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=edgedalmacio/phisix)](https://dependabot.com)
 [![Mergify Status](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/edgedalmacio/phisix&style=flat)](https://mergify.io)
+
+[![Status](https://statuspage.freshping.io/badge/2f4f0c1e-4d5a-45b1-bf86-a0cbbccaa74b?0.9828701333113494)](https://statuspage.freshping.io/29889-phisixapi)
 -----
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
