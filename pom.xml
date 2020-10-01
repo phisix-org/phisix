@@ -425,16 +425,16 @@
 		</developer>
 	</developers>
 	<issueManagement>
-		<url>https://github.com/edgedalmacio/phisix/issues</url>
+		<url>https://github.com/phisix-org/phisix/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
 	<scm>
-		<connection>scm:git:git@github.com:edgedalmacio/phisix.git</connection>
-		<url>https://github.com/edgedalmacio/phisix</url>
+		<connection>scm:git:git@github.com:phisix-org/phisix.git</connection>
+		<url>https://github.com/phisix-org/phisix</url>
     <tag>HEAD</tag>
   </scm>
 	<ciManagement>
 		<system>Travis</system>
-		<url>https://travis-ci.org/edgedalmacio/phisix</url>
+		<url>https://travis-ci.org/phisix-org/phisix</url>
 	</ciManagement>
 </project>
