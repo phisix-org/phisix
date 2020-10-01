@@ -1,6 +1,6 @@
 phisix
 ======
-[![Build Status](https://travis-ci.com/edgedalmacio/phisix.svg?branch=master)](https://travis-ci.com/edgedalmacio/phisix)
+[![Build Status](https://travis-ci.com/phisix-org/phisix.svg?branch=master)](https://travis-ci.com/phisix-org/phisix)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.googlecode.phisix%3Aphisix&metric=coverage)](https://sonarcloud.io/dashboard?id=com.googlecode.phisix%3Aphisix)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b523693e36944745bd3e2072d380a272)](https://www.codacy.com/manual/edgedalmacio/phisix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=edgedalmacio/phisix&amp;utm_campaign=Badge_Grade)
