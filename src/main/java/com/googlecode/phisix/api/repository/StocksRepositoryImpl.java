@@ -71,7 +71,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();
-		this.pseClient = ((ResteasyWebTarget) pseClient.target("http://www.pse.com.ph/stockMarket")).proxy(PseClient.class);
+		this.pseClient = ((ResteasyWebTarget) pseClient.target("https://www1.pse.com.ph/stockMarket")).proxy(PseClient.class);
 		
 		// TODO make this async
 		Client gaClient = new ResteasyClientBuilder()
