@@ -38,7 +38,7 @@ public class PseClientTest {
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();
-		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://www.pse.com.ph/stockMarket");
+		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://www1.pse.com.ph/stockMarket");
 		pseClient = target.proxy(PseClient.class);
 	}
 	
