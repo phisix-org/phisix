@@ -22,7 +22,7 @@ package com.googlecode.phisix.api.client;
  */
 public final class PseClientConstants {
 
-	public static final String REFERER = "http://www.pse.com.ph/stockMarket/home.html";
+	public static final String REFERER = "https://www1.pse.com.ph/stockMarket/home.html";
 
 	private PseClientConstants() {
 		throw new IllegalAccessError("Utility class");
