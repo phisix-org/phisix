@@ -14,8 +14,7 @@ env:
   global:
   - PATH=${HOME}/.cache/google-cloud-tools-java/managed-cloud-sdk/LATEST/google-cloud-sdk/bin/:${PATH}
 before_install:
-- openssl aes-256-cbc -K $encrypted_5c9ef5697049_key -iv $encrypted_5c9ef5697049_iv
-  -in phisix-api.tar.enc -out phisix-api.tar -d
+- openssl aes-256-cbc -K $encrypted_fde368363178_key -iv $encrypted_fde368363178_iv -in phisix-api.tar.enc -out phisix-api.tar -d
 - tar xvf phisix-api.tar
 script:
 - mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify
