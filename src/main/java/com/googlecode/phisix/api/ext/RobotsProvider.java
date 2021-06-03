@@ -25,7 +25,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class RobotsProvider implements Feature {
 
-	private RobotsFilter robotsFilter;
+	private final RobotsFilter robotsFilter;
 
 	public RobotsProvider() {
 		this(new RobotsFilter());
