@@ -1,5 +1,7 @@
 dist: trusty
 language: java
+python:
+  - 3.5
 install: true
 addons:
   sonarcloud:
