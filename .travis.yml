@@ -1,7 +1,5 @@
 dist: trusty
 language: java
-python:
-  - 3.5
 install: true
 addons:
   sonarcloud:
@@ -19,6 +17,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_fde368363178_key -iv $encrypted_fde368363178_iv -in phisix-api.tar.enc -out phisix-api.tar -d
 - tar xvf phisix-api.tar
 - pyenv versions
+- pyenv global 3.6.3
 - python --version
 script:
 - mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify
