@@ -5,10 +5,6 @@
 	
 	<display-name>PHISIX Philippine Stock Exchange Composite Index RESTful API</display-name>
 
-<!-- 	<context-param> -->
-<!-- 		<param-name>resteasy.scan</param-name> -->
-<!-- 		<param-value>true</param-value> -->
-<!-- 	</context-param> -->
 	<context-param>
 		<param-name>resteasy.providers</param-name>
 		<param-value>
@@ -19,7 +15,8 @@
 			com.googlecode.phisix.api.ext.WebApplicationExceptionMapper,
 			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper,
 			com.googlecode.phisix.api.ext.GeneralExceptionMapper,
-			com.googlecode.phisix.api.ext.CorsProvider
+			com.googlecode.phisix.api.ext.CorsProvider,
+			com.googlecode.phisix.api.ext.RobotsProvider
 		</param-value>
 	</context-param>
 	<context-param>
