@@ -1,3 +1,5 @@
+os: linux
+arch: arm64-graviton2
 dist: trusty
 language: java
 install: true
