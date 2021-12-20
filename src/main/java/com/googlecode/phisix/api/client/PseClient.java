@@ -40,6 +40,14 @@ public interface PseClient {
 			@QueryParam(value = "method") String method, 
 			@QueryParam(value = "ajax") boolean ajax);
 
+	@GET
+	@Path("home.html")
+	Stocks getSecuritiesAndIndicesForPublic(
+			@HeaderParam(value = "Referer") String referer,
+			@HeaderParam(value = "user-agent") String userAgent,
+			@QueryParam(value = "method") String method, 
+			@QueryParam(value = "ajax") boolean ajax);
+
 	@POST
 	@Path("home.html")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

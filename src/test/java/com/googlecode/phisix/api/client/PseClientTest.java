@@ -25,6 +25,7 @@ import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.mkstayalive.randomuseragent.RandomUserAgent;
 import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Stocks;
 
@@ -44,7 +45,7 @@ public class PseClientTest {
 	
 	@Test
 	public void getSecuritiesAndIndicesForPublic() throws Exception {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, RandomUserAgent.getRandomUserAgent(), "getSecuritiesAndIndicesForPublic", true);
 		assertNotNull(actual);
 		System.out.println(actual.getStocks().size());
 	}

@@ -135,6 +135,12 @@
 			<version>${maven-fluido-skin.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.edgedalmacio</groupId>
+			<artifactId>random-user-agent-java</artifactId>
+			<version>v1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -438,4 +444,10 @@
 		<system>Travis</system>
 		<url>https://travis-ci.org/phisix-org/phisix</url>
 	</ciManagement>
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 </project>
