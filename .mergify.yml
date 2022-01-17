@@ -1,12 +1,17 @@
+queue_rules:
+  - name: default
+    conditions:
+      - check-success=Travis CI - Pull Request
+
 pull_request_rules:
   - name: automatic merge for Dependabot pull requests
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
       - status-success=Travis CI - Pull Request
     actions:
-      merge:
-        method: merge
-        strict: true
+      queue:
+        method: rebase
+        name: default
 
   - name: automatic merge for ready-to-merge pull requests
     conditions:
@@ -14,6 +19,6 @@ pull_request_rules:
       - status-success=Travis CI - Pull Request
       - label=ready-to-merge
     actions:
-      merge:
-        method: merge
-        strict: true
+      queue:
+        method: rebase
+        name: default
