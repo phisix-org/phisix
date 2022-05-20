@@ -22,7 +22,7 @@
 		<appengine.target.version>2.0.4</appengine.target.version>
 		<resteasy.version>3.15.3.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
-		<maven-fluido-skin.version>1.10.0</maven-fluido-skin.version>
+		<maven-fluido-skin.version>1.11.0</maven-fluido-skin.version>
 		<sonar.host.url>https://sonarcloud.io/</sonar.host.url>
 		<sonar.scanner.force-deprecated-java-version-grace-period>true</sonar.scanner.force-deprecated-java-version-grace-period>
 	</properties>
