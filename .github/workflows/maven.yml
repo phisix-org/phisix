@@ -4,8 +4,6 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -24,8 +22,3 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify --file pom.xml
-    - uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.PHISIX_2_KEY }}'
-    - name: Test Deploy
-      run: mvn -B clean package appengine:deploy -Pphisix-2 --file pom.xml
