@@ -1,10 +1,10 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Deploy phisix-2
+name: Java CI with Maven
 
 on:
-  push:
+  pull_request:
     branches: [ "master" ]
 
 jobs:
@@ -20,8 +20,5 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
         cache: maven
-    - uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.PHISIX_2_KEY }}'
-    - name: Test Deploy
-      run: mvn -B clean package appengine:deploy -Pphisix-2 --file pom.xml
+    - name: Build with Maven
+      run: mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify --file pom.xml
