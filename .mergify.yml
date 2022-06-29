@@ -1,13 +1,13 @@
 queue_rules:
   - name: default
     conditions:
-      - check-success=^Java CI with Maven.*$
+      - check-success=Java CI with Maven
 
 pull_request_rules:
   - name: automatic merge for Dependabot pull requests
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
-      - check-success=^Java CI with Maven.*$
+      - check-success=Java CI with Maven
     actions:
       queue:
         method: rebase
@@ -16,7 +16,7 @@ pull_request_rules:
   - name: automatic merge for ready-to-merge pull requests
     conditions:
       - author~=^edgedalmacio$
-      - check-success=^Java CI with Maven.*$
+      - check-success=Java CI with Maven
       - label=ready-to-merge
     actions:
       queue:
