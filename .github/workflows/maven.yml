@@ -24,3 +24,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify --file pom.xml
+    - name: Test Deploy
+      run: mvn -B clean package appengine:deploy --file pom.xml
