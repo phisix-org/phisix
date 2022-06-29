@@ -24,4 +24,4 @@ jobs:
       with:
         credentials_json: '${{ secrets.PHISIX_2_KEY }}'
     - name: Test Deploy
-      run: mvn -B clean package appengine:deploy -Pphisix-2 -DskipTests --file pom.xml
+      run: mvn -B clean package appengine:deploy -Pphisix-2 --file pom.xml
