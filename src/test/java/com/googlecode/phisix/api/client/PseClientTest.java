@@ -45,7 +45,9 @@ public class PseClientTest {
 	
 	@Test
 	public void getSecuritiesAndIndicesForPublic() throws Exception {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, RandomUserAgent.getRandomUserAgent(), "getSecuritiesAndIndicesForPublic", true);
+		String userAgent = RandomUserAgent.getRandomUserAgent();
+		System.out.println(userAgent);
+		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, userAgent, "getSecuritiesAndIndicesForPublic", true);
 		assertNotNull(actual);
 		System.out.println(actual.getStocks().size());
 	}
