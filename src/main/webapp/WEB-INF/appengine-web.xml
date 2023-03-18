@@ -27,9 +27,9 @@
 	
 	<warmup-requests-enabled>true</warmup-requests-enabled>
 	
-	<threadsafe>true</threadsafe>
+	<app-engine-apis>true</app-engine-apis>
 
-	<runtime>java8</runtime>
+	<runtime>java17</runtime>
 
 	<url-stream-handler>urlfetch</url-stream-handler>
 
