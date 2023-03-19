@@ -28,11 +28,10 @@
 				<item name="Status" href="https://statuspage.freshping.io/29889-phisixapi" />
 				<item name="Surefire Report" href="surefire-report.html" />
 				<item name="JaCoCo" href="jacoco/index.html" />
-				<item name="SonarCloud" href="sonarcloud.html" />
 			</item>
-			<item name="Project Sponsors" href="project-sponsors.html">
+			<!--item name="Project Sponsors" href="project-sponsors.html">
 				<item name="YourKit" href="yourkit.html" />
-			</item>
+			</item-->
 		</menu>
 	</body>
 	<googleAnalyticsAccountId>UA-155314736-1</googleAnalyticsAccountId>
