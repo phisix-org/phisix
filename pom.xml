@@ -19,7 +19,7 @@
 		<downloadSources>true</downloadSources>
         <appengine.app.name>phisix-api</appengine.app.name>
         <appengine.app.version>1</appengine.app.version>
-		<appengine.target.version>2.0.12</appengine.target.version>
+		<appengine.target.version>2.0.13</appengine.target.version>
 		<resteasy.version>3.15.6.Final</resteasy.version>
 		<jaxb2_commons.version>1.11.1-PUBLISHED-BY-MISTAKE</jaxb2_commons.version>
 		<maven-fluido-skin.version>1.11.2</maven-fluido-skin.version>
@@ -93,7 +93,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.4.6</version>
+			<version>1.4.7</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- test scoped dependencies -->
@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>5.2.0</version>
+			<version>5.3.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -249,7 +249,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.4.2</version>
+				<version>3.4.3</version>
 			</plugin>
 			<plugin>
 				<groupId>org.simplify4u.plugins</groupId>
@@ -266,7 +266,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.3.1</version>
 				<executions>
 					<execution>
 						<id>copy-resources</id>
@@ -290,7 +290,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>3.0.0</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.scm</groupId>
@@ -310,7 +310,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.8</version>
+				<version>0.8.10</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
