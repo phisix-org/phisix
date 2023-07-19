@@ -430,7 +430,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:phisix-org/phisix.git</connection>
 		<url>https://github.com/phisix-org/phisix</url>
-    <tag>FIX-330</tag>
+    <tag>HEAD</tag>
   </scm>
 	<ciManagement>
 		<system>GitHub Actions</system>
