@@ -22,6 +22,8 @@ import java.io.StringReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.googlecode.phisix.api.model.Stocks;
 import com.googlecode.phisix.api.parser.GsonAwareParser;
@@ -32,6 +34,7 @@ import com.googlecode.phisix.api.parser.Parser;
  */
 public class PseFramesClient implements PseClient {
 
+	private final static Logger LOGGER = LoggerFactory.getLogger(PseFramesClient.class);
 	private final Parser<Reader,Stocks> parser;
 	
 	public PseFramesClient() {
@@ -53,7 +56,9 @@ public class PseFramesClient implements PseClient {
 				return parser.parse(new StringReader(value));
 			}
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error(e.getMessage(), e);
+			}
 		}
 		return null;
 	}
