@@ -13,40 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.phisix.api.repository;
+package com.googlecode.phisix.api.client;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 
-public class StocksRepositoryImplITCase {
+public class PseFramesClientTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalMemcacheServiceTestConfig());
-	private StocksRepository stocksRepository;
-	
+	private PseClient pseClient;
+
 	@Before
 	public void setUp() {
-		helper.setUp();
-		stocksRepository = new StocksRepositoryImpl();
+		pseClient = new PseFramesClient();
 	}
 	
 	@Test
-	public void findAll() {
-		Stocks actual = stocksRepository.findAll();
+	public void getSecuritiesAndIndicesForPublic() {
+		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(null, null, false);
 		assertNotNull(actual);
-		assertEquals(363, actual.getStocks().size());
+		for (Stock stock : actual.getStocks()) {
+			System.out.println(stock);
+		}
 	}
-	
-//	@Test
-	public void findBySymbol() {
-		String actual = stocksRepository.findBySymbol("sm");
-		assertNotNull(actual);
-		System.out.println(actual);
-	}
-
 }
