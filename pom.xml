@@ -364,7 +364,7 @@
 		<profile>
 			<id>codecoverage</id>
 			<activation>
-				<property><name>env.TRAVIS</name></property>
+				<property><name>env.CI</name></property>
 			</activation>
 			<build>
 				<plugins>
@@ -376,7 +376,7 @@
 							<apiToken>${env.CODACY_API_TOKEN}</apiToken>
 							<projectToken>${env.CODACY_PROJECT_TOKEN}</projectToken>
 							<coverageReportFile>${project.reporting.outputDirectory}/jacoco/jacoco.xml</coverageReportFile>
-							<commit>${env.TRAVIS_COMMIT}</commit>
+							<commit>${env.GITHUB_SHA}</commit>
 							<codacyApiBaseUrl>https://api.codacy.com</codacyApiBaseUrl>
 							<failOnMissingReportFile>false</failOnMissingReportFile>
 						</configuration>
