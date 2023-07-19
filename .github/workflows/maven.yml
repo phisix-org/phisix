@@ -8,7 +8,6 @@ on:
     branches: [ "master" ]
 
 env:
-  CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
   CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
 jobs:
@@ -26,3 +25,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent verify appengine:stage --file pom.xml
+    - name: Run Codacy Coverage Reporter
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r 'target/site/jacoco/jacoco.xml'
