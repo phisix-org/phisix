@@ -361,38 +361,6 @@
 		</plugins>
 	</reporting>
     <profiles>
-		<profile>
-			<id>codecoverage</id>
-			<activation>
-				<property><name>env.CI</name></property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.gavinmogan</groupId>
-						<artifactId>codacy-maven-plugin</artifactId>
-						<version>1.2.0</version>
-						<configuration>
-							<apiToken>${env.CODACY_API_TOKEN}</apiToken>
-							<projectToken>${env.CODACY_PROJECT_TOKEN}</projectToken>
-							<coverageReportFile>${project.reporting.outputDirectory}/jacoco/jacoco.xml</coverageReportFile>
-							<commit>${env.GITHUB_SHA}</commit>
-							<codacyApiBaseUrl>https://api.codacy.com</codacyApiBaseUrl>
-							<failOnMissingReportFile>false</failOnMissingReportFile>
-						</configuration>
-						<executions>
-							<execution>
-								<id>post-test</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>coverage</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
         <profile>
             <id>phisix-1</id>
             <activation>
