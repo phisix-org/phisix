@@ -40,13 +40,13 @@ public class PhisixDeserializerTest {
 	public void deserialize() {
 		JsonObject json = new JsonObject();
 		
-		json.addProperty("totalVolume", "21,000");
+		json.addProperty("Volume", "21,000");
 		json.addProperty("indicator", "D");
-		json.addProperty("percChangeClose", "-5");
-		json.addProperty("lastTradedPrice", "1.9");
-		json.addProperty("securityAlias", "2GO Group");
+		json.addProperty("Change", "-5");
+		json.addProperty("Price", "1.9");
+		json.addProperty("StockName", "2GO Group");
 		json.addProperty("indicatorImg", "");
-		json.addProperty("securitySymbol", "2GO");
+		json.addProperty("StockSymbol", "2GO");
 		
 		Stock actual = deserializer.deserialize(json, null, null);
 		
@@ -62,13 +62,13 @@ public class PhisixDeserializerTest {
 	public void header() {
 		JsonObject json = new JsonObject();
 		
-		json.addProperty("totalVolume", "");
+		json.addProperty("Volume", "");
 		json.addProperty("indicator", "U");
-		json.addProperty("percChangeClose", "");
-		json.addProperty("lastTradedPrice", "DATE");
-		json.addProperty("securityAlias", "11/23/2012 03:46 PM");
+		json.addProperty("Change", "");
+		json.addProperty("Price", "DATE");
+		json.addProperty("StockName", "11/23/2012 03:46 PM");
 		json.addProperty("indicatorImg", "<img src='/styles/pse/images/icons/upChange.png' width='15' height='12' hspace='100' vspace='-15'>");
-		json.addProperty("securitySymbol", "Stock Update As of");
+		json.addProperty("StockSymbol", "Stock Update As of");
 		
 		Stock actual = deserializer.deserialize(json, null, null);
 		
@@ -90,13 +90,13 @@ public class PhisixDeserializerTest {
 
 		JsonObject json = new JsonObject();
 		
-		json.addProperty("totalVolume", "5,552.34");
+		json.addProperty("Volume", "5,552.34");
 		json.addProperty("indicator", "U");
-		json.addProperty("percChangeClose", "38.97");
-		json.addProperty("lastTradedPrice", "0.71");
-		json.addProperty("securityAlias", "PSEi");
+		json.addProperty("Change", "38.97");
+		json.addProperty("Price", "0.71");
+		json.addProperty("StockName", "PSEi");
 		json.addProperty("indicatorImg", "<img src='/styles/pse/images/icons/upChange.png' width='15' height='12' hspace='100' vspace='-15'>");
-		json.addProperty("securitySymbol", "PSE");
+		json.addProperty("StockSymbol", "PSE");
 		
 		Stock actual = deserializer.deserialize(json, null, null);
 

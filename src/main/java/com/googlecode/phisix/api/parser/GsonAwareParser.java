@@ -70,13 +70,13 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		JsonArray jsonArray = parse.getAsJsonArray();
 		Type type = new TypeToken<Collection<Stock>>() {}.getType();
 		
-		boolean isFirst = true;
+//		boolean isFirst = true;
 		for (JsonElement jsonElement : jsonArray) {
-			if (isFirst) {
-				isFirst = !isFirst;
-				stocks.setAsOf(parseAsOfDate(jsonElement.getAsJsonObject()));
-				continue;
-			}
+//			if (isFirst) {
+//				isFirst = !isFirst;
+//				stocks.setAsOf(parseAsOfDate(jsonElement.getAsJsonObject()));
+//				continue;
+//			}
 			Stock stock = gson.fromJson(jsonElement, type);
 			if (stock != null) {
 				stocks.getStocks().add(stock);

@@ -41,7 +41,7 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		
 		JsonObject jsonObject = json.getAsJsonObject();
 		
-		String totalVolume = jsonObject.get("totalVolume").getAsString().replace(",", "");
+		String totalVolume = jsonObject.get("Volume").getAsString().replace(",", "");
 		if (totalVolume.length() == 0) {
 			return null;
 		} else if (totalVolume.contains(".")) {
@@ -50,15 +50,15 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		
 		Stock stock = new Stock();
 		
-		String securityAlias = jsonObject.get("securityAlias").getAsString();
+		String securityAlias = jsonObject.get("StockName").getAsString();
 		stock.setName(securityAlias);
-		stock.setPercentChange(jsonObject.get("percChangeClose").getAsBigDecimal());
+		stock.setPercentChange(jsonObject.get("Change").getAsBigDecimal());
 		Price price = new Price();
 		price.setCurrency("PHP");
-		String lastTradedPrice = jsonObject.get("lastTradedPrice").getAsString().replace(",", "");
+		String lastTradedPrice = jsonObject.get("Price").getAsString().replace(",", "");
 		price.setAmount(new BigDecimal(lastTradedPrice));
 		stock.setPrice(price);
-		stock.setSymbol("PSEi".equalsIgnoreCase(securityAlias) ? "PSEi" : jsonObject.get("securitySymbol").getAsString());
+		stock.setSymbol("PSEi".equalsIgnoreCase(securityAlias) ? "PSEi" : jsonObject.get("StockSymbol").getAsString());
 		stock.setVolume(Long.valueOf(totalVolume));
 		
 		return stock;

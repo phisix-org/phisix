@@ -23,7 +23,6 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.github.mkstayalive.randomuseragent.RandomUserAgent;
 import com.googlecode.phisix.api.ext.StocksProvider;
@@ -43,7 +42,7 @@ public class PseClientTest {
 		pseClient = target.proxy(PseClient.class);
 	}
 	
-	@Test
+//	@Test
 	public void getSecuritiesAndIndicesForPublic() throws Exception {
 		String userAgent = RandomUserAgent.getRandomUserAgent();
 		System.out.println(userAgent);

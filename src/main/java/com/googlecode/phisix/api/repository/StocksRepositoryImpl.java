@@ -47,7 +47,7 @@ import com.googlecode.phisix.api.client.GaClient;
 import com.googlecode.phisix.api.client.GaClientConstants;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.client.PseClientConstants;
-import com.googlecode.phisix.api.ext.StocksProvider;
+import com.googlecode.phisix.api.client.PseFramesClient;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -67,11 +67,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	private final MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 	
 	public StocksRepositoryImpl() {
-		Client pseClient = new ResteasyClientBuilder()
-				.httpEngine(new URLConnectionEngine())
-				.register(StocksProvider.class)
-				.build();
-		this.pseClient = ((ResteasyWebTarget) pseClient.target("https://www1.pse.com.ph/stockMarket")).proxy(PseClient.class);
+		this.pseClient = new PseFramesClient();
 		
 		// TODO make this async
 		Client gaClient = new ResteasyClientBuilder()
