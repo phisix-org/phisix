@@ -1,7 +1,8 @@
 phisix
 ======
 [![Java CI with Maven](https://github.com/phisix-org/phisix/actions/workflows/maven.yml/badge.svg)](https://github.com/phisix-org/phisix/actions/workflows/maven.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b523693e36944745bd3e2072d380a272)](https://www.codacy.com/gh/phisix-org/phisix/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=phisix-org/phisix&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b523693e36944745bd3e2072d380a272)](https://app.codacy.com/gh/phisix-org/phisix/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/b523693e36944745bd3e2072d380a272)](https://app.codacy.com/gh/phisix-org/phisix/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Mergify Status](https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/phisix-org/phisix&style=flat)](https://mergify.io)
 
 [![Status](https://statuspage.freshping.io/badge/2f4f0c1e-4d5a-45b1-bf86-a0cbbccaa74b?0.9828701333113494)](https://statuspage.freshping.io/29889-phisixapi)
