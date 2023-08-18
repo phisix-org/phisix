@@ -25,6 +25,7 @@ import javax.ws.rs.QueryParam;
  * @author Edge Dalmacio
  *
  */
+@Deprecated
 public interface GaClient {
 
 	@GET
