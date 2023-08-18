@@ -82,6 +82,14 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 				stocks.getStocks().add(stock);
 			}
 		}
+		if (stocks.getAsOf() == null) {
+			Calendar calendar = Calendar.getInstance(ASIA_MANILA);
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			stocks.setAsOf(calendar);
+		}
 		
 		return stocks;
 	}
