@@ -61,7 +61,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 
 	private static final DatePrinter datePrinter = FastDateFormat.getInstance("yyyy-MM-dd", TimeZone.getTimeZone("GMT+8"));
 	private final PseClient pseClient;
-	private final GaClient gaClient;
+//	private final GaClient gaClient;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	private final MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
@@ -73,7 +73,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 		Client gaClient = new ResteasyClientBuilder()
 				.httpEngine(new URLConnectionEngine())
 				.build();
-		this.gaClient = ((ResteasyWebTarget) gaClient.target("http://www.google-analytics.com")).proxy(GaClient.class);
+//		this.gaClient = ((ResteasyWebTarget) gaClient.target("http://www.google-analytics.com")).proxy(GaClient.class);
 	}
 	
 	public StocksRepositoryImpl(PseClient client) {
@@ -82,7 +82,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 
 	public StocksRepositoryImpl(PseClient pseClient, GaClient gaClient) {
 		this.pseClient = pseClient;
-		this.gaClient = gaClient;
+//		this.gaClient = gaClient;
 	}
 	
 	@Override
@@ -92,9 +92,9 @@ public class StocksRepositoryImpl implements StocksRepository {
 			stocks = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
-		if (gaClient != null) {
-			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", "all", GaClientConstants.USER_AGENT);
-		}
+//		if (gaClient != null) {
+//			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", "all", GaClientConstants.USER_AGENT);
+//		}
 		return stocks;
 	}
 	
@@ -108,9 +108,9 @@ public class StocksRepositoryImpl implements StocksRepository {
 		Matcher matcher = pattern.matcher(securityOrCompany);
 		
 		if (matcher.find()) {
-			if (gaClient != null) {
-				gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol, GaClientConstants.USER_AGENT);
-			}
+//			if (gaClient != null) {
+//				gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol, GaClientConstants.USER_AGENT);
+//			}
 			return pseClient.companyInfo("fetchHeaderData", true, 
 					String.format("company=%s&security=%s", 
 							matcher.group(1),
@@ -155,10 +155,10 @@ public class StocksRepositoryImpl implements StocksRepository {
 		stocks.setAsOf(calendar);
 		stocks.getStocks().add(stock);
 		
-		if (gaClient != null) {
-			String formattedTradingDate = datePrinter.format(tradingDate);
-			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol + "." + formattedTradingDate, GaClientConstants.USER_AGENT);
-		}
+//		if (gaClient != null) {
+//			String formattedTradingDate = datePrinter.format(tradingDate);
+//			gaClient.eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol + "." + formattedTradingDate, GaClientConstants.USER_AGENT);
+//		}
 		return stocks;
 	}
 	

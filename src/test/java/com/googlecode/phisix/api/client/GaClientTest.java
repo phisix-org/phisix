@@ -45,7 +45,7 @@ public class GaClientTest {
 		gaClient = target.proxy(GaClient.class);
 	}
 
-	@Test
+//	@Test
 	public void pageTracking() {
 		String hitType = "pageview";
 		String page = "stocks";
@@ -53,7 +53,7 @@ public class GaClientTest {
 		assertTrue(true);
 	}
 	
-	@Test
+//	@Test
 	public void eventTracking() {
 		String hitType = "event";
 		String category = "stocks";
