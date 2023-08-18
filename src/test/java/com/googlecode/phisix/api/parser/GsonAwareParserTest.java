@@ -20,6 +20,8 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +42,12 @@ public class GsonAwareParserTest {
 		Reader reader = new BufferedReader(new FileReader("src/test/resources/JsonRawSample.txt"));
 		Stocks stocks = parser.parse(reader);
 		assertEquals(363, stocks.getStocks().size());
-//		Calendar expected = new GregorianCalendar(2012, 10, 23, 15, 46);
-//		expected.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
-//		assertEquals(expected, stocks.getAsOf());
+		Calendar expected = Calendar.getInstance();
+		expected.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
+		expected.set(Calendar.HOUR_OF_DAY, 0);
+		expected.set(Calendar.MINUTE, 0);
+		expected.set(Calendar.SECOND, 0);
+		expected.set(Calendar.MILLISECOND, 0);
+		assertEquals(expected, stocks.getAsOf());
 	}
 }
