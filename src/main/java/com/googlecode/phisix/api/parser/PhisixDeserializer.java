@@ -52,7 +52,7 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		
 		String securityAlias = jsonObject.get("StockName").getAsString();
 		stock.setName(securityAlias);
-		stock.setPercentChange(jsonObject.get("Change").getAsBigDecimal());
+		stock.setPercentChange(jsonObject.get("PercentChange").getAsBigDecimal());
 		Price price = new Price();
 		price.setCurrency("PHP");
 		String lastTradedPrice = jsonObject.get("Price").getAsString().replace(",", "");

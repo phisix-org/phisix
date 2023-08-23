@@ -42,7 +42,7 @@ public class PhisixDeserializerTest {
 		
 		json.addProperty("Volume", "21,000");
 		json.addProperty("indicator", "D");
-		json.addProperty("Change", "-5");
+		json.addProperty("PercentChange", "-5");
 		json.addProperty("Price", "1.9");
 		json.addProperty("StockName", "2GO Group");
 		json.addProperty("indicatorImg", "");
@@ -64,7 +64,7 @@ public class PhisixDeserializerTest {
 		
 		json.addProperty("Volume", "");
 		json.addProperty("indicator", "U");
-		json.addProperty("Change", "");
+		json.addProperty("PercentChange", "");
 		json.addProperty("Price", "DATE");
 		json.addProperty("StockName", "11/23/2012 03:46 PM");
 		json.addProperty("indicatorImg", "<img src='/styles/pse/images/icons/upChange.png' width='15' height='12' hspace='100' vspace='-15'>");
@@ -92,7 +92,7 @@ public class PhisixDeserializerTest {
 		
 		json.addProperty("Volume", "5,552.34");
 		json.addProperty("indicator", "U");
-		json.addProperty("Change", "38.97");
+		json.addProperty("PercentChange", "38.97");
 		json.addProperty("Price", "0.71");
 		json.addProperty("StockName", "PSEi");
 		json.addProperty("indicatorImg", "<img src='/styles/pse/images/icons/upChange.png' width='15' height='12' hspace='100' vspace='-15'>");
