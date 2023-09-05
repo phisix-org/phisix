@@ -99,7 +99,7 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.4.11</version>
-			<scope>runtime</scope>
+			<scope>test</scope>
 		</dependency>
 		<!-- test scoped dependencies -->
 		<dependency>
