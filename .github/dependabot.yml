@@ -4,7 +4,7 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
-    day: saturday
-    time: "07:00"
+    day: friday
+    time: "14:45"
     timezone: Asia/Singapore
   open-pull-requests-limit: 10
