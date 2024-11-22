@@ -1,35 +1,34 @@
 queue_rules:
-  - name: default
-    conditions:
-      - status-success=verify
-
-pull_request_rules:
-  - name: automatic merge for Dependabot pull requests
-    conditions:
+  - name: duplicated default from automatic merge for ready-to-merge pull requests
+    queue_conditions:
       - author~=^dependabot(|-preview)\[bot\]$
       - status-success=verify
-    actions:
-      queue:
-        method: rebase
-        name: default
-
-  - name: automatic merge for ready-to-merge pull requests
-    conditions:
       - author~=^edgedalmacio$
       - status-success=verify
       - label=ready-to-merge
-    actions:
-      queue:
-        method: rebase
-        name: default
-
-  - name: automatic merge for merge-on-weekend pull requests
-    conditions:
+    merge_conditions: []
+    merge_method: rebase
+  - name: duplicated default from automatic merge for merge-on-weekend pull requests
+    queue_conditions:
+      - author~=^dependabot(|-preview)\[bot\]$
+      - status-success=verify
       - author~=^edgedalmacio$
       - status-success=verify
       - label=merge-on-weekend
       - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
+    merge_conditions: []
+    merge_method: rebase
+  - name: default
+    queue_conditions:
+      - author~=^dependabot(|-preview)\[bot\]$
+      - status-success=verify
+    merge_conditions:
+      - status-success=verify
+    merge_method: rebase
+
+pull_request_rules:
+  - name: automatic merge for Dependabot pull requests + automatic merge for merge-on-weekend
+      pull requests + automatic merge for ready-to-merge pull requests
+    conditions: []
     actions:
       queue:
-        method: rebase
-        name: default
