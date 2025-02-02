@@ -1,7 +1,6 @@
 queue_rules:
   - name: duplicated default from automatic merge for ready-to-merge pull requests
     queue_conditions:
-      - author~=^dependabot(|-preview)\[bot\]$
       - status-success=verify
       - author~=^edgedalmacio$
       - status-success=verify
@@ -10,7 +9,6 @@ queue_rules:
     merge_method: rebase
   - name: duplicated default from automatic merge for merge-on-weekend pull requests
     queue_conditions:
-      - author~=^dependabot(|-preview)\[bot\]$
       - status-success=verify
       - author~=^edgedalmacio$
       - status-success=verify
@@ -25,10 +23,10 @@ queue_rules:
     merge_conditions:
       - status-success=verify
     merge_method: rebase
-
 pull_request_rules:
-  - name: automatic merge for Dependabot pull requests + automatic merge for merge-on-weekend
-      pull requests + automatic merge for ready-to-merge pull requests
+  - name: automatic merge for Dependabot pull requests + automatic merge for
+      merge-on-weekend pull requests + automatic merge for ready-to-merge pull
+      requests
     conditions: []
     actions:
       queue:
