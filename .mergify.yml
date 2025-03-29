@@ -24,21 +24,22 @@ queue_rules:
       - status-success=verify
     merge_method: rebase
 pull_request_rules:
-  - name: automatic merge for Dependabot pull requests + automatic merge for merge-on-weekend
-      pull requests + automatic merge for ready-to-merge pull requests
+  - name: automatic merge for Dependabot pull requests + automatic merge for
+      merge-on-weekend pull requests + automatic merge for ready-to-merge pull
+      requests
     conditions: []
     actions:
       queue:
 priority_rules:
-  - name: priority for queue `duplicated default from automatic merge for ready-to-merge
-      pull requests`
+  - name: priority for queue `automatic merge for ready-to-merge pull requests`
+    priority: 2500
     conditions:
       - label=ready-to-merge
-    priority: 2500
-  - name: priority for queue `duplicated default from automatic merge for merge-on-weekend
-      pull requests`
+    allow_checks_interruption: false
+  - name: priority for queue `automatic merge for merge-on-weekend pull requests`
+    priority: 2250
     conditions:
       - author~=^edgedalmacio$
       - label=merge-on-weekend
       - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
-    priority: 2250
+    allow_checks_interruption: false
