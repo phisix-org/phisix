@@ -19,7 +19,6 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -53,7 +52,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	private final Gson gson;
 	
 	public GsonAwareParser() {
-		Type type = new TypeToken<Collection<Stock>>() {}.getType();
+		Type type = new TypeToken<Stock>() {}.getType();
 		gson = new GsonBuilder()
 			.registerTypeAdapter(type, new PhisixDeserializer())
 			.create();
@@ -68,7 +67,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 			return stocks;
 		}
 		JsonArray jsonArray = parse.getAsJsonArray();
-		Type type = new TypeToken<Collection<Stock>>() {}.getType();
+		Type type = new TypeToken<Stock>() {}.getType();
 		
 //		boolean isFirst = true;
 		for (JsonElement jsonElement : jsonArray) {
