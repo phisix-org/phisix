@@ -3,7 +3,6 @@ queue_rules:
     queue_conditions:
       - status-success=verify
       - author~=^edgedalmacio$
-      - status-success=verify
       - label=ready-to-merge
     merge_conditions: []
     merge_method: rebase
@@ -11,7 +10,6 @@ queue_rules:
     queue_conditions:
       - status-success=verify
       - author~=^edgedalmacio$
-      - status-success=verify
       - label=merge-on-weekend
       - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
     merge_conditions: []
