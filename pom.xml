@@ -5,7 +5,7 @@
 	<packaging>war</packaging>
 	<version>1.7-SNAPSHOT</version>
 	<name>Philippine Stock Exchange Composite Index RESTful API</name>
-	<url>https://phisix-api.appspot.com</url>
+	<url>https://github.com/phisix-org/phisix</url>
 	<description>Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine</description>
 	<inceptionYear>2012</inceptionYear>
 	<licenses>

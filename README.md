@@ -10,7 +10,153 @@ phisix
 
 Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
-###Resources Summary###
+> **⚠️ IMPORTANT NOTICE: The public phisix-api.appspot.com service has been discontinued for legal reasons.**  
+> **A takedown notice was received on November 30, 2023, and the service was shut down on December 4, 2023.**  
+> **To access Philippine Stock Exchange data, please deploy your own instance using the instructions below.**
+
+## Development & Deployment
+
+### Prerequisites
+
+- **Java 17** (OpenJDK recommended)
+- **Maven 3.6+** 
+- **Google Cloud SDK** (for App Engine deployment)
+- **Git**
+
+### Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/phisix-org/phisix.git
+   cd phisix
+   ```
+
+2. **Build the project**
+   ```bash
+   mvn clean compile
+   ```
+
+3. **Run tests**
+   ```bash
+   mvn test
+   ```
+
+4. **Run full verification** (includes integration tests & code coverage)
+   ```bash
+   mvn clean verify
+   ```
+
+5. **Run locally** (for development)
+   ```bash
+   mvn clean package appengine:run
+   ```
+
+### Local Development
+
+#### Running with App Engine Development Server
+
+**Note**: Always use `mvn clean package appengine:run` during development to ensure:
+- Source code changes are recompiled
+- Tests are executed
+- Documentation changes are regenerated 
+- Site content is updated with latest modifications
+- WAR file is properly packaged
+
+1. **Stage the application** (optional - for testing staging process)
+   ```bash
+   mvn clean package appengine:stage
+   ```
+
+2. **Run locally** (recommended for development)
+   ```bash
+   mvn clean package appengine:run
+   ```
+
+   The API will be available at: `http://localhost:8080`
+
+#### Test the local API
+
+- **All stocks (JSON)**: `http://localhost:8080/stocks.json`
+- **All stocks (XML)**: `http://localhost:8080/stocks.xml`
+- **Specific stock**: `http://localhost:8080/stocks/BDO.json`
+- **Historical data**: `http://localhost:8080/stocks/BDO.2024-01-15.json`
+
+### Deployment to Google App Engine
+
+#### Prerequisites for Deployment
+
+1. **Setup Google Cloud Project**
+   ```bash
+   gcloud projects create your-project-id
+   gcloud config set project your-project-id
+   gcloud app create
+   ```
+
+2. **Enable App Engine API**
+   ```bash
+   gcloud services enable appengine.googleapis.com
+   ```
+
+3. **Authenticate**
+   ```bash
+   gcloud auth login
+   gcloud auth application-default login
+   ```
+
+#### Deploy to App Engine
+
+1. **Update `pom.xml`** - Change the App Engine application name:
+   ```xml
+   <properties>
+       <appengine.app.name>your-project-id</appengine.app.name>
+   </properties>
+   ```
+
+2. **Deploy**
+   ```bash
+   mvn clean package appengine:deploy
+   ```
+
+   Your API will be available at: `https://your-project-id.appspot.com`
+
+### Project Structure
+
+```
+phisix/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/googlecode/phisix/api/
+│   │   │       ├── client/          # PSE website scraping clients
+│   │   │       ├── ext/             # JAX-RS providers & filters  
+│   │   │       ├── parser/          # HTML & JSON parsers
+│   │   │       ├── repository/      # Data access layer
+│   │   │       └── resource/        # REST API endpoints
+│   │   ├── resources/               # Configuration files
+│   │   └── webapp/
+│   │       ├── WEB-INF/            # Web app configuration
+│   │       └── schema/             # XSD schemas
+│   └── test/                       # Unit & integration tests
+├── target/                         # Build output
+├── pom.xml                        # Maven configuration
+└── README.md                      # This file
+```
+
+### Technology Stack
+
+- **Runtime**: Java 17
+- **Framework**: JAX-RS (RESTEasy)
+- **Platform**: Google App Engine Standard
+- **Build Tool**: Maven
+- **Data Binding**: JAXB (XML), Gson (JSON)
+- **Web Scraping**: JSoup
+- **Testing**: JUnit, Mockito
+
+### API Endpoints
+
+Once running, the following endpoints will be available:
+
+### Resources Summary
 
 **Stocks**: look up stocks
 
@@ -18,7 +164,7 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
     GET http://phisix-api.appspot.com/stocks/{symbol}.{json|xml}
     GET http://phisix-api.appspot.com/stocks/{symbol}.{yyyy-MM-dd}.{json|xml}
 
-###JSON feeds###
+### JSON feeds
 
 <table>
 	<tr>
@@ -58,7 +204,7 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	</tr>
 </table>
 
-###XML feeds###
+### XML feeds
 
 <table>
 	<tr>
@@ -98,6 +244,6 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 	</tr>
 </table>
 
-###XSD###
+### XSD
 
 [http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd](http://phisix-api.appspot.com/schema/stocks/phisix-stocks.xsd)
