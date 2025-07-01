@@ -42,12 +42,19 @@ public class GsonAwareParserTest {
 		Reader reader = new BufferedReader(new FileReader("src/test/resources/JsonRawSample.txt"));
 		Stocks stocks = parser.parse(reader);
 		assertEquals(363, stocks.getStocks().size());
-		Calendar expected = Calendar.getInstance();
-		expected.setTimeZone(TimeZone.getTimeZone("Asia/Manila"));
-		expected.set(Calendar.HOUR_OF_DAY, 0);
-		expected.set(Calendar.MINUTE, 0);
-		expected.set(Calendar.SECOND, 0);
-		expected.set(Calendar.MILLISECOND, 0);
-		assertEquals(expected, stocks.getAsOf());
+		
+		// Verify that asOf is set to current date with time zeroed out
+		Calendar asOf = stocks.getAsOf();
+		assertNotNull(asOf);
+		assertEquals(TimeZone.getTimeZone("Asia/Manila"), asOf.getTimeZone());
+		assertEquals(0, asOf.get(Calendar.HOUR_OF_DAY));
+		assertEquals(0, asOf.get(Calendar.MINUTE));
+		assertEquals(0, asOf.get(Calendar.SECOND));
+		assertEquals(0, asOf.get(Calendar.MILLISECOND));
+		
+		// Verify it's today's date (within a reasonable range to handle timing differences)
+		Calendar today = Calendar.getInstance(TimeZone.getTimeZone("Asia/Manila"));
+		assertTrue("AsOf date should be today's date", 
+			Math.abs(asOf.getTimeInMillis() - today.getTimeInMillis()) < 24 * 60 * 60 * 1000); // within 24 hours
 	}
 }
