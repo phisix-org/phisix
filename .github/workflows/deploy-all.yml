@@ -1,17 +1,19 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# This workflow will build a Java project with Maven and deploy to multiple environments
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Deploy phisix-3
+name: Deploy All Environments
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  deploy-3:
-
+  deploy:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        environment: [2, 3]
+    
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -22,7 +24,6 @@ jobs:
         cache: maven
     - uses: 'google-github-actions/auth@v2'
       with:
-        credentials_json: '${{ secrets.PHISIX_3_KEY }}'
-    - name: Test Deploy
-      run: mvn -B clean package appengine:deploy -Pphisix-3 --file pom.xml
-      
+        credentials_json: ${{ secrets[format('PHISIX_{0}_KEY', matrix.environment)] }}
+    - name: Deploy to phisix-${{ matrix.environment }}
+      run: mvn -B clean package appengine:deploy -Pphisix-${{ matrix.environment }} --file pom.xml 
