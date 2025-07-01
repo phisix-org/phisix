@@ -8,3 +8,7 @@ updates:
     time: "14:45"
     timezone: Asia/Singapore
   open-pull-requests-limit: 10
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
