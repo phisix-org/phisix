@@ -1,42 +1,78 @@
 queue_rules:
-  - name: duplicated default from automatic merge for ready-to-merge pull requests
+  # Queue for ready-to-merge PRs from maintainer
+  - name: ready-to-merge
     queue_conditions:
       - status-success=verify
       - author~=^edgedalmacio$
       - label=ready-to-merge
-    merge_conditions: []
+    merge_conditions:
+      - status-success=verify
+      - base=master
     merge_method: rebase
-  - name: duplicated default from automatic merge for merge-on-weekend pull requests
+
+  # Queue for weekend merges from maintainer  
+  - name: merge-on-weekend
     queue_conditions:
       - status-success=verify
       - author~=^edgedalmacio$
       - label=merge-on-weekend
       - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
-    merge_conditions: []
+    merge_conditions:
+      - status-success=verify
+      - base=master
     merge_method: rebase
-  - name: default
+
+  # Queue for Dependabot PRs
+  - name: dependabot
     queue_conditions:
       - author~=^dependabot(|-preview)\[bot\]$
       - status-success=verify
     merge_conditions:
       - status-success=verify
+      - base=master
     merge_method: rebase
+
 pull_request_rules:
-  - name: automatic merge for Dependabot pull requests + automatic merge for merge-on-weekend
-      pull requests + automatic merge for ready-to-merge pull requests
-    conditions: []
+  # Automatically queue qualifying PRs
+  - name: auto-queue qualifying PRs
+    conditions:
+      - or:
+          # Dependabot PRs that pass verification
+          - and:
+              - author~=^dependabot(|-preview)\[bot\]$
+              - status-success=verify
+          # Maintainer PRs with ready-to-merge label
+          - and:
+              - author~=^edgedalmacio$
+              - label=ready-to-merge
+              - status-success=verify
+          # Maintainer PRs with weekend merge label (during weekend hours)
+          - and:
+              - author~=^edgedalmacio$
+              - label=merge-on-weekend
+              - status-success=verify
+              - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
     actions:
       queue:
+
 priority_rules:
-  - name: priority for queue `duplicated default from automatic merge for ready-to-merge
-      pull requests`
+  # Highest priority for ready-to-merge
+  - name: priority ready-to-merge
     conditions:
+      - author~=^edgedalmacio$
       - label=ready-to-merge
-    priority: 2500
-  - name: priority for queue `duplicated default from automatic merge for merge-on-weekend
-      pull requests`
+    priority: 3000
+
+  # Medium priority for weekend merges
+  - name: priority weekend-merge
     conditions:
       - author~=^edgedalmacio$
       - label=merge-on-weekend
       - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
-    priority: 2250
+    priority: 2000
+
+  # Lower priority for Dependabot
+  - name: priority dependabot
+    conditions:
+      - author~=^dependabot(|-preview)\[bot\]$
+    priority: 1000
