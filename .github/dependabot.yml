@@ -6,7 +6,7 @@ updates:
     interval: weekly
     day: friday
     time: "14:45"
-    timezone: Asia/Singapore
+    timezone: Asia/Manila
   open-pull-requests-limit: 10
 - package-ecosystem: "github-actions"
   directory: "/"
@@ -14,5 +14,5 @@ updates:
     interval: "weekly"
     day: friday
     time: "14:45"
-    timezone: Asia/Singapore
+    timezone: Asia/Manila
   open-pull-requests-limit: 10

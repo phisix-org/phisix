@@ -7,7 +7,7 @@ name: Close stale issues and pull requests
 
 on:
   schedule:
-    # Run daily at 1:30 AM UTC (9:30 AM Singapore time)
+    # Run daily at 1:30 AM UTC (9:30 AM Manila time)
     - cron: '30 1 * * *'
 
 jobs:
