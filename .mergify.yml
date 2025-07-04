@@ -16,7 +16,7 @@ queue_rules:
       - status-success=verify
       - author~=^edgedalmacio$
       - label=merge-on-weekend
-      - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
+      - schedule=Fri-Sun 14:45-23:59[Asia/Manila]
     merge_conditions:
       - status-success=verify
       - base=master
@@ -51,7 +51,7 @@ pull_request_rules:
               - author~=^edgedalmacio$
               - label=merge-on-weekend
               - status-success=verify
-              - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
+              - schedule=Fri-Sun 14:45-23:59[Asia/Manila]
     actions:
       queue:
 
@@ -68,7 +68,7 @@ priority_rules:
     conditions:
       - author~=^edgedalmacio$
       - label=merge-on-weekend
-      - schedule=Sat-Sun 08:00-16:00[Asia/Manila]
+      - schedule=Fri-Sun 14:45-23:59[Asia/Manila]
     priority: 2000
 
   # Lower priority for Dependabot
