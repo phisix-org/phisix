@@ -40,13 +40,12 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.googlecode.phisix.api.model.Stocks;
 
-/**
- * Custom MessageBodyWriter for Stocks that formats Calendar dates as ISO 8601 strings,
- * uses "as_of" field name instead of "asOf", and uses "stock" (singular) field name
- * for the stock array to match the XML schema
- * 
- * @author Edge Dalmacio
- */
+	/**
+	 * Custom MessageBodyWriter for Stocks that formats Calendar dates as ISO 8601 strings
+	 * and uses "as_of" field name instead of "asOf"
+	 * 
+	 * @author Edge Dalmacio
+	 */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 public class StocksMessageBodyWriter implements MessageBodyWriter<Stocks> {
@@ -89,7 +88,6 @@ public class StocksMessageBodyWriter implements MessageBodyWriter<Stocks> {
 	 * Custom serializer for Stocks that:
 	 * 1. Formats Calendar asOf as ISO 8601 string
 	 * 2. Uses "as_of" field name instead of "asOf"
-	 * 3. Uses "stock" (singular) field name for the array to match XML schema
 	 */
 	private static class StocksSerializer implements JsonSerializer<Stocks> {
 		
@@ -104,9 +102,9 @@ public class StocksMessageBodyWriter implements MessageBodyWriter<Stocks> {
 		public JsonElement serialize(Stocks stocks, Type typeOfSrc, JsonSerializationContext context) {
 			JsonObject jsonObject = new JsonObject();
 			
-			// Serialize stocks array with field name "stock" (singular) to match XML schema
+			// Serialize stocks array with field name "stocks" (plural)
 			JsonElement stocksArray = stockGson.toJsonTree(stocks.getStocks());
-			jsonObject.add("stock", stocksArray);
+			jsonObject.add("stocks", stocksArray);
 			
 			// Serialize asOf Calendar as ISO 8601 string with field name "as_of"
 			Calendar asOf = stocks.getAsOf();
