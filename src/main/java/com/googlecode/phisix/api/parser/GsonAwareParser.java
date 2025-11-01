@@ -35,8 +35,11 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.Strictness;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
+import com.googlecode.phisix.api.parser.Parser;
 
 /**
  * {@link Parser} that delegates to a {@link JsonParser}.
@@ -53,6 +56,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	
 	public GsonAwareParser() {
 		Type type = new TypeToken<Stock>() {}.getType();
+		// Gson 2.11.0+: strictness is controlled at JsonReader level, not GsonBuilder
 		gson = new GsonBuilder()
 			.registerTypeAdapter(type, new PhisixDeserializer())
 			.create();
@@ -62,8 +66,20 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
-		JsonElement parse = JsonParser.parseReader(source);
-		if (JsonNull.INSTANCE.equals(parse)) {
+		// Use JsonReader with LENIENT strictness to handle malformed JSON
+		// Gson 2.11.0+ (including 2.13.2) uses setStrictness() API
+		JsonElement parse = null;
+		try {
+			JsonReader jsonReader = new JsonReader(source);
+			// Strictness enum is in com.google.gson package starting from Gson 2.11.0
+			jsonReader.setStrictness(Strictness.LENIENT);
+			parse = JsonParser.parseReader(jsonReader);
+		} catch (Exception e) {
+			LOGGER.error("Failed to parse JSON", e);
+			return stocks;
+		}
+		
+		if (parse == null || JsonNull.INSTANCE.equals(parse)) {
 			return stocks;
 		}
 		

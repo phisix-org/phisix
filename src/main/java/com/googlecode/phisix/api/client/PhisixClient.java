@@ -15,11 +15,11 @@
  */
 package com.googlecode.phisix.api.client;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import com.googlecode.phisix.api.model.Stocks;
 
@@ -30,7 +30,7 @@ public interface PhisixClient {
 
 	@GET
 	@Path("/stocks/{symbol}.{tradingDate}.json")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	Stocks getStockByDate(
 			@PathParam("symbol") String symbol, 
 			@PathParam("tradingDate") String tradingDate);

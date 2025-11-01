@@ -7,11 +7,11 @@
 	version="2.1">
 	<globalBindings>
 		<javaType name="java.util.Calendar" xmlType="xs:dateTime"
-			parseMethod="javax.xml.bind.DateAdapter.parseDateTime"
-			printMethod="javax.xml.bind.DateAdapter.printDateTime" />
+			parseMethod="jakarta.xml.bind.DateAdapter.parseDateTime"
+			printMethod="jakarta.xml.bind.DateAdapter.printDateTime" />
 		<javaType name="java.lang.String" xmlType="stocks:CurrencyCode"
-			parseMethod="javax.xml.bind.DatatypeConverter.parseString"
-			printMethod="javax.xml.bind.DatatypeConverter.printString" />
+			parseMethod="jakarta.xml.bind.DatatypeConverter.parseString"
+			printMethod="jakarta.xml.bind.DatatypeConverter.printString" />
 		<serializable uid="100" />
 		<xjc:simple />
 	</globalBindings>

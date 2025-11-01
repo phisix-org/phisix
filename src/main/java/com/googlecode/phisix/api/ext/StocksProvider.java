@@ -22,12 +22,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.zip.GZIPInputStream;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.ext.Provider;
 
 import org.jboss.resteasy.util.NoContent;
 
@@ -71,11 +72,24 @@ public class StocksProvider implements MessageBodyReader<Stocks> {
 			return new Stocks();
 		}
 		
+		// Handle gzip/deflate compression
+		InputStream decompressedStream = entityStream;
+		if (httpHeaders != null) {
+			String contentEncoding = httpHeaders.getFirst("Content-Encoding");
+			if (contentEncoding != null && contentEncoding.contains("gzip")) {
+				try {
+					decompressedStream = new GZIPInputStream(entityStream);
+				} catch (IOException e) {
+					throw new WebApplicationException("Failed to decompress gzip response", e);
+				}
+			}
+		}
+		
 		String charset = mediaType.getParameters().get("charset");
 		
 		Reader isr = charset == null 
-				? new InputStreamReader(entityStream) 
-				: new InputStreamReader(entityStream, charset);
+				? new InputStreamReader(decompressedStream) 
+				: new InputStreamReader(decompressedStream, charset);
 		
 		Reader br = new BufferedReader(isr);
 		

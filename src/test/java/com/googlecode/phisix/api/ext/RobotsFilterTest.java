@@ -20,9 +20,9 @@ import static org.mockito.Mockito.*;
 
 import java.util.Collections;
 
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.container.ContainerResponseContext;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
