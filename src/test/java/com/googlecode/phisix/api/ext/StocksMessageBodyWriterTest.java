@@ -49,7 +49,7 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void isWriteable_shouldReturnTrueForStocksClassWithJsonMediaType() {
+	public void isWriteableShouldReturnTrueForStocksClassWithJsonMediaType() {
 		assertTrue(writer.isWriteable(Stocks.class, null, null, MediaType.APPLICATION_JSON_TYPE));
 		assertTrue(writer.isWriteable(Stocks.class, null, null, 
 			new MediaType("application", "json")));
@@ -58,20 +58,20 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void isWriteable_shouldReturnFalseForNonStocksClass() {
+	public void isWriteableShouldReturnFalseForNonStocksClass() {
 		assertFalse(writer.isWriteable(String.class, null, null, MediaType.APPLICATION_JSON_TYPE));
 		assertFalse(writer.isWriteable(Object.class, null, null, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	@Test
-	public void isWriteable_shouldReturnFalseForNonJsonMediaType() {
+	public void isWriteableShouldReturnFalseForNonJsonMediaType() {
 		assertFalse(writer.isWriteable(Stocks.class, null, null, MediaType.APPLICATION_XML_TYPE));
 		assertFalse(writer.isWriteable(Stocks.class, null, null, MediaType.TEXT_PLAIN_TYPE));
 		assertFalse(writer.isWriteable(Stocks.class, null, null, null));
 	}
 
 	@Test
-	public void writeTo_shouldSerializeWithAsOfInIso8601Format() throws Exception {
+	public void writeToShouldSerializeWithAsOfInIso8601Format() throws Exception {
 		// Arrange
 		Stocks stocks = createStocksWithDate(2024, Calendar.JANUARY, 15, 0, 0, 0);
 		
@@ -96,7 +96,7 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void writeTo_shouldSerializeMultipleStocks() throws Exception {
+	public void writeToShouldSerializeMultipleStocks() throws Exception {
 		// Arrange
 		Stocks stocks = new Stocks();
 		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
@@ -123,7 +123,7 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void writeTo_shouldHandleNullAsOf() throws Exception {
+	public void writeToShouldHandleNullAsOf() throws Exception {
 		// Arrange
 		Stocks stocks = new Stocks();
 		stocks.setAsOf(null);
@@ -145,7 +145,7 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void writeTo_shouldUseUnderscoreFieldName() throws Exception {
+	public void writeToShouldUseUnderscoreFieldName() throws Exception {
 		// Arrange
 		Stocks stocks = createStocksWithDate(2024, Calendar.JANUARY, 15, 0, 0, 0);
 		
@@ -164,7 +164,7 @@ public class StocksMessageBodyWriterTest {
 	}
 
 	@Test
-	public void writeTo_shouldFormatDateWithTimezone() throws Exception {
+	public void writeToShouldFormatDateWithTimezone() throws Exception {
 		// Arrange - Test with specific date that should include timezone
 		Stocks stocks = createStocksWithDate(2025, Calendar.OCTOBER, 31, 0, 0, 0);
 		
