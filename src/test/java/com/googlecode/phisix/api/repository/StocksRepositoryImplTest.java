@@ -35,8 +35,6 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.googlecode.phisix.api.client.GaClient;
-import com.googlecode.phisix.api.client.GaClientConstants;
 import com.googlecode.phisix.api.client.PseClient;
 import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.model.Price;
@@ -56,14 +54,11 @@ public class StocksRepositoryImplTest {
 	@Mock
 	private PseClient pseClient;
 	
-	@Mock
-	private GaClient gaClient;
-	
 	@Before
 	public void setUp() {
 		helper.setUp();
 		datastore = DatastoreServiceFactory.getDatastoreService();
-		stocksRepository = new StocksRepositoryImpl(pseClient, gaClient);
+		stocksRepository = new StocksRepositoryImpl(pseClient);
 	}
 	
 	@After
@@ -82,8 +77,6 @@ public class StocksRepositoryImplTest {
 
 		assertEquals(expected, stocksRepository.findAll());
 		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
-		
-//		verify(gaClient, times(2)).eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", "all", GaClientConstants.USER_AGENT);
 	}
 	
 	@Test
@@ -93,7 +86,6 @@ public class StocksRepositoryImplTest {
 		String symbol = "sm";
 		stocksRepository.findBySymbol(symbol);
 		verify(pseClient).companyInfo("fetchHeaderData", true, "company=599&security=520");
-//		verify(gaClient).eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol, GaClientConstants.USER_AGENT);
 	}
 	
 	@Test
@@ -110,7 +102,6 @@ public class StocksRepositoryImplTest {
 		assertEquals(1080760, actualStock.getVolume());
 		assertEquals("PHP", actualStock.getPrice().getCurrency());
 		assertEquals(new BigDecimal("730"), actualStock.getPrice().getAmount());
-//		verify(gaClient).eventTracking(GaClientConstants.VERSION, GaClientConstants.TRACKING_ID, GaClientConstants.CLIENT_ID, GaClientConstants.EVENT_HIT, "stocks", symbol + ".2013-08-26", GaClientConstants.USER_AGENT);
 	}
 	
 	@Test
