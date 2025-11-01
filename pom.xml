@@ -115,8 +115,7 @@
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
 			<version>6.0.0</version>
-			<!-- Changed scope from provided to compile for App Engine dev server compatibility -->
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<!-- These dependencies are here just for enabling logging -->
 		<dependency>
