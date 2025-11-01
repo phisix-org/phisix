@@ -13,28 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.phisix.api.repository;
+package com.googlecode.phisix.api.client;
 
-import java.util.Date;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 
 import com.googlecode.phisix.api.model.Stocks;
 
 /**
- * CrudRepository for {@link Stocks}
- * 
  * @author Edge Dalmacio
- * 
  */
-public interface StocksRepository {
+public interface PhisixClient {
 
-	Stocks findAll();
-
-	String findBySymbol(String symbol);
-	
-	Stocks findBySymbolAndTradingDate(String symbol, Date tradingDate);
-
-	void save(Stocks stocks);
-
-	Stocks findBySymbolAndTradingDate(String symbol, String tradingDate);
+	@GET
+	@Path("/stocks/{symbol}.{tradingDate}.json")
+	@Consumes(MediaType.APPLICATION_JSON)
+	Stocks getStockByDate(
+			@PathParam("symbol") String symbol, 
+			@PathParam("tradingDate") String tradingDate);
 
 }

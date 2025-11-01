@@ -13,40 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.phisix.api.repository;
+package com.googlecode.phisix.api.client;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import javax.ws.rs.client.Client;
+
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 import org.junit.Test;
 
-import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Stocks;
 
-public class StocksRepositoryImplITCase {
+public class PhisixClientTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalMemcacheServiceTestConfig());
-	private StocksRepository stocksRepository;
-	
-	@Before
-	public void setUp() {
-		helper.setUp();
-		stocksRepository = new StocksRepositoryImpl();
-	}
-	
 	@Test
-	public void findAll() {
-		Stocks actual = stocksRepository.findAll();
-		assertNotNull(actual);
-		assertEquals(382, actual.getStocks().size());
-	}
-	
-//	@Test
-	public void findBySymbol() {
-		String actual = stocksRepository.findBySymbol("sm");
+	public void getStockByDate() {
+		Client client = new ResteasyClientBuilder()
+				.httpEngine(new URLConnectionEngine())
+				.register(StocksProvider.class)
+				.build();
+		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://phisix-api2.appspot.com");
+		PhisixClient phisixClient = target.proxy(PhisixClient.class);
+
+		Stocks actual = phisixClient.getStockByDate("SM", "2025-10-31");
 		assertNotNull(actual);
 		System.out.println(actual);
 	}
-
 }

@@ -117,4 +117,11 @@ public class StocksResourceTest {
 		Date tradingDate = calendar.getTime();
 		verify(stocksRepository).findBySymbolAndTradingDate("A", tradingDate);
 	}
+	
+	@Test
+	public void getStockByString() {
+		stocksResource.getStockByDate("a", "2013-09-03", null);
+		verify(stocksRepository).findBySymbolAndTradingDate("a", "2013-09-03");
+	}
+
 }

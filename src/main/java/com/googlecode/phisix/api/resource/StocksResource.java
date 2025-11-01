@@ -88,17 +88,34 @@ public class StocksResource {
 		throw new NotFoundException();
 	}
 	
+	public Stocks getStockByDate(@PathParam(value = "symbol") String symbol,
+			@PathParam(value = "date") String date) {
+		return getStockByDate(symbol, date, "PH");
+	}
+	
+	/**
+	 * 
+	 * @param symbol           stock symbol
+	 * @param date             trading date
+	 * @param appengineCountry determines if the request is from Appengine or not
+	 * @return
+	 */
 	@GET
 	@Path(value = "/{symbol}.{date}")
 	public Stocks getStockByDate(@PathParam(value = "symbol") String symbol,
-			@PathParam(value = "date") String date) {
-		Date tradingDate;
-		try {
-			tradingDate = dateParser.parse(date);
-		} catch (ParseException e) {
-			throw new BadRequestException(e.getMessage());
+			@PathParam(value = "date") String date,
+			@HeaderParam(value = "X-Appengine-Country") String appengineCountry) {
+		if (appengineCountry == null) {
+			return stocksRepository.findBySymbolAndTradingDate(symbol, date);
+		} else {
+			Date tradingDate;
+			try {
+				tradingDate = dateParser.parse(date);
+			} catch (ParseException e) {
+				throw new BadRequestException(e.getMessage());
+			}
+			return stocksRepository.findBySymbolAndTradingDate(symbol.toUpperCase(), tradingDate);
 		}
-		return stocksRepository.findBySymbolAndTradingDate(symbol.toUpperCase(), tradingDate);
 	}
 
 	@GET @POST
