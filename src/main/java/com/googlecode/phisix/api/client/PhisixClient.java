@@ -15,29 +15,24 @@
  */
 package com.googlecode.phisix.api.client;
 
-import static org.junit.Assert.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
 
-public class PseFramesClientTest {
+/**
+ * @author Edge Dalmacio
+ */
+public interface PhisixClient {
 
-	private PseClient pseClient;
+	@GET
+	@Path("/stocks/{symbol}.{tradingDate}.json")
+	@Consumes(MediaType.APPLICATION_JSON)
+	Stocks getStockByDate(
+			@PathParam("symbol") String symbol, 
+			@PathParam("tradingDate") String tradingDate);
 
-	@Before
-	public void setUp() {
-		pseClient = new PseFramesClient();
-	}
-	
-	@Test
-	public void getSecuritiesAndIndicesForPublic() {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic();
-		assertNotNull(actual);
-		for (Stock stock : actual.getStocks()) {
-			System.out.println(stock);
-		}
-	}
 }

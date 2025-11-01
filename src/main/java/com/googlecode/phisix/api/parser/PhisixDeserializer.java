@@ -41,24 +41,101 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		
 		JsonObject jsonObject = json.getAsJsonObject();
 		
-		String totalVolume = jsonObject.get("Volume").getAsString().replace(",", "");
-		if (totalVolume.length() == 0) {
+		Stock stock = new Stock();
+		
+		// Handle both old PSE format and new PhisixClient API format
+		JsonElement volumeElement = jsonObject.get("Volume");
+		if (volumeElement == null || volumeElement.isJsonNull()) {
+			volumeElement = jsonObject.get("volume");
+		}
+		
+		String totalVolume = null;
+		if (volumeElement != null && !volumeElement.isJsonNull()) {
+			if (volumeElement.isJsonPrimitive()) {
+				totalVolume = volumeElement.getAsString().replace(",", "");
+			} else {
+				// Try to get as number
+				try {
+					totalVolume = String.valueOf(volumeElement.getAsLong());
+				} catch (Exception e) {
+					totalVolume = volumeElement.getAsString();
+				}
+			}
+		}
+		
+		if (totalVolume == null || totalVolume.length() == 0) {
 			return null;
 		} else if (totalVolume.contains(".")) {
 			totalVolume = totalVolume.substring(0, totalVolume.length() - 3);
 		}
 		
-		Stock stock = new Stock();
+		// Name field
+		JsonElement nameElement = jsonObject.get("StockName");
+		if (nameElement == null || nameElement.isJsonNull()) {
+			nameElement = jsonObject.get("name");
+		}
+		if (nameElement != null && !nameElement.isJsonNull()) {
+			stock.setName(nameElement.getAsString());
+		}
 		
-		String securityAlias = jsonObject.get("StockName").getAsString();
-		stock.setName(securityAlias);
-		stock.setPercentChange(jsonObject.get("PercentChange").getAsBigDecimal());
+		// Percent change field
+		JsonElement percentChangeElement = jsonObject.get("PercentChange");
+		if (percentChangeElement == null || percentChangeElement.isJsonNull()) {
+			percentChangeElement = jsonObject.get("percent_change");
+		}
+		if (percentChangeElement != null && !percentChangeElement.isJsonNull()) {
+			if (percentChangeElement.isJsonPrimitive() && !percentChangeElement.getAsString().equals("null")) {
+				stock.setPercentChange(percentChangeElement.getAsBigDecimal());
+			}
+		}
+		
+		// Price field - handle both formats
 		Price price = new Price();
 		price.setCurrency("PHP");
-		String lastTradedPrice = jsonObject.get("Price").getAsString().replace(",", "");
-		price.setAmount(new BigDecimal(lastTradedPrice));
+		
+		JsonElement priceElement = jsonObject.get("Price");
+		if (priceElement != null && !priceElement.isJsonNull()) {
+			// Old format: "Price" is a string
+			String lastTradedPrice = priceElement.getAsString().replace(",", "");
+			price.setAmount(new BigDecimal(lastTradedPrice));
+		} else {
+			// New format: "price" is an object with "currency" and "amount"
+			JsonElement newPriceElement = jsonObject.get("price");
+			if (newPriceElement != null && newPriceElement.isJsonObject()) {
+				JsonObject priceObj = newPriceElement.getAsJsonObject();
+				JsonElement currencyElement = priceObj.get("currency");
+				if (currencyElement != null && !currencyElement.isJsonNull()) {
+					price.setCurrency(currencyElement.getAsString());
+				}
+				JsonElement amountElement = priceObj.get("amount");
+				if (amountElement != null && !amountElement.isJsonNull()) {
+					if (amountElement.isJsonPrimitive()) {
+						try {
+							price.setAmount(amountElement.getAsBigDecimal());
+						} catch (Exception e) {
+							String amountStr = amountElement.getAsString().replace(",", "");
+							price.setAmount(new BigDecimal(amountStr));
+						}
+					} else {
+						String amountStr = amountElement.getAsString().replace(",", "");
+						price.setAmount(new BigDecimal(amountStr));
+					}
+				}
+			}
+		}
 		stock.setPrice(price);
-		stock.setSymbol("PSEi".equalsIgnoreCase(securityAlias) ? "PSEi" : jsonObject.get("StockSymbol").getAsString());
+		
+		// Symbol field
+		JsonElement symbolElement = jsonObject.get("StockSymbol");
+		if (symbolElement == null || symbolElement.isJsonNull()) {
+			symbolElement = jsonObject.get("symbol");
+		}
+		if (symbolElement != null && !symbolElement.isJsonNull()) {
+			String symbol = symbolElement.getAsString();
+			String stockName = stock.getName();
+			stock.setSymbol("PSEi".equalsIgnoreCase(stockName) ? "PSEi" : symbol);
+		}
+		
 		stock.setVolume(Long.valueOf(totalVolume));
 		
 		return stock;

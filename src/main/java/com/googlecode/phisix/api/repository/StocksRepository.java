@@ -35,4 +35,6 @@ public interface StocksRepository {
 
 	void save(Stocks stocks);
 
+	Stocks findBySymbolAndTradingDate(String symbol, String tradingDate);
+
 }

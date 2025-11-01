@@ -24,6 +24,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.client.Client;
+
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -36,9 +41,10 @@ import com.google.appengine.api.datastore.TransactionOptions;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.googlecode.phisix.api.client.PhisixClient;
 import com.googlecode.phisix.api.client.PseClient;
-import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.client.PseFramesClient;
+import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -51,23 +57,32 @@ import com.googlecode.phisix.api.model.Stocks;
 public class StocksRepositoryImpl implements StocksRepository {
 
 	private final PseClient pseClient;
+	private final PhisixClient phisixClient;
 	private final Pattern pattern = Pattern.compile("\"listedCompany_companyId\":\"(\\d+)\".*\"securityId\":\"(\\d+)\"");
 	private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	private final MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 	
 	public StocksRepositoryImpl() {
 		this.pseClient = new PseFramesClient();
+
+		Client client = new ResteasyClientBuilder()
+				.httpEngine(new URLConnectionEngine())
+				.register(StocksProvider.class)
+				.build();
+		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://phisix-api2.appspot.com");
+		this.phisixClient = target.proxy(PhisixClient.class);
 	}
 	
-	public StocksRepositoryImpl(PseClient pseClient) {
+	public StocksRepositoryImpl(PseClient pseClient, PhisixClient phisixClient) {
 		this.pseClient = pseClient;
+		this.phisixClient = phisixClient;
 	}
 	
 	@Override
 	public Stocks findAll() {
 		Stocks stocks = (Stocks) memcache.get("ALL");
 		if (stocks == null) {
-			stocks = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+			stocks = pseClient.getSecuritiesAndIndicesForPublic();
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		return stocks;
@@ -128,6 +143,11 @@ public class StocksRepositoryImpl implements StocksRepository {
 		stocks.getStocks().add(stock);
 		
 		return stocks;
+	}
+	
+	@Override
+	public Stocks findBySymbolAndTradingDate(String symbol, String tradingDate) {
+		return phisixClient.getStockByDate(symbol, tradingDate);
 	}
 	
 	@Override

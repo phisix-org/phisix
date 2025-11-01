@@ -35,8 +35,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.phisix.api.client.PhisixClient;
 import com.googlecode.phisix.api.client.PseClient;
-import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
 import com.googlecode.phisix.api.model.Stocks;
@@ -54,11 +54,14 @@ public class StocksRepositoryImplTest {
 	@Mock
 	private PseClient pseClient;
 	
+	@Mock
+	private PhisixClient phisixClient;
+	
 	@Before
 	public void setUp() {
 		helper.setUp();
 		datastore = DatastoreServiceFactory.getDatastoreService();
-		stocksRepository = new StocksRepositoryImpl(pseClient);
+		stocksRepository = new StocksRepositoryImpl(pseClient, phisixClient);
 	}
 	
 	@After
@@ -70,13 +73,13 @@ public class StocksRepositoryImplTest {
 	public void findAll() {
 		Stocks expected = new Stocks();
 		
-		when(pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true)).thenReturn(expected);
+		when(pseClient.getSecuritiesAndIndicesForPublic()).thenReturn(expected);
 
 		assertSame(expected, stocksRepository.findAll());
-		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(pseClient).getSecuritiesAndIndicesForPublic();
 
 		assertEquals(expected, stocksRepository.findAll());
-		verify(pseClient).getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+		verify(pseClient).getSecuritiesAndIndicesForPublic();
 	}
 	
 	@Test
@@ -103,7 +106,15 @@ public class StocksRepositoryImplTest {
 		assertEquals("PHP", actualStock.getPrice().getCurrency());
 		assertEquals(new BigDecimal("730"), actualStock.getPrice().getAmount());
 	}
-	
+
+	@Test
+	public void findBySymbolAndTradingDateString() throws Exception {
+		String symbol = "SM";
+		String tradingDate = "2013-07-26";
+		stocksRepository.findBySymbolAndTradingDate(symbol, tradingDate);
+		verify(phisixClient).getStockByDate(symbol, tradingDate);
+	}
+
 	@Test
 	public void save() throws Exception {
 		Stocks stocks = new Stocks();

@@ -66,7 +66,32 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		if (JsonNull.INSTANCE.equals(parse)) {
 			return stocks;
 		}
-		JsonArray jsonArray = parse.getAsJsonArray();
+		
+		JsonArray jsonArray;
+		JsonObject rootObject = null;
+		
+		// Handle both array and object formats
+		if (parse.isJsonObject()) {
+			rootObject = parse.getAsJsonObject();
+			if (rootObject.has("stock") && rootObject.get("stock").isJsonArray()) {
+				jsonArray = rootObject.get("stock").getAsJsonArray();
+				// Parse as_of date if present
+				JsonElement asOfElement = rootObject.get("as_of");
+				if (asOfElement != null && !asOfElement.isJsonNull()) {
+					Calendar asOfCalendar = parseAsOfDateFromString(asOfElement.getAsString());
+					if (asOfCalendar != null) {
+						stocks.setAsOf(asOfCalendar);
+					}
+				}
+			} else {
+				// Fallback: treat object as array with single element
+				jsonArray = new com.google.gson.JsonArray();
+				jsonArray.add(parse);
+			}
+		} else {
+			jsonArray = parse.getAsJsonArray();
+		}
+		
 		Type type = new TypeToken<Stock>() {}.getType();
 		
 //		boolean isFirst = true;
@@ -103,6 +128,30 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 		} catch (ParseException e) {
 			if (LOGGER.isWarnEnabled()) {
 				LOGGER.warn(e.getMessage(), e);
+			}
+		}
+		return calendar;
+	}
+	
+	protected Calendar parseAsOfDateFromString(String asOfDateString) {
+		Calendar calendar = null;
+		try {
+			// Handle ISO 8601 format: "2025-10-31T00:00:00+08:00"
+			java.text.SimpleDateFormat isoFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+			Date date = isoFormat.parse(asOfDateString);
+			calendar = Calendar.getInstance(ASIA_MANILA);
+			calendar.setTime(date);
+		} catch (ParseException e) {
+			try {
+				// Try without timezone offset
+				java.text.SimpleDateFormat isoFormatNoTz = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date date = isoFormatNoTz.parse(asOfDateString);
+				calendar = Calendar.getInstance(ASIA_MANILA);
+				calendar.setTime(date);
+			} catch (ParseException e2) {
+				if (LOGGER.isWarnEnabled()) {
+					LOGGER.warn("Failed to parse as_of date: " + asOfDateString, e2);
+				}
 			}
 		}
 		return calendar;

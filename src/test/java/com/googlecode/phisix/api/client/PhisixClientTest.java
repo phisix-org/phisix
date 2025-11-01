@@ -17,27 +17,29 @@ package com.googlecode.phisix.api.client;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import javax.ws.rs.client.Client;
+
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 import org.junit.Test;
 
-import com.googlecode.phisix.api.model.Stock;
+import com.googlecode.phisix.api.ext.StocksProvider;
 import com.googlecode.phisix.api.model.Stocks;
 
-public class PseFramesClientTest {
+public class PhisixClientTest {
 
-	private PseClient pseClient;
-
-	@Before
-	public void setUp() {
-		pseClient = new PseFramesClient();
-	}
-	
 	@Test
-	public void getSecuritiesAndIndicesForPublic() {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic();
+	public void getStockByDate() {
+		Client client = new ResteasyClientBuilder()
+				.httpEngine(new URLConnectionEngine())
+				.register(StocksProvider.class)
+				.build();
+		ResteasyWebTarget target = (ResteasyWebTarget) client.target("https://phisix-api2.appspot.com");
+		PhisixClient phisixClient = target.proxy(PhisixClient.class);
+
+		Stocks actual = phisixClient.getStockByDate("SM", "2025-10-31");
 		assertNotNull(actual);
-		for (Stock stock : actual.getStocks()) {
-			System.out.println(stock);
-		}
+		System.out.println(actual);
 	}
 }

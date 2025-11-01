@@ -39,7 +39,7 @@ public class StocksRepositoryImplITCase {
 	public void findAll() {
 		Stocks actual = stocksRepository.findAll();
 		assertNotNull(actual);
-		assertEquals(363, actual.getStocks().size());
+		assertEquals(382, actual.getStocks().size());
 	}
 	
 //	@Test
