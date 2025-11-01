@@ -21,8 +21,8 @@ import static org.mockito.Mockito.*;
 import java.io.InputStream;
 import java.io.Reader;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.MessageBodyReader;
 
 import org.junit.Before;
 import org.junit.Test;

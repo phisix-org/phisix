@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.xml.bind;
+package jakarta.xml.bind;
 
 import java.util.Calendar;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
 /**
- * Adapts {@link XMLGregorianCalendar} to {@link Calendar}.
+ * Adapts XML date/time strings to {@link Calendar}.
  *
  * @author Lorenzo Dee
  * @author Edge Dalmacio

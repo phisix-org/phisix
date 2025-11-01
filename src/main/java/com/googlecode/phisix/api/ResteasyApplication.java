@@ -13,28 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package javax.xml.bind;
+package com.googlecode.phisix.api;
 
-import java.util.Currency;
+import java.util.Collections;
+import java.util.Set;
+
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
 
 /**
- * @author Lorenzo Dee
- *
+ * RESTEasy Application configuration
+ * 
+ * @author Edge Dalmacio
  */
-public class CurrencyAdapter {
-
-	/**
-	 * @see Currency#getInstance(String)
-	 */
-	public static Currency parseCurrency(String code) {
-		return Currency.getInstance(code);
+@ApplicationPath("/")
+public class ResteasyApplication extends Application {
+	
+	@Override
+	public Set<Class<?>> getClasses() {
+		// Return empty set - RESTEasy will auto-discover resources and providers
+		// via @Path and @Provider annotations
+		return Collections.emptySet();
 	}
-
-	/**
-	 * @see Currency#getCurrencyCode()
-	 */
-	public static String printCurrency(Currency currency) {
-		return currency.getCurrencyCode();
-	}
-
 }
+

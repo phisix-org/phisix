@@ -21,14 +21,14 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.TimeZone;
 
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 
 import org.apache.commons.lang3.time.DateParser;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -101,7 +101,7 @@ public class StocksResource {
 	 * @return
 	 */
 	@GET
-	@Path(value = "/{symbol}.{date}")
+	@Path(value = "/{symbol}.{date:[0-9]{4}-[0-9]{2}-[0-9]{2}}")
 	public Stocks getStockByDate(@PathParam(value = "symbol") String symbol,
 			@PathParam(value = "date") String date,
 			@HeaderParam(value = "X-Appengine-Country") String appengineCountry) {

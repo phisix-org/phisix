@@ -23,8 +23,8 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.client.Client;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.client.Client;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -65,7 +65,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	public StocksRepositoryImpl() {
 		this.pseClient = new PseFramesClient();
 
-		Client client = new ResteasyClientBuilder()
+		Client client = ((ResteasyClientBuilder) ResteasyClientBuilder.newBuilder())
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();

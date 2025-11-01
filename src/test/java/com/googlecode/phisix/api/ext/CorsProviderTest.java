@@ -18,7 +18,7 @@ package com.googlecode.phisix.api.ext;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import javax.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.core.FeatureContext;
 
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 import org.junit.Test;

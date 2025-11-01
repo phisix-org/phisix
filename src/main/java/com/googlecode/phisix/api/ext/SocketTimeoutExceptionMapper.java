@@ -17,10 +17,10 @@ package com.googlecode.phisix.api.ext;
 
 import java.net.SocketTimeoutException;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 /**
  * Maps {@link SocketTimeoutException} to HTTP 504 Gateway Timeout
