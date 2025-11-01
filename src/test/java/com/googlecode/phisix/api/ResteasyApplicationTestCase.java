@@ -39,7 +39,7 @@ import com.googlecode.phisix.api.resource.StocksResource;
  * 
  * @author Edge Dalmacio
  */
-public class ResteasyApplicationITCase {
+public class ResteasyApplicationTestCase {
 
 	@Test
 	public void testResteasyApplicationHasApplicationPathAnnotation() {
