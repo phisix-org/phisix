@@ -40,12 +40,12 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.googlecode.phisix.api.model.Stocks;
 
-/**
- * Custom MessageBodyWriter for Stocks that formats Calendar dates as ISO 8601 strings
- * and uses "as_of" field name instead of "asOf"
- * 
- * @author Edge Dalmacio
- */
+	/**
+	 * Custom MessageBodyWriter for Stocks that formats Calendar dates as ISO 8601 strings
+	 * and uses "as_of" field name instead of "asOf"
+	 * 
+	 * @author Edge Dalmacio
+	 */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 public class StocksMessageBodyWriter implements MessageBodyWriter<Stocks> {
@@ -102,7 +102,7 @@ public class StocksMessageBodyWriter implements MessageBodyWriter<Stocks> {
 		public JsonElement serialize(Stocks stocks, Type typeOfSrc, JsonSerializationContext context) {
 			JsonObject jsonObject = new JsonObject();
 			
-			// Serialize stocks array
+			// Serialize stocks array with field name "stocks" (plural)
 			JsonElement stocksArray = stockGson.toJsonTree(stocks.getStocks());
 			jsonObject.add("stocks", stocksArray);
 			
