@@ -17,7 +17,7 @@ package com.googlecode.phisix.api.client;
 
 import static org.junit.Assert.*;
 
-import javax.ws.rs.client.Client;
+import jakarta.ws.rs.client.Client;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -31,7 +31,7 @@ public class PhisixClientTest {
 
 	@Test
 	public void getStockByDate() {
-		Client client = new ResteasyClientBuilder()
+		Client client = ((ResteasyClientBuilder) ResteasyClientBuilder.newBuilder())
 				.httpEngine(new URLConnectionEngine())
 				.register(StocksProvider.class)
 				.build();

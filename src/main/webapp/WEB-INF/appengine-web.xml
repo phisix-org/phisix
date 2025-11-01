@@ -17,6 +17,7 @@
 
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
+		<property name="appengine.use.EE10" value="true"/>
 	</system-properties>
 
 	<ssl-enabled>true</ssl-enabled>
@@ -29,7 +30,7 @@
 	
 	<app-engine-apis>true</app-engine-apis>
 
-	<runtime>java17</runtime>
+	<runtime>java21</runtime>
 
 	<url-stream-handler>urlfetch</url-stream-handler>
 

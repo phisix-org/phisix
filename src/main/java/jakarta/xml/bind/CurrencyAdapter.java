@@ -13,32 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.googlecode.phisix.api.ext;
+package jakarta.xml.bind;
 
-import jakarta.ws.rs.core.Feature;
-import jakarta.ws.rs.core.FeatureContext;
-import jakarta.ws.rs.ext.Provider;
+import java.util.Currency;
 
 /**
- * @author Edge Dalmacio
+ * @author Lorenzo Dee
+ *
  */
-@Provider
-public class RobotsProvider implements Feature {
+public class CurrencyAdapter {
 
-	private final RobotsFilter robotsFilter;
+	/**
+	 * @see Currency#getInstance(String)
+	 */
+	public static Currency parseCurrency(String code) {
+		return Currency.getInstance(code);
+	}
 
-	public RobotsProvider() {
-		this(new RobotsFilter());
-	}
-	
-	public RobotsProvider(RobotsFilter robotsFilter) {
-		this.robotsFilter = robotsFilter;
-	}
-	
-	@Override
-	public boolean configure(FeatureContext context) {
-		context.register(robotsFilter);
-		return true;
+	/**
+	 * @see Currency#getCurrencyCode()
+	 */
+	public static String printCurrency(Currency currency) {
+		return currency.getCurrencyCode();
 	}
 
 }

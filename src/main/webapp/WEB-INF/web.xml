@@ -1,57 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="5.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
 	
 	<app-engine-apis>true</app-engine-apis>
 	
 	<display-name>PHISIX Philippine Stock Exchange Composite Index RESTful API</display-name>
 
+	<!-- RESTEasy configuration via auto-discovery -->
+	<!-- ServletContainerInitializer auto-discovers ResteasyApplication with @ApplicationPath -->
+	<!-- Resources and providers auto-discovered via @Path and @Provider annotations -->
 	<context-param>
-		<param-name>resteasy.providers</param-name>
-		<param-value>
-			com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,
-			com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper,
-			com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper,
-            org.jboss.resteasy.plugins.providers.jackson.Jackson2JsonpInterceptor,
-			com.googlecode.phisix.api.ext.WebApplicationExceptionMapper,
-			com.googlecode.phisix.api.ext.SocketTimeoutExceptionMapper,
-			com.googlecode.phisix.api.ext.GeneralExceptionMapper,
-			com.googlecode.phisix.api.ext.CorsProvider,
-			com.googlecode.phisix.api.ext.RobotsProvider
-		</param-value>
+		<param-name>resteasy.media.type.mappings</param-name>
+		<param-value>json : application/json, xml : application/xml</param-value>
 	</context-param>
 	<context-param>
-		<param-name>resteasy.resources</param-name>
-		<param-value>com.googlecode.phisix.api.resource.StocksResource</param-value>
+		<param-name>resteasy.jsonp.enable</param-name>
+		<param-value>true</param-value>
 	</context-param>
-    <context-param>
-        <param-name>resteasy.media.type.mappings</param-name>
-        <param-value>json : application/json, xml : application/xml</param-value>
-    </context-param>
-    <context-param>
-    	<param-name>resteasy.jsonp.enable</param-name>
-    	<param-value>true</param-value>
-    </context-param>
-
-	<filter>
-        <filter-name>Resteasy</filter-name>
-        <filter-class>
-            org.jboss.resteasy.plugins.server.servlet.FilterDispatcher
-        </filter-class>
-    </filter>
-	<!-- Add filters here -->
-
-    <filter-mapping>
-        <filter-name>Resteasy</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-	<!-- Add filer-mapping here -->
-	
-	<!-- Add servlets here -->
-	
-	<!-- Add servlet-mapping here -->
-
+    
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>/stocks/archive</web-resource-name>

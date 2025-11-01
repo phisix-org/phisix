@@ -18,7 +18,7 @@ Simple PSEi (formerly known as PHISIX) RESTful API hosted on Google AppEngine
 
 ### Prerequisites
 
-- **Java 17** (OpenJDK recommended)
+- **Java 21** (OpenJDK recommended)
 - **Maven 3.6+** 
 - **Google Cloud SDK** (for App Engine deployment)
 - **Git**
@@ -144,11 +144,11 @@ phisix/
 
 ### Technology Stack
 
-- **Runtime**: Java 17
-- **Framework**: JAX-RS (RESTEasy)
-- **Platform**: Google App Engine Standard
+- **Runtime**: Java 21 (Jakarta EE 10)
+- **Framework**: JAX-RS (RESTEasy 7.0.0.Final)
+- **Platform**: Google App Engine Standard (Java 21)
 - **Build Tool**: Maven
-- **Data Binding**: JAXB (XML), Gson (JSON)
+- **Data Binding**: JAXB (XML), Gson 2.13.2 (JSON)
 - **Web Scraping**: JSoup
 - **Testing**: JUnit, Mockito
 

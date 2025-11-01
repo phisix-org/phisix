@@ -15,10 +15,10 @@
  */
 package com.googlecode.phisix.api.ext;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +35,15 @@ public class GeneralExceptionMapper implements ExceptionMapper<Exception> {
 	
 	@Override
 	public Response toResponse(Exception exception) {
-		if (LOGGER.isErrorEnabled()) {
-			LOGGER.error(exception.getMessage(), exception);
+		LOGGER.error("Unhandled exception: " + exception.getClass().getName(), exception);
+		String errorMessage = exception.getMessage();
+		if (errorMessage == null || errorMessage.isEmpty()) {
+			errorMessage = exception.getClass().getName();
 		}
-		return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		return Response.status(Status.INTERNAL_SERVER_ERROR)
+				.entity("{\"error\":\"" + errorMessage.replace("\"", "\\\"") + "\"}")
+				.type("application/json")
+				.build();
 	}
 
 }
