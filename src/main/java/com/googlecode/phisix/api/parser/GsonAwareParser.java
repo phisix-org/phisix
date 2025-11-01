@@ -66,72 +66,86 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	public Stocks parse(Reader source) {
 		Stocks stocks = new Stocks();
 		
-		// Use JsonReader with LENIENT strictness to handle malformed JSON
-		// Gson 2.11.0+ (including 2.13.2) uses setStrictness() API
-		JsonElement parse = null;
+		JsonElement rootElement = parseJsonElement(source);
+		if (rootElement == null) {
+			setDefaultAsOf(stocks);
+			return stocks;
+		}
+		
+		JsonArray jsonArray = extractStockArray(rootElement, stocks);
+		parseStocksFromArray(jsonArray, stocks);
+		setDefaultAsOfIfMissing(stocks);
+		
+		return stocks;
+	}
+	
+	private JsonElement parseJsonElement(Reader source) {
 		try {
 			JsonReader jsonReader = new JsonReader(source);
 			// Strictness enum is in com.google.gson package starting from Gson 2.11.0
 			jsonReader.setStrictness(Strictness.LENIENT);
-			parse = JsonParser.parseReader(jsonReader);
+			JsonElement parse = JsonParser.parseReader(jsonReader);
+			if (parse == null || JsonNull.INSTANCE.equals(parse)) {
+				return null;
+			}
+			return parse;
 		} catch (Exception e) {
 			LOGGER.error("Failed to parse JSON", e);
-			return stocks;
+			return null;
 		}
-		
-		if (parse == null || JsonNull.INSTANCE.equals(parse)) {
-			return stocks;
+	}
+	
+	private JsonArray extractStockArray(JsonElement rootElement, Stocks stocks) {
+		if (rootElement.isJsonObject()) {
+			return extractStockArrayFromObject(rootElement.getAsJsonObject(), stocks);
 		}
-		
-		JsonArray jsonArray;
-		JsonObject rootObject = null;
-		
-		// Handle both array and object formats
-		if (parse.isJsonObject()) {
-			rootObject = parse.getAsJsonObject();
-			if (rootObject.has("stock") && rootObject.get("stock").isJsonArray()) {
-				jsonArray = rootObject.get("stock").getAsJsonArray();
-				// Parse as_of date if present
-				JsonElement asOfElement = rootObject.get("as_of");
-				if (asOfElement != null && !asOfElement.isJsonNull()) {
-					Calendar asOfCalendar = parseAsOfDateFromString(asOfElement.getAsString());
-					if (asOfCalendar != null) {
-						stocks.setAsOf(asOfCalendar);
-					}
-				}
-			} else {
-				// Fallback: treat object as array with single element
-				jsonArray = new JsonArray();
-				jsonArray.add(parse);
+		return rootElement.getAsJsonArray();
+	}
+	
+	private JsonArray extractStockArrayFromObject(JsonObject rootObject, Stocks stocks) {
+		if (rootObject.has("stock") && rootObject.get("stock").isJsonArray()) {
+			parseAsOfFromObject(rootObject, stocks);
+			return rootObject.get("stock").getAsJsonArray();
+		}
+		// Fallback: treat object as array with single element
+		JsonArray jsonArray = new JsonArray();
+		jsonArray.add(rootObject);
+		return jsonArray;
+	}
+	
+	private void parseAsOfFromObject(JsonObject rootObject, Stocks stocks) {
+		JsonElement asOfElement = rootObject.get("as_of");
+		if (asOfElement != null && !asOfElement.isJsonNull()) {
+			Calendar asOfCalendar = parseAsOfDateFromString(asOfElement.getAsString());
+			if (asOfCalendar != null) {
+				stocks.setAsOf(asOfCalendar);
 			}
-		} else {
-			jsonArray = parse.getAsJsonArray();
 		}
-		
+	}
+	
+	private void parseStocksFromArray(JsonArray jsonArray, Stocks stocks) {
 		Type type = new TypeToken<Stock>() {}.getType();
-		
-//		boolean isFirst = true;
 		for (JsonElement jsonElement : jsonArray) {
-//			if (isFirst) {
-//				isFirst = !isFirst;
-//				stocks.setAsOf(parseAsOfDate(jsonElement.getAsJsonObject()));
-//				continue;
-//			}
 			Stock stock = gson.fromJson(jsonElement, type);
 			if (stock != null) {
 				stocks.getStocks().add(stock);
 			}
 		}
+	}
+	
+	private void setDefaultAsOfIfMissing(Stocks stocks) {
 		if (stocks.getAsOf() == null) {
-			Calendar calendar = Calendar.getInstance(ASIA_MANILA);
-			calendar.set(Calendar.HOUR_OF_DAY, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
-			stocks.setAsOf(calendar);
+			setDefaultAsOf(stocks);
 		}
-		
-		return stocks;
+	}
+	
+	private void setDefaultAsOf(Stocks stocks) {
+		Calendar calendar = Calendar.getInstance(ASIA_MANILA);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		stocks.setAsOf(calendar);
 	}
 	
 	protected Calendar parseAsOfDate(JsonObject jsonObject) {
