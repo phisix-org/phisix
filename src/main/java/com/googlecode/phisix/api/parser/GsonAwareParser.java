@@ -103,9 +103,14 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 	}
 	
 	private JsonArray extractStockArrayFromObject(JsonObject rootObject, Stocks stocks) {
+		// Handle both "stock" (singular, our format) and "stocks" (plural, external API format)
 		if (rootObject.has("stock") && rootObject.get("stock").isJsonArray()) {
 			parseAsOfFromObject(rootObject, stocks);
 			return rootObject.get("stock").getAsJsonArray();
+		}
+		if (rootObject.has("stocks") && rootObject.get("stocks").isJsonArray()) {
+			parseAsOfFromObject(rootObject, stocks);
+			return rootObject.get("stocks").getAsJsonArray();
 		}
 		// Fallback: treat object as array with single element
 		JsonArray jsonArray = new JsonArray();
