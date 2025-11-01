@@ -83,10 +83,10 @@ public class PhisixDeserializer implements JsonDeserializer<Stock> {
 		if (percentChangeElement == null || percentChangeElement.isJsonNull()) {
 			percentChangeElement = jsonObject.get("percent_change");
 		}
-		if (percentChangeElement != null && !percentChangeElement.isJsonNull()) {
-			if (percentChangeElement.isJsonPrimitive() && !percentChangeElement.getAsString().equals("null")) {
-				stock.setPercentChange(percentChangeElement.getAsBigDecimal());
-			}
+		if (percentChangeElement != null && !percentChangeElement.isJsonNull() 
+				&& percentChangeElement.isJsonPrimitive() 
+				&& !percentChangeElement.getAsString().equals("null")) {
+			stock.setPercentChange(percentChangeElement.getAsBigDecimal());
 		}
 		
 		// Price field - handle both formats
