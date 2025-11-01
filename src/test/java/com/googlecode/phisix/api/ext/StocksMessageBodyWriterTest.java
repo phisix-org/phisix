@@ -90,9 +90,9 @@ public class StocksMessageBodyWriterTest {
 		String asOfValue = jsonObject.get("as_of").getAsString();
 		assertEquals("as_of should be in ISO 8601 format with colon in timezone", "2024-01-15T00:00:00+08:00", asOfValue);
 		
-		// Verify stock array exists (singular to match XML schema)
-		assertTrue("JSON should contain 'stock' array", jsonObject.has("stock"));
-		assertTrue("stock should be an array", jsonObject.get("stock").isJsonArray());
+		// Verify stocks array exists
+		assertTrue("JSON should contain 'stocks' array", jsonObject.has("stocks"));
+		assertTrue("stocks should be an array", jsonObject.get("stocks").isJsonArray());
 	}
 
 	@Test
@@ -118,7 +118,7 @@ public class StocksMessageBodyWriterTest {
 		String json = outputStream.toString("UTF-8");
 		JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 		
-		assertEquals("Should have 2 stocks", 2, jsonObject.get("stock").getAsJsonArray().size());
+		assertEquals("Should have 2 stocks", 2, jsonObject.get("stocks").getAsJsonArray().size());
 		assertTrue("Should have as_of field", jsonObject.has("as_of"));
 	}
 
@@ -141,7 +141,7 @@ public class StocksMessageBodyWriterTest {
 		
 		// When asOf is null, as_of field should not be present
 		assertFalse("as_of should not be present when asOf is null", jsonObject.has("as_of"));
-		assertTrue("stock array should still be present", jsonObject.has("stock"));
+		assertTrue("stocks array should still be present", jsonObject.has("stocks"));
 	}
 
 	@Test
