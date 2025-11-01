@@ -34,7 +34,7 @@ public class PseFramesClientTest {
 	
 	@Test
 	public void getSecuritiesAndIndicesForPublic() {
-		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic(null, null, false);
+		Stocks actual = pseClient.getSecuritiesAndIndicesForPublic();
 		assertNotNull(actual);
 		for (Stock stock : actual.getStocks()) {
 			System.out.println(stock);

@@ -42,12 +42,7 @@ public class PseFramesClient implements PseClient {
 	}
 
 	@Override
-	public Stocks getSecuritiesAndIndicesForPublic(String referer, String method, boolean ajax) {
-		return getSecuritiesAndIndicesForPublic(referer, null, method, ajax);
-	}
-
-	@Override
-	public Stocks getSecuritiesAndIndicesForPublic(String referer, String userAgent, String method, boolean ajax) {
+	public Stocks getSecuritiesAndIndicesForPublic() {
 		try {
 			Document doc = Jsoup.connect("https://frames.pse.com.ph").get();
 			Elements newsHeadlines = doc.select("#JsonId");

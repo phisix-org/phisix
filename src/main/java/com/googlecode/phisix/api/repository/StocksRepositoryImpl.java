@@ -37,7 +37,6 @@ import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.googlecode.phisix.api.client.PseClient;
-import com.googlecode.phisix.api.client.PseClientConstants;
 import com.googlecode.phisix.api.client.PseFramesClient;
 import com.googlecode.phisix.api.model.Price;
 import com.googlecode.phisix.api.model.Stock;
@@ -67,7 +66,7 @@ public class StocksRepositoryImpl implements StocksRepository {
 	public Stocks findAll() {
 		Stocks stocks = (Stocks) memcache.get("ALL");
 		if (stocks == null) {
-			stocks = pseClient.getSecuritiesAndIndicesForPublic(PseClientConstants.REFERER, "getSecuritiesAndIndicesForPublic", true);
+			stocks = pseClient.getSecuritiesAndIndicesForPublic();
 			memcache.put("ALL", stocks, Expiration.byDeltaSeconds(60));
 		}
 		return stocks;
