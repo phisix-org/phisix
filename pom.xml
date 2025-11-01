@@ -93,12 +93,12 @@
 			<version>4.0.4</version>
 		</dependency>
 		<!-- Temporary: needed because jaxb2-commons was compiled against javax.xml.bind -->
-		<!-- Changed scope from provided to compile for runtime availability -->
+		<!-- Using provided scope since jaxb2-basics-runtime may not actually need it at runtime -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.appengine</groupId>
