@@ -85,7 +85,7 @@ public class GsonAwareParser implements Parser<Reader, Stocks> {
 				}
 			} else {
 				// Fallback: treat object as array with single element
-				jsonArray = new com.google.gson.JsonArray();
+				jsonArray = new JsonArray();
 				jsonArray.add(parse);
 			}
 		} else {
