@@ -18,6 +18,7 @@ package com.googlecode.phisix.api.resource;
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -106,7 +107,24 @@ public class StocksResource {
 			@PathParam(value = "date") String date,
 			@HeaderParam(value = "X-Appengine-Country") String appengineCountry) {
 		if (appengineCountry == null) {
-			return stocksRepository.findBySymbolAndTradingDate(symbol, date);
+			Stocks stocks = stocksRepository.findBySymbolAndTradingDate(symbol, date);
+			// Override as_of date with the date from URL parameter
+			if (stocks != null) {
+				Date tradingDate;
+				try {
+					tradingDate = dateParser.parse(date);
+					Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+					calendar.setTime(tradingDate);
+					calendar.set(Calendar.HOUR_OF_DAY, 0);
+					calendar.set(Calendar.MINUTE, 0);
+					calendar.set(Calendar.SECOND, 0);
+					calendar.set(Calendar.MILLISECOND, 0);
+					stocks.setAsOf(calendar);
+				} catch (ParseException e) {
+					// If parsing fails, keep the original as_of from API response
+				}
+			}
+			return stocks;
 		} else {
 			Date tradingDate;
 			try {
