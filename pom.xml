@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
-			<version>4.0.4</version>
+			<version>4.0.6</version>
 		</dependency>
 		<!-- Temporary: needed because jaxb2-commons was compiled against javax.xml.bind -->
 		<!-- Must be compile scope since App Engine Java 21 doesn't provide javax.xml.bind -->
