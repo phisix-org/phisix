@@ -64,6 +64,7 @@ priority_rules:
     priority: 3000
 
   # Medium priority for weekend merges
+    allow_checks_interruption: true
   - name: priority weekend-merge
     conditions:
       - author~=^edgedalmacio$
@@ -76,3 +77,5 @@ priority_rules:
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
     priority: 1000
+merge_protections_settings:
+  reporting_method: check-runs
