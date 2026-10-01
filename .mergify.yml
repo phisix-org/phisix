@@ -76,3 +76,5 @@ priority_rules:
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
     priority: 1000
+merge_protections_settings:
+  reporting_method: check-runs
